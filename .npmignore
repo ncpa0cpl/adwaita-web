@@ -1,0 +1,17 @@
+__tests__
+.husky
+.vscode
+coverage
+examples
+node_modules
+scripts
+src
+.eslintignore
+.eslintrc.json
+.gitignore
+.npmrc
+git-hook-tasks.config.json
+.prettierrc.json
+jest.config.js
+tsconfig.json
+

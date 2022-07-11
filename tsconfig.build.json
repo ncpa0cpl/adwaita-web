@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["./scripts", "./web-toolkit-docs", "./dist", "./docs"]
+}

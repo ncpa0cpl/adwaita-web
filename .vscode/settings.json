@@ -1,0 +1,28 @@
+{
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.words": ["Immer", "Middlewares"],
+  "json.schemas": [
+    {
+      "fileMatch": ["git-hook-tasks.config.json"],
+      "url": "./node_modules/git-hook-tasks/dist/config/json-schema.json"
+    }
+  ]
+}
