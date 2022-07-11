@@ -1,19 +1,31 @@
-/*
- * Label.js
- */
-
-import React from "react";
-import prop from "prop-types";
 import cx from "clsx";
+import React from "react";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-const propTypes = {
-  size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega"]),
-};
+export type LabelProps = ExtendElementProps<
+  "label",
+  {
+    size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+    align?: "left" | "center" | "right";
+    fill?: boolean | "left" | "right";
+    ellipsis?: boolean;
+    title?: string;
+    disabled?: boolean;
+    muted?: boolean;
+    info?: boolean;
+    success?: boolean;
+    warning?: boolean;
+    danger?: boolean;
+    italic?: boolean;
+    bold?: boolean;
+    noSelect?: boolean;
+  }
+>;
 
-function Label({
+export function Label({
   children,
   className,
-  size,
+  size = "medium",
   align,
   fill,
   ellipsis,
@@ -28,7 +40,7 @@ function Label({
   bold,
   noSelect,
   ...rest
-}) {
+}: LabelProps) {
   const as = rest.htmlFor ? "label" : "span";
   return React.createElement(
     as,
@@ -60,7 +72,3 @@ function Label({
     children
   );
 }
-
-Label.propTypes = propTypes;
-
-export default Label;

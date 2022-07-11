@@ -1,10 +1,10 @@
-/*
- * useControlled.js
- */
-
 import React from "react";
 
-export default function useControlled(controlled, defaultProp, setValueProp) {
+export default function useControlled<T = undefined>(
+  controlled: T | undefined,
+  defaultProp: T | undefined,
+  setValueProp?: (value: T) => void
+) {
   const { current: isControlled } = React.useRef(controlled !== undefined);
   const [valueState, setValueState] = React.useState(defaultProp);
   const value = isControlled ? controlled : valueState;
@@ -14,10 +14,10 @@ export default function useControlled(controlled, defaultProp, setValueProp) {
       "useControlled: setValue function required for controlled components"
     );
 
-  const setValue = React.useCallback((newValue) => {
-    if (isControlled) setValueProp(newValue);
+  const setValue = React.useCallback((newValue: T) => {
+    if (isControlled && setValueProp) setValueProp(newValue);
     else setValueState(newValue);
   }, []);
 
-  return [value, setValue];
+  return [value, setValue] as const;
 }

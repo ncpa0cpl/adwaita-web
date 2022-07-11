@@ -1,54 +1,59 @@
-import React from "react";
-import { findDOMNode, createPortal } from "react-dom";
+import type Popper from "@popperjs/core";
 import { createPopper } from "@popperjs/core";
-import prop from "prop-types";
 import cx from "clsx";
+import React from "react";
+import { createPortal, findDOMNode } from "react-dom";
 
-const NOOP = () => {};
+const noop = () => {};
 
-function getInversePlacement(p) {
+function getInversePlacement(
+  p: Exclude<PopoverProps["placement"], undefined>
+): "top" | "bottom" | "left" | "right" {
   if (p.startsWith("top")) return "bottom";
-  if (p.startsWith("bottom")) return "top";
   if (p.startsWith("left")) return "right";
   if (p.startsWith("right")) return "left";
   return "top";
 }
 
-const PLACEMENTS = [
-  "top",
-  "top-start",
-  "top-end",
-  "bottom",
-  "bottom-start",
-  "bottom-end",
-  "right",
-  "right-start",
-  "right-end",
-  "left",
-  "left-start",
-  "left-end",
-];
+export type PopoverProps = {
+  className?: string;
+  open?: boolean;
+  arrow?: boolean;
+  content: React.ReactNode | (() => React.ReactNode);
+  children: React.ReactNode;
+  placement?:
+    | "top"
+    | "top-start"
+    | "top-end"
+    | "bottom"
+    | "bottom-start"
+    | "bottom-end"
+    | "right"
+    | "right-start"
+    | "right-end"
+    | "left"
+    | "left-start"
+    | "left-end";
+  align?: "right" | "left";
+  method?: "mouseover" | "click" | "click-controlled" | "none";
+  width?: "trigger" | "trigger-min";
+  delay?: number;
+  shouldUpdatePlacement?: boolean;
+  shouldAttachEarly?: boolean;
+  onOpen?: () => void;
+  onClose?: () => void;
+  onDidOpen?: () => void;
+  onDidClose?: () => void;
+};
 
-class Popover extends React.PureComponent {
-  static propTypes = {
-    className: prop.string,
-    open: prop.bool,
-    arrow: prop.bool,
-    content: prop.oneOfType([prop.node, prop.func]).isRequired,
-    children: prop.object,
-    placement: prop.oneOf(PLACEMENTS),
-    align: prop.oneOf(["right", "left"]),
-    method: prop.oneOf(["mouseover", "click", "click-controlled", "none"]),
-    width: prop.oneOf(["trigger", "trigger-min"]),
-    delay: prop.number,
-    shouldUpdatePlacement: prop.bool,
-    shouldAttachEarly: prop.bool,
-    onOpen: prop.func,
-    onClose: prop.func,
-    onDidOpen: prop.func,
-    onDidClose: prop.func,
-  };
+type PopoverState = {
+  open: boolean;
+  closing: boolean;
+  actualPlacement: PopoverProps["placement"];
+  styles: React.CSSProperties;
+};
 
+export class Popover extends React.PureComponent<PopoverProps> {
   static defaultProps = {
     arrow: true,
     placement: "bottom",
@@ -56,13 +61,28 @@ class Popover extends React.PureComponent {
     method: "click",
     delay: 200,
     shouldUpdatePlacement: true,
-    onOpen: NOOP,
-    onClose: NOOP,
-    onDidOpen: NOOP,
-    onDidClose: NOOP,
+    onOpen: noop,
+    onClose: noop,
+    onDidOpen: noop,
+    onDidClose: noop,
   };
 
-  constructor(props) {
+  domNode: HTMLElement;
+  isDomNodeAttached: boolean;
+  isEventListening: boolean;
+  openTimeout: number | undefined;
+  closeTimeout: number | undefined;
+
+  triggerRef: React.MutableRefObject<Element | null>;
+  popoverRef: React.MutableRefObject<HTMLElement | null>;
+  arrowRef: React.MutableRefObject<HTMLDivElement | null>;
+
+  observer: ResizeObserver;
+  popper: Popper.Instance | undefined;
+
+  override state: PopoverState;
+
+  constructor(props: PopoverProps) {
     super(props);
 
     this.domNode = document.createElement("div");
@@ -88,17 +108,17 @@ class Popover extends React.PureComponent {
     this.observer = new ResizeObserver(this.onContentResize);
   }
 
-  componentWillUnmount() {
+  override componentWillUnmount() {
     this.detachDomNode();
     this.detachPopper();
   }
 
-  componentDidMount() {
+  override componentDidMount() {
     this.attachPopper();
     if (this.props.shouldAttachEarly) this.attachDomNode();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  override componentDidUpdate(prevProps: PopoverProps, prevState: PopoverState) {
     if (prevProps.open !== this.props.open || prevState.open !== this.state.open) {
       if (this.props.shouldUpdatePlacement && this.popper) this.popper.update();
     }
@@ -123,7 +143,7 @@ class Popover extends React.PureComponent {
   }
 
   attachPopper() {
-    if (!this.popoverRef.current) return;
+    if (!this.popoverRef.current || !this.triggerRef.current) return;
 
     if (this.popper) return;
 
@@ -137,7 +157,7 @@ class Popover extends React.PureComponent {
   detachPopper() {
     if (this.popper) {
       this.popper.destroy();
-      this.popper = null;
+      this.popper = undefined;
     }
   }
 
@@ -146,7 +166,9 @@ class Popover extends React.PureComponent {
     this.popper.setOptions(this.getPopperOptions());
   }
 
-  getPopperOptions() {
+  getPopperOptions(): Partial<
+    Popper.OptionsGeneric<Partial<Popper.Modifier<any, any>>>
+  > {
     const hasArrow = this.props.arrow;
     const isOpen = this.isOpen();
     this.isEventListening = isOpen;
@@ -196,7 +218,7 @@ class Popover extends React.PureComponent {
     if (this.popper) this.popper.update();
   };
 
-  onRefPopover = (ref) => {
+  onRefPopover = (ref: HTMLDivElement) => {
     if (!ref) {
       if (this.popoverRef.current) {
         this.observer.unobserve(this.popoverRef.current);
@@ -208,7 +230,7 @@ class Popover extends React.PureComponent {
     this.observer.observe(this.popoverRef.current);
   };
 
-  onDocumentClick = (ev) => {
+  onDocumentClick = (ev: MouseEvent) => {
     if (this.props.method !== "click" && this.props.method !== "click-controlled")
       return;
 
@@ -216,8 +238,8 @@ class Popover extends React.PureComponent {
 
     if (
       !(
-        this.triggerRef.current.contains(ev.target) ||
-        this.popoverRef.current.contains(ev.target)
+        (ev.target && this.triggerRef.current?.contains(ev.target as Node)) ||
+        (ev.target && this.popoverRef.current?.contains(ev.target as Node))
       )
     )
       this.close();
@@ -225,11 +247,11 @@ class Popover extends React.PureComponent {
 
   onTransitionEnd = () => {
     this.setState({ closing: false });
-    if (this.state.open) this.props.onDidOpen();
-    else this.props.onDidClose();
+    if (this.state.open && this.props.onDidOpen) this.props.onDidOpen();
+    else if (this.props.onDidClose) this.props.onDidClose();
   };
 
-  onUpdatePopper = ({ state }) => {
+  onUpdatePopper = ({ state }: Popper.ModifierArguments<any>) => {
     if (this.state.actualPlacement !== state.placement) {
       this.setState({ actualPlacement: state.placement });
     }
@@ -254,23 +276,26 @@ class Popover extends React.PureComponent {
     }
   };
 
-  onClick = (ev) => {
+  onClick = (ev: React.MouseEvent<HTMLElement>) => {
     /* React bubbles event in portals up to the containing element */
-    if (!this.triggerRef.current.contains(ev.target)) return;
+    if (!this.triggerRef.current?.contains(ev.target as Node)) return;
 
     if (this.isOpen()) this.close();
     else this.open();
   };
 
   onMouseOver = () => {
-    if (this.closeTimeout) this.closeTimeout = clearTimeout(this.closeTimeout);
+    if (this.closeTimeout) {
+      window.clearTimeout(this.closeTimeout);
+      this.closeTimeout = undefined;
+    }
 
     if (this.state.open === false) {
       // is closed
       if (!this.props.delay) {
         this.open();
       } else {
-        this.openTimeout = setTimeout(() => {
+        this.openTimeout = window.setTimeout(() => {
           this.open();
         }, this.props.delay);
       }
@@ -278,13 +303,16 @@ class Popover extends React.PureComponent {
   };
 
   onMouseOut = () => {
-    if (this.openTimeout) this.openTimeout = clearTimeout(this.openTimeout);
+    if (this.openTimeout) {
+      window.clearTimeout(this.openTimeout);
+      this.openTimeout = undefined;
+    }
 
     if (this.state.open) {
       if (!this.props.delay) {
         this.close();
       } else {
-        this.closeTimeout = setTimeout(() => {
+        this.closeTimeout = window.setTimeout(() => {
           this.close();
         }, this.props.delay);
       }
@@ -300,7 +328,10 @@ class Popover extends React.PureComponent {
 
     // This allows for call this.open() when props.open is true
     if (this.isControlled()) {
-      if (this.props.open === false) return this.props.onOpen();
+      if (this.props.open === false) {
+        if (this.props.onOpen) return this.props.onOpen();
+        return;
+      }
     }
 
     this.attachDomNode();
@@ -309,17 +340,22 @@ class Popover extends React.PureComponent {
     this.setState({ open: true });
 
     if (!this.isControlled()) {
-      this.props.onOpen();
+      if (this.props.onOpen) return this.props.onOpen();
     }
   };
 
   close = () => {
     if (this.isControlled()) {
-      if (this.props.open === true) return this.props.onClose();
+      if (this.props.open === true) {
+        if (this.props.onOpen) return this.props.onOpen();
+        return;
+      }
     }
     this.updatePopperOptions();
     this.setState({ open: false, closing: true });
-    if (!this.isControlled()) this.props.onClose();
+    if (!this.isControlled()) {
+      if (this.props.onClose) this.props.onClose();
+    }
   };
 
   isOpen() {
@@ -343,7 +379,7 @@ class Popover extends React.PureComponent {
       : {};
   }
 
-  render() {
+  override render() {
     const { method, arrow, children, className } = this.props;
     const { actualPlacement, styles, closing } = this.state;
     const open = this.isOpen();
@@ -353,22 +389,36 @@ class Popover extends React.PureComponent {
 
     if (open !== this.isEventListening) this.updatePopperOptions();
 
+    const triggerProps = trigger
+      ? typeof trigger === "object" && trigger !== null
+        ? "props" in trigger
+          ? trigger.props
+          : {}
+        : {}
+      : {};
+
     const eventListeners = this.getEventListeners();
     const props = {
-      ...trigger.props,
+      ...triggerProps,
       ...eventListeners,
       className: cx(
-        trigger.props.className,
+        triggerProps.className,
         open ? "with-popover" : undefined,
         open ? `popover-${actualPlacement}` : undefined
       ),
-      ref: (node) => {
-        if (node) this.triggerRef.current = findDOMNode(node);
-        if (trigger.ref) trigger.ref(node);
+      ref: (node: HTMLElement) => {
+        if (node) this.triggerRef.current = findDOMNode(node) as Element;
+        if (
+          typeof trigger === "object" &&
+          trigger &&
+          "ref" in trigger &&
+          typeof trigger["ref"] === "function"
+        )
+          (trigger as { ref: Function }).ref(node);
       },
     };
 
-    const arrowPlacement = getInversePlacement(actualPlacement);
+    const arrowPlacement = getInversePlacement(actualPlacement ?? "top");
     const popoverEventListeners =
       method === "mouseover" ? eventListeners : undefined;
     const popoverClassName = cx(
@@ -381,7 +431,10 @@ class Popover extends React.PureComponent {
 
     return (
       <>
-        {React.cloneElement(trigger, props)}
+        {typeof trigger === "object" &&
+          trigger !== null &&
+          !Array.isArray(trigger) &&
+          React.cloneElement(trigger as React.ReactElement, props)}
         {createPortal(
           <div
             ref={this.onRefPopover}
@@ -407,5 +460,3 @@ class Popover extends React.PureComponent {
     );
   }
 }
-
-export default Popover;

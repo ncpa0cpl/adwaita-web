@@ -1,22 +1,22 @@
-import React, { useMemo, useRef, useEffect } from "react";
+import cx from "clsx";
 import prop from "prop-types";
+import React, { useEffect, useMemo, useRef } from "react";
 import {
-  useTable,
-  useSortBy,
   useFilters,
-  useResizeColumns,
   useFlexLayout,
+  useResizeColumns,
+  useSortBy,
+  useTable,
 } from "react-table";
+import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList } from "react-window";
 import getScrollbarWidth from "scrollbar-size";
-import AutoSizer from "react-virtualized-auto-sizer";
-import cx from "clsx";
 
-import Box from "./Box";
-import Button from "./Button";
+import { Box } from "./Box";
+import { Button } from "./Button";
 import Dropdown from "./Dropdown";
-import Icon from "./Icon";
-import Input from "./Input";
+import { Icon } from "./Icon";
+import { Input } from "./Input";
 
 const propTypes = {
   className: prop.string,

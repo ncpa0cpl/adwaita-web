@@ -2,21 +2,21 @@
  * Dropdown.js
  */
 
-import React from "react";
-import prop from "prop-types";
 import cx from "clsx";
+import prop from "prop-types";
+import React from "react";
 
-import Button from "./Button";
-import Icon from "./Icon";
-import Input from "./Input";
-import Label from "./Label";
+import { Button } from "./Button";
+import { Icon } from "./Icon";
+import { Input } from "./Input";
+import { Label } from "./Label";
 import Menu from "./Menu";
-import Popover from "./Popover";
-import Separator from "./Separator";
+import { Popover } from "./Popover";
+import { Separator } from "./Separator";
 
 class Dropdown extends React.Component {
   static propTypes = {
-    /** className of the component's popover */
+    /** ClassName of the component's popover */
     className: prop.string,
     triggerClassName: prop.string,
     size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega", "mega"]),

@@ -3,7 +3,7 @@ import svgr from "esbuild-plugin-svgr";
 import { sassPlugin } from "esbuild-sass-plugin";
 
 build({
-  entryPoints: ["./src/index.js"],
+  entryPoints: ["./src/index.ts"],
   plugins: [
     svgr(),
     sassPlugin({

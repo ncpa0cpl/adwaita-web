@@ -1,10 +1,5 @@
-/*
- * Icon.js
- */
-
 import cx from "clsx";
-import prop from "prop-types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import AcAdapterSymbolic from "../icons/ac-adapter-symbolic.svg";
 import AccessoriesCalculatorSymbolic from "../icons/accessories-calculator-symbolic.svg";
@@ -554,6 +549,7 @@ import ZoomFitBestSymbolic from "../icons/zoom-fit-best-symbolic.svg";
 import ZoomInSymbolic from "../icons/zoom-in-symbolic.svg";
 import ZoomOriginalSymbolic from "../icons/zoom-original-symbolic.svg";
 import ZoomOutSymbolic from "../icons/zoom-out-symbolic.svg";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
 const byName = {
   "ac-adapter": AcAdapterSymbolic,
@@ -1107,7 +1103,18 @@ const byName = {
   "zoom-out": ZoomOutSymbolic,
 };
 
-function Icon({ className, name, colored, ...rest }) {
+export type IconName = keyof typeof byName;
+
+export type IconProps = ExtendElementProps<
+  "span",
+  {
+    className?: string;
+    name: IconName;
+    colored?: boolean;
+  }
+>;
+
+export function Icon({ className, name, colored = false, ...rest }: IconProps) {
   const Element = byName[name];
 
   if (!Element) return <span>Invalid name: {name}</span>;
@@ -1119,42 +1126,4 @@ function Icon({ className, name, colored, ...rest }) {
   );
 }
 
-Icon.propTypes = {
-  className: prop.string,
-  /** The icon name */
-  name: prop.string.isRequired,
-  colored: prop.bool,
-};
-
-Icon.defaultProps = {
-  colored: false,
-};
-
 Icon.byName = byName;
-
-export default Icon;
-
-const SVGR_LOADER = "!!@svgr/webpack?-svgo,+titleProp,+ref!";
-const ICON_PATH = "../assets/icons/";
-
-export function OptimizedIcon({ className, name, colored, ...rest }) {
-  const [Element, setElement] = useState("div"); //null; byName[name]
-
-  useEffect(() => {
-    if (!name) setElement(() => () => <span>Invalid name: {name}</span>);
-    let canceled = false;
-    import(/* webpackMode: "eager" */ `${SVGR_LOADER}${ICON_PATH}${name}.svg`)
-      .then((module) => module.default)
-      .then((component) => !canceled && setElement(component))
-      .catch(() => setElement(() => () => <span>Failed to load: {name}</span>));
-    return () => {
-      canceled = true;
-    };
-  }, [name]);
-
-  return (
-    <span className={cx("Icon", className, { colored })} {...rest}>
-      <Element />
-    </span>
-  );
-}

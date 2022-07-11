@@ -1,72 +1,64 @@
-/*
- * Input.js
- */
-
-import React, { useState, useRef, forwardRef } from "react";
-import prop from "prop-types";
 import cx from "clsx";
+import React, { useRef } from "react";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import useControlled from "../utils/useControlled";
-import Button from "./Button";
-import Icon from "./Icon";
-import Spinner from "./Spinner";
+import { useForceUpdate } from "../utils/useForceUpdates";
+import { Button } from "./Button";
+import type { IconName } from "./Icon";
+import { Icon } from "./Icon";
+import { Spinner } from "./Spinner";
 
 const noop = () => {};
 
-function useForceUpdate() {
-  const [_, setValue] = useState(0);
-  return () => setValue((value) => ++value);
-}
-
-const propTypes = {
-  /** The HTML input type */
-  type: prop.string,
-  value: prop.string,
-  defaultValue: prop.string,
-  className: prop.string,
-  /** Size of the input */
-  size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega"]),
-  /** Shows a loading indicator */
-  loading: prop.bool,
-  /** Icon name or node (left) */
-  icon: prop.node,
-  /** Icon name or node (right) */
-  iconAfter: prop.node,
-  placeholder: prop.string,
-  /** Disabled input */
-  disabled: prop.bool,
-  /** Flat style input */
-  flat: prop.bool,
-  /** Error style input */
-  error: prop.bool,
-  /** Warning style input */
-  warning: prop.bool,
-  /** Show a progress bar of `progress` percent size if it's a number,
-   * or an undeterminate (loading) bar if `true` */
-  progress: prop.oneOfType([prop.bool, prop.number]),
-  /** Show a button to clear the input value */
-  allowClear: prop.bool,
-  /** Called when the input value changes, with the new value */
-  onChange: prop.func,
-  /** Called when Enter is pressed (prevents default behavior) */
-  onAccept: prop.func,
-  /** Called when the `iconAfter` is clicked */
-  onClickIconAfter: prop.func,
-};
-
-const defaultProps = {
-  type: "text",
-  size: "medium",
-  onChange: noop,
-};
-
-function Input(
+export type InputProps = ExtendElementProps<
+  "input",
   {
-    type,
+    /** The HTML input type */
+    type?: string;
+    value?: string;
+    defaultValue?: string;
+    className?: string;
+    /** Size of the input */
+    size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+    /** Shows a loading indicator */
+    loading?: boolean;
+    /** Icon name or node (left) */
+    icon?: React.ReactElement | IconName;
+    /** Icon name or node (right) */
+    iconAfter?: React.ReactElement | IconName;
+    placeholder?: string;
+    /** Disable the input */
+    disabled?: boolean;
+    /** Flat style input */
+    flat?: boolean;
+    /** Error style input */
+    error?: boolean;
+    /** Warning style input */
+    warning?: boolean;
+    /**
+     * Show a progress bar of `progress` percent size if it's a number, or an
+     * undeterminate (loading) bar if `true`
+     */
+    progress?: boolean | number;
+    /** Show a button to clear the input value */
+    allowClear?: boolean;
+    /** Called when the input value changes, with the new value */
+    onChange?: (value: string) => void;
+    /** Called when Enter is pressed (prevents default behavior) */
+    onAccept?: (value: string) => void;
+    /** Called when the `iconAfter` is clicked */
+    onClickIconAfter?: () => void;
+  }
+>;
+
+export const Input = React.forwardRef<HTMLDivElement, InputProps>(function Input(
+  {
+    type = "text",
     value: valueProp,
     defaultValue,
     className,
-    size,
+    size = "medium",
     loading,
     icon: iconValue,
     iconAfter,
@@ -80,7 +72,7 @@ function Input(
     allowClear,
     onAccept,
     onKeyDown,
-    onChange,
+    onChange = noop,
     onClickIconAfter,
     ...rest
   },
@@ -90,8 +82,8 @@ function Input(
   const disabled = disabledValue || loading;
 
   const forceUpdate = useForceUpdate();
-  const inputRef = useRef();
-  const isControlled = typeof rest.value === "string";
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const isControlled = typeof valueProp === "string";
   const [value, setValue] = useControlled(valueProp, defaultValue, onChange);
 
   const inputClassName =
@@ -105,14 +97,14 @@ function Input(
     " " +
     cx(className);
 
-  const onInputChange = (ev) => {
+  const onInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) forceUpdate();
-    setValue(ev.target.value, ev);
+    setValue(ev.currentTarget.value);
   };
 
-  const onInputKeyDown = (ev) => {
-    if (ev.code === "Enter" && onAccept) {
-      onAccept(ev.target.value);
+  const onInputKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+    if (ev.nativeEvent.key === "Enter" && onAccept) {
+      onAccept(ev.currentTarget.value);
       ev.preventDefault();
       return;
     }
@@ -121,7 +113,9 @@ function Input(
     }
   };
 
-  const onClickContainer = (ev) => {
+  const onClickContainer = (
+    ev: React.SyntheticEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if (ev.target !== inputRef.current && inputRef.current) inputRef.current.focus();
   };
 
@@ -168,7 +162,7 @@ function Input(
           <span
             className="Input__progress__bar"
             style={
-              typeof progress === "number" ? { width: progress + "%" } : undefined
+              typeof progress === "number" ? { width: `${progress}%` } : undefined
             }
           />
         </div>
@@ -188,19 +182,19 @@ function Input(
         ))}
     </div>
   );
-}
+});
 
-function Group({ children, className }, ref) {
+export type GroupProps = React.PropsWithChildren<{
+  className?: string;
+}>;
+
+export const Group = React.forwardRef<HTMLDivElement>(function Group(
+  { children, className }: GroupProps,
+  ref
+) {
   return (
     <div className={cx("InputGroup linked", className)} ref={ref}>
       {children}
     </div>
   );
-}
-
-const ExportedInput = forwardRef(Input);
-ExportedInput.Group = forwardRef(Group);
-ExportedInput.propTypes = propTypes;
-ExportedInput.defaultProps = defaultProps;
-
-export default ExportedInput;
+});

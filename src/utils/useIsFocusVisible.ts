@@ -9,9 +9,9 @@ import * as ReactDOM from "react-dom";
 
 let hadKeyboardEvent = true;
 let hadFocusVisibleRecently = false;
-let hadFocusVisibleRecentlyTimeout = null;
+let hadFocusVisibleRecentlyTimeout: null | number = null;
 
-const inputTypesWhitelist = {
+const inputTypesWhitelist: Record<string, boolean> = {
   text: true,
   search: true,
   url: true,
@@ -31,13 +31,13 @@ const inputTypesWhitelist = {
  * Computes whether the given element should automatically trigger the
  * `focus-visible` class being added, i.e. whether it should always match
  * `:focus-visible` when focused.
- * @param {Element} node
- * @return {boolean}
  */
-function focusTriggersKeyboardModality(node) {
+function focusTriggersKeyboardModality(
+  node: HTMLElement & { type?: string; readOnly?: boolean }
+): boolean {
   const { type, tagName } = node;
 
-  if (tagName === "INPUT" && inputTypesWhitelist[type] && !node.readOnly) {
+  if (tagName === "INPUT" && type && inputTypesWhitelist[type] && !node.readOnly) {
     return true;
   }
 
@@ -53,13 +53,14 @@ function focusTriggersKeyboardModality(node) {
 }
 
 /**
- * Keep track of our keyboard modality state with `hadKeyboardEvent`.
- * If the most recent user interaction was via the keyboard;
- * and the key press did not include a meta, alt/option, or control key;
- * then the modality is keyboard. Otherwise, the modality is not keyboard.
+ * Keep track of our keyboard modality state with `hadKeyboardEvent`. If the most
+ * recent user interaction was via the keyboard; and the key press did not include a
+ * meta, alt/option, or control key; then the modality is keyboard. Otherwise, the
+ * modality is not keyboard.
+ *
  * @param {KeyboardEvent} event
  */
-function handleKeyDown(event) {
+function handleKeyDown(event: KeyboardEvent) {
   if (event.metaKey || event.altKey || event.ctrlKey) {
     return;
   }
@@ -67,17 +68,16 @@ function handleKeyDown(event) {
 }
 
 /**
- * If at any point a user clicks with a pointing device, ensure that we change
- * the modality away from keyboard.
- * This avoids the situation where a user presses a key on an already focused
- * element, and then clicks on a different element, focusing it with a
- * pointing device, while we still think we're in keyboard modality.
+ * If at any point a user clicks with a pointing device, ensure that we change the
+ * modality away from keyboard. This avoids the situation where a user presses a key
+ * on an already focused element, and then clicks on a different element, focusing it
+ * with a pointing device, while we still think we're in keyboard modality.
  */
 function handlePointerDown() {
   hadKeyboardEvent = false;
 }
 
-function handleVisibilityChange() {
+function handleVisibilityChange(this: Document) {
   if (this.visibilityState === "hidden") {
     // If the tab becomes active again, the browser will handle calling focus
     // on the element (Safari actually calls it twice).
@@ -89,7 +89,7 @@ function handleVisibilityChange() {
   }
 }
 
-function prepare(doc) {
+function prepare(doc: Document) {
   doc.addEventListener("keydown", handleKeyDown, true);
   doc.addEventListener("mousedown", handlePointerDown, true);
   doc.addEventListener("pointerdown", handlePointerDown, true);
@@ -97,7 +97,7 @@ function prepare(doc) {
   doc.addEventListener("visibilitychange", handleVisibilityChange, true);
 }
 
-export function teardown(doc) {
+export function teardown(doc: Document) {
   doc.removeEventListener("keydown", handleKeyDown, true);
   doc.removeEventListener("mousedown", handlePointerDown, true);
   doc.removeEventListener("pointerdown", handlePointerDown, true);
@@ -105,10 +105,10 @@ export function teardown(doc) {
   doc.removeEventListener("visibilitychange", handleVisibilityChange, true);
 }
 
-function isFocusVisible(event) {
-  const { target } = event;
+function isFocusVisible(event: React.SyntheticEvent<HTMLElement, Event>) {
+  const { currentTarget } = event;
   try {
-    return target.matches(":focus-visible");
+    return currentTarget.matches(":focus-visible");
   } catch (error) {
     // browsers not implementing :focus-visible will throw a SyntaxError
     // we use our own heuristic for those browsers
@@ -118,34 +118,36 @@ function isFocusVisible(event) {
 
   // no need for validFocusTarget check. the user does that by attaching it to
   // focusable events only
-  return hadKeyboardEvent || focusTriggersKeyboardModality(target);
+  return hadKeyboardEvent || focusTriggersKeyboardModality(currentTarget);
 }
 
-/**
- * Should be called if a blur event is fired on a focus-visible element
- */
+/** Should be called if a blur event is fired on a focus-visible element */
 function handleBlurVisible() {
   // To detect a tab/window switch, we look for a blur event followed
   // rapidly by a visibility change.
   // If we don't see a visibility change within 100ms, it's probably a
   // regular focus change.
   hadFocusVisibleRecently = true;
-  window.clearTimeout(hadFocusVisibleRecentlyTimeout);
+  if (hadFocusVisibleRecentlyTimeout) {
+    window.clearTimeout(hadFocusVisibleRecentlyTimeout);
+  }
   hadFocusVisibleRecentlyTimeout = window.setTimeout(() => {
     hadFocusVisibleRecently = false;
   }, 100);
 }
 
 export default function useIsFocusVisible() {
-  const ref = React.useCallback((instance) => {
-    const node = ReactDOM.findDOMNode(instance);
-    if (node != null) {
-      prepare(node.ownerDocument);
-    }
-  }, []);
+  const ref = React.useCallback(
+    (instance: React.ReactInstance | null | undefined) => {
+      const node = ReactDOM.findDOMNode(instance);
+      if (node != null) {
+        prepare(node.ownerDocument);
+      }
+    },
+    []
+  );
 
   if (process.env.NODE_ENV !== "production") {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     React.useDebugValue(isFocusVisible);
   }
 

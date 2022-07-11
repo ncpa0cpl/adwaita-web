@@ -1,48 +1,53 @@
-/*
- * Expander.js
- */
-
-import React from "react";
 import cx from "clsx";
-import prop from "prop-types";
 import { equals } from "rambda";
+import React from "react";
 
-import Icon from "./Icon";
-import Label from "./Label";
+import { Icon } from "./Icon";
+import { Label } from "./Label";
 
-class Expander extends React.Component {
-  static propTypes = {
-    children: prop.node,
-    className: prop.string,
-    size: prop.number,
-    /** Expanded state */
-    open: prop.bool,
-    defaultOpen: prop.bool,
-    /** The element that triggers toggling the expander.
-     * If not set, a default unstyled button will be displayed.
-     * If it's a render function, it received an argument: ({ toggle: Fn }) */
-    trigger: prop.oneOfType([prop.node, prop.func]),
-    /** The label for the default button trigger element
-     * (only if `trigger` is not set) */
-    label: prop.node,
-    transition: prop.oneOf(["horizontal", "vertical"]),
-    /** Arrow position */
-    iconPosition: prop.oneOf(["before", "after", false]),
-    /** If true, the trigger is rendered outside the Expander container */
-    contents: prop.bool,
-    /** If true, the container fits its content size */
-    fitContent: prop.bool,
-    /** Called when the open state changes */
-    onChange: prop.func,
-  };
+export type ExpanderProps = React.PropsWithChildren<{
+  className?: string;
+  size?: number;
+  /** Expanded state */
+  open?: boolean;
+  defaultOpen?: boolean;
+  /**
+   * The element that triggers toggling the expander. If not set, a default unstyled
+   * button will be displayed. If it's a render function, it received an argument: ({
+   * toggle: Fn })
+   */
+  trigger?:
+    | React.ReactElement
+    | ((param: { toggle: () => void }) => React.ReactElement);
+  /** The label for the default button trigger element (only if `trigger` is not set) */
+  label?: React.ReactNode;
+  transition?: "horizontal" | "vertical";
+  /** Arrow position */
+  iconPosition?: "before" | "after" | false;
+  /** If true, the trigger is rendered outside the Expander container */
+  contents?: boolean;
+  /** If true, the container fits its content size */
+  fitContent?: boolean;
+  /** Called when the open state changes */
+  onChange?: (open: boolean) => void;
+}>;
 
+type ExpanderState = {
+  open: boolean;
+  containerStyle: React.CSSProperties;
+};
+
+export class Expander extends React.Component<ExpanderProps> {
   static defaultProps = {
     transition: "vertical",
     iconPosition: "after",
     contents: false,
   };
 
-  constructor(props) {
+  contentRef: React.MutableRefObject<HTMLDivElement | null>;
+  override state: ExpanderState;
+
+  constructor(props: ExpanderProps) {
     super(props);
 
     this.contentRef = React.createRef();
@@ -52,11 +57,11 @@ class Expander extends React.Component {
     };
   }
 
-  setOpen = (open) => {
+  setOpen = (open: boolean) => {
     this.setState({ open });
   };
 
-  componentDidUpdate() {
+  override componentDidUpdate() {
     this.updateDimensions();
   }
 
@@ -64,12 +69,13 @@ class Expander extends React.Component {
     const { size, fitContent } = this.props;
     const property = this.getProperty();
 
-    let value = size || 100;
+    let value = size ?? 100;
 
     if (this.contentRef.current) {
       const rect = this.contentRef.current.getBoundingClientRect();
       value = rect[property];
-      const style = {};
+      const style: React.CSSProperties = {};
+
       style[property] = value;
 
       if (fitContent) {
@@ -106,18 +112,17 @@ class Expander extends React.Component {
       : { ...this.state.containerStyle, [property]: 0 };
   }
 
-  onRef = (ref) => {
+  onRef = (ref: HTMLDivElement) => {
     this.contentRef.current = ref;
     if (ref) this.updateDimensions();
   };
 
-  render() {
+  override render() {
     const {
       children,
       className,
       contents,
       open: openProp,
-      defaultOpen,
       trigger: triggerProp,
       label,
       transition,
@@ -128,7 +133,7 @@ class Expander extends React.Component {
       ...rest
     } = this.props;
     const open = this.isOpen();
-    const setOpen = openProp !== undefined ? onChange : this.setOpen;
+    const setOpen = openProp !== undefined ? onChange ?? this.setOpen : this.setOpen;
     const toggle = () => setOpen(!open);
 
     const property = this.getProperty();
@@ -196,11 +201,9 @@ class Expander extends React.Component {
   }
 }
 
-export default Expander;
-
 // Helpers
 
-function getInverseProperty(p) {
+function getInverseProperty(p: "width" | "height"): "width" | "height" {
   switch (p) {
     case "width":
       return "height";

@@ -1,12 +1,26 @@
-/*
- * Box.js
- */
-
-import React from "react";
-import prop from "prop-types";
 import cx from "clsx";
+import React from "react";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-function Box({
+export type BoxProps = ExtendElementProps<
+  "div",
+  React.PropsWithChildren<{
+    align?: true | "start" | "end";
+    justify?: true | "start" | "end";
+    className?: string;
+    inline?: boolean;
+    compact?: boolean;
+    fill?: boolean | "horizontal" | "vertical";
+    border?: boolean;
+    horizontal?: boolean;
+    vertical?: boolean;
+    space?: "around" | "between";
+    padded?: boolean;
+    expandChildren?: boolean;
+  }>
+>;
+
+export function Box({
   children,
   className,
   inline,
@@ -21,7 +35,7 @@ function Box({
   padded,
   expandChildren,
   ...rest
-}) {
+}: BoxProps) {
   return (
     <div
       className={cx(
@@ -48,12 +62,15 @@ function Box({
   );
 }
 
-Box.propTypes = {
-  align: prop.oneOf([true, "start", "end"]),
-  justify: prop.oneOf([true, "start", "end"]),
-};
+export type FillProps = ExtendElementProps<
+  "div",
+  React.PropsWithChildren<{
+    className?: string;
+    expandChildren?: boolean;
+  }>
+>;
 
-function Fill({ children, className, expandChildren, ...rest }) {
+function Fill({ children, className, expandChildren, ...rest }: FillProps) {
   return (
     <div
       className={cx("Box__fill", {
@@ -68,17 +85,15 @@ function Fill({ children, className, expandChildren, ...rest }) {
 
 Box.Fill = Fill;
 
-export default Box;
-
 // Helpers
 
-function alignClass(align) {
+function alignClass(align: true | "start" | "end" | undefined) {
   if (align === true) return "align";
   if (typeof align === "string") return `align-${align}`;
   return undefined;
 }
 
-function justifyClass(justify) {
+function justifyClass(justify: true | "start" | "end" | undefined) {
   if (justify === true) return "justify";
   if (typeof justify === "string") return `justify-${justify}`;
   return undefined;

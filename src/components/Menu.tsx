@@ -1,16 +1,24 @@
-/*
- * Menu.js
- */
-
+import cx from "clsx";
 import React from "react";
-import cx from "classname";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-import Box from "./Box";
-import Icon from "./Icon";
-import Label from "./Label";
-import Separator from "./Separator";
+import type { BoxProps } from "./Box";
+import { Box } from "./Box";
+import type { IconName } from "./Icon";
+import { Icon } from "./Icon";
+import type { LabelProps } from "./Label";
+import { Label } from "./Label";
+import { Separator } from "./Separator";
 
-function Menu({ children, className, icons, ...rest }) {
+export type MenuProps = ExtendElementProps<
+  "div",
+  React.PropsWithChildren<{
+    className?: string;
+    icons: boolean;
+  }>
+>;
+
+export function Menu({ children, className, icons, ...rest }: MenuProps) {
   return (
     <div className={cx("Menu", className, { icons })} {...rest}>
       {children}
@@ -18,18 +26,28 @@ function Menu({ children, className, icons, ...rest }) {
   );
 }
 
-function Button({
+export type MenuButtonProps = ExtendElementProps<
+  "button",
+  {
+    className?: string;
+    icon?: IconName;
+    radio?: boolean;
+    checkbox?: boolean;
+    accelerator?: string;
+    menu?: boolean;
+  }
+>;
+
+export function Button({
   children,
   className,
   radio,
   checkbox,
-  name,
-  value,
   accelerator,
   icon,
   menu,
   ...rest
-}) {
+}: MenuButtonProps) {
   return (
     <button className={cx("ModelButton Menu__button", className)} {...rest}>
       {checkbox !== undefined && <Icon name="emblem-ok" className="Menu__icon" />}
@@ -44,7 +62,14 @@ function Button({
   );
 }
 
-function Back({ children, className, ...rest }) {
+export type MenuBackProps = ExtendElementProps<
+  "button",
+  React.PropsWithChildren<{
+    className?: string;
+  }>
+>;
+
+export function Back({ children, className, ...rest }: MenuBackProps) {
   return (
     <button
       className={cx("ModelButton Menu__button Menu__back", className)}
@@ -56,7 +81,16 @@ function Back({ children, className, ...rest }) {
   );
 }
 
-function InlineButtons({ children, className, label, ...rest }) {
+export type MenuInlineButtonProps = BoxProps & {
+  label?: string;
+};
+
+export function InlineButtons({
+  children,
+  className,
+  label,
+  ...rest
+}: MenuInlineButtonProps) {
   return (
     <Box
       horizontal
@@ -64,7 +98,7 @@ function InlineButtons({ children, className, label, ...rest }) {
       align
       {...rest}
     >
-      <Label className="Box__fill">Edit</Label>
+      <Label className="Box__fill">{label}</Label>
       <Box horizontal compact>
         {children}
       </Box>
@@ -72,7 +106,13 @@ function InlineButtons({ children, className, label, ...rest }) {
   );
 }
 
-function CircularButtons({ children, className, label, ...rest }) {
+export type MenuCircularButtonProps = BoxProps;
+
+export function CircularButtons({
+  children,
+  className,
+  ...rest
+}: MenuCircularButtonProps) {
   return (
     <Box
       horizontal
@@ -85,7 +125,9 @@ function CircularButtons({ children, className, label, ...rest }) {
   );
 }
 
-function Item({ children, className, ...rest }) {
+export type MenuItemProps = BoxProps;
+
+export function Item({ children, className, ...rest }: MenuItemProps) {
   return (
     <Box horizontal className={cx("Menu__item", className)} {...rest}>
       {children}
@@ -93,7 +135,9 @@ function Item({ children, className, ...rest }) {
   );
 }
 
-function Title({ children, className, ...rest }) {
+export type MenuTitleProps = LabelProps;
+
+export function Title({ children, className, ...rest }: MenuTitleProps) {
   return (
     <Label className={cx("Menu__item title", className)} {...rest}>
       {children}
@@ -108,5 +152,3 @@ Menu.Title = Title;
 Menu.CircularButtons = CircularButtons;
 Menu.InlineButtons = InlineButtons;
 Menu.Separator = Separator;
-
-export default Menu;

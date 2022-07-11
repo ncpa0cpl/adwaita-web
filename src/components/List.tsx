@@ -1,19 +1,32 @@
-/*
- * List.js
- */
-
-import React from "react";
 import cx from "clsx";
 import prop from "prop-types";
+import React from "react";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-import Icon from "./Icon";
-import Separator from "./Separator";
+import { Icon } from "./Icon";
+import { Separator } from "./Separator";
 
-function List({
+export type ListProps = ExtendElementProps<
+  "div",
+  React.PropsWithChildren<{
+    className?: string;
+    size?: "medium" | "large";
+    separators?: boolean;
+    horizontal?: boolean;
+    rich?: boolean;
+    border?: boolean;
+    rounded?: boolean;
+    fill?: boolean | "width" | "height";
+    sidebar?: boolean | "stack" | "navigation";
+    sublist?: boolean;
+  }>
+>;
+
+export function List({
   children,
   className,
-  size,
-  separators,
+  size = "medium",
+  separators = true,
   horizontal,
   border = true,
   rounded,
@@ -22,7 +35,7 @@ function List({
   sidebar,
   sublist,
   ...rest
-}) {
+}: ListProps) {
   return (
     <div
       className={cx(
@@ -53,20 +66,28 @@ function List({
   );
 }
 
-List.propTypes = {
+Item.propTypes = {
   className: prop.string,
-  size: prop.oneOf(["medium", "large"]),
-  separators: prop.bool,
-  horizontal: prop.bool,
-  rich: prop.bool,
+  title: prop.bool,
+  selected: prop.bool,
+  activatable: prop.bool,
+  expandable: prop.bool,
 };
 
-List.defaultProps = {
-  separators: true,
-  size: "medium",
-};
+export type ItemProps = ExtendElementProps<
+  "div",
+  React.PropsWithChildren<{
+    className?: string;
+    title?: boolean;
+    selected?: boolean;
+    activatable?: boolean;
+    expandable?: boolean;
+    as?: keyof JSX.IntrinsicElements; // TODO: add generic support
+    needsAttention?: boolean;
+  }>
+>;
 
-function Item({
+export function Item({
   as,
   children,
   className,
@@ -76,9 +97,10 @@ function Item({
   activatable,
   needsAttention,
   ...rest
-}) {
+}: ItemProps) {
   const Element = as ? as : activatable ? "button" : "div";
   return (
+    // @ts-ignore
     <Element
       className={cx("List__item", className, {
         title,
@@ -88,7 +110,7 @@ function Item({
         "needs-attention": needsAttention,
       })}
       role={activatable ? "button" : undefined}
-      tabIndex={activatable ? "0" : undefined}
+      tabIndex={activatable ? 0 : undefined}
       {...rest}
     >
       {children}
@@ -97,22 +119,12 @@ function Item({
   );
 }
 
-Item.propTypes = {
-  className: prop.string,
-  title: prop.bool,
-  selected: prop.bool,
-  activatable: prop.bool,
-  expandable: prop.bool,
-};
-
 List.Item = Item;
 List.Separator = Separator;
 
-export default List;
-
 // Helpers
 
-function borderClass(border) {
+function borderClass(border: boolean | string | string[]): string | undefined {
   if (border === false) return "border-none";
   if (border === true) return "border";
   if (typeof border === "string") return `border-${border}`;

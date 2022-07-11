@@ -1,22 +1,30 @@
-/*
- * Text.js
- */
-
-import React from "react";
-import prop from "prop-types";
 import cx from "clsx";
+import React from "react";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-const propTypes = {
-  as: prop.string,
-  size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega"]),
-  weight: prop.oneOf([100, 300, 400, 700, 900]),
-};
+export type TextProps<P extends keyof JSX.IntrinsicElements = "p"> =
+  ExtendElementProps<
+    P,
+    React.PropsWithChildren<{
+      as?: P;
+      size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+      weight?: 100 | 300 | 400 | 700 | 900;
+      className?: string;
+      align?: "left" | "center" | "right";
+      fill?: boolean | "left" | "right";
+      hero?: boolean;
+      muted?: boolean;
+      info?: boolean;
+      success?: boolean;
+      warning?: boolean;
+      danger?: boolean;
+      italic?: boolean;
+      bold?: boolean;
+      noSelect?: boolean;
+    }>
+  >;
 
-const defaultProps = {
-  as: "p",
-};
-
-function Text({
+export function Text<P extends keyof JSX.IntrinsicElements = "p">({
   children,
   className,
   size,
@@ -32,9 +40,9 @@ function Text({
   italic,
   bold,
   noSelect,
-  as,
+  as = "p" as P,
   ...rest
-}) {
+}: TextProps<P>) {
   return React.createElement(
     as,
     {
@@ -64,8 +72,3 @@ function Text({
     children
   );
 }
-
-Text.propTypes = propTypes;
-Text.defaultProps = defaultProps;
-
-export default Text;

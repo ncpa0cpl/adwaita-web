@@ -1,16 +1,24 @@
-/*
- * Alert.js
- */
-
-import React from "react";
 import cx from "clsx";
-import prop from "prop-types";
+import React from "react";
 
-import Icon from "./Icon";
-import Box from "./Box";
-import Button from "./Button";
+import { Box } from "./Box";
+import { Button } from "./Button";
+import { Icon } from "./Icon";
 
-function Alert({
+export type AlertProps = React.PropsWithChildren<{
+  title: string;
+  className: string;
+  size: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+  icon: string;
+  showClose: boolean;
+  onClose: () => void;
+  info: boolean;
+  success: boolean;
+  warning: boolean;
+  danger: boolean;
+}>;
+
+export function Alert({
   title,
   children,
   className,
@@ -23,7 +31,7 @@ function Alert({
   warning,
   danger,
   ...rest
-}) {
+}: AlertProps) {
   const icon =
     iconProp ?? info
       ? "dialog-information"
@@ -61,22 +69,7 @@ function Alert({
   );
 }
 
-Alert.propTypes = {
-  title: prop.string,
-  className: prop.string,
-  size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega"]),
-  icon: prop.string,
-  showClose: prop.bool,
-  onClose: prop.func,
-  info: prop.bool,
-  success: prop.bool,
-  warning: prop.bool,
-  danger: prop.bool,
-};
-
 Alert.defaultProps = {
   showClose: false,
   onClose: () => {},
 };
-
-export default Alert;

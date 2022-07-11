@@ -3,14 +3,14 @@
  * adapted from: https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/Range/Range.js
  */
 
-import React from "react";
-import prop from "prop-types";
 import cx from "clsx";
+import prop from "prop-types";
 import { identity } from "rambda";
+import React from "react";
 
 import ownerDocument from "../utils/ownerDocument";
-import useIsFocusVisible from "../utils/useIsFocusVisible";
 import useForkRef from "../utils/useForkRef";
+import useIsFocusVisible from "../utils/useIsFocusVisible";
 
 const axisProps = {
   horizontal: {
@@ -495,24 +495,16 @@ Range.propTypes = {
   /** If `true`, the slider will be disabled. */
   disabled: prop.bool,
   /**
-   * Marks indicate predetermined values to which the user can move the slider.
-   * If `true` the marks will be spaced according the value of the `step` prop.
-   * If an array, it should contain objects with `value` and an optional `label` keys.
+   * Marks indicate predetermined values to which the user can move the slider. If
+   * `true` the marks will be spaced according the value of the `step` prop. If an
+   * array, it should contain objects with `value` and an optional `label` keys.
    */
   marks: prop.oneOfType([prop.bool, prop.array]),
-  /**
-   * The maximum allowed value of the slider.
-   * Should not be equal to min.
-   */
+  /** The maximum allowed value of the slider. Should not be equal to min. */
   max: prop.number,
-  /**
-   * The minimum allowed value of the slider.
-   * Should not be equal to max.
-   */
+  /** The minimum allowed value of the slider. Should not be equal to max. */
   min: prop.number,
-  /**
-   * Name attribute of the hidden `input` element.
-   */
+  /** Name attribute of the hidden `input` element. */
   name: prop.string,
   /**
    * Callback function that is fired when the slider's value changed.
@@ -528,29 +520,21 @@ Range.propTypes = {
    * @param {number | number[]} value The new value.
    */
   onChangeCommitted: prop.func,
-  /**
-   * @ignore
-   */
+  /** @ignore */
   onMouseDown: prop.func,
-  /**
-   * If the slider is vertical.
-   */
+  /** If the slider is vertical. */
   vertical: prop.bool,
-  /**
-   * A transformation function, to change the scale of the slider.
-   */
+  /** A transformation function, to change the scale of the slider. */
   scale: prop.func,
   /**
-   * The granularity with which the slider can step through values. (A "discrete" slider.)
-   * The `min` prop serves as the origin for the valid values.
-   * We recommend (max - min) to be evenly divisible by the step.
+   * The granularity with which the slider can step through values. (A "discrete"
+   * slider.) The `min` prop serves as the origin for the valid values. We recommend
+   * (max - min) to be evenly divisible by the step.
    *
    * When step is `null`, the thumb can only be slid onto marks provided with the `marks` prop.
    */
   step: prop.number,
-  /**
-   * The component used to display the value label.
-   */
+  /** The component used to display the value label. */
   ThumbComponent: prop.elementType,
   /**
    * The track presentation:
@@ -560,10 +544,7 @@ Range.propTypes = {
    * - `false` the track will render without a bar.
    */
   track: prop.oneOf(["normal", false, "inverted"]),
-  /**
-   * The value of the slider.
-   * For ranged sliders, provide an array with two values.
-   */
+  /** The value of the slider. For ranged sliders, provide an array with two values. */
   value: prop.oneOfType([prop.number, prop.arrayOf(prop.number)]),
   /**
    * Controls when the value label is displayed:
