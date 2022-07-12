@@ -33,6 +33,7 @@ export class Adwaita {
 if (typeof document !== "undefined") {
   const styleEl = document.createElement("style");
   styleEl.type = "text/css";
+  currentStyles.styleNode = styleEl;
   document.head.appendChild(styleEl);
 
   Adwaita.changeToLightTheme();
