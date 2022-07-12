@@ -25,7 +25,7 @@ jobs:
       - name: Build
         uses: Borales/actions-yarn@v3.0.0
         with:
-          cmd: build
+          cmd: build:raw
       - name: Publish Canary
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}

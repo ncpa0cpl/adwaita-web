@@ -10,12 +10,13 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "clear": "./scripts/clear-build-dir.sh",
+    "clear": "bash ./scripts/clear-build-dir.sh",
     "test:tsc": "tsc -p tsconfig.build.json --noEmit",
-    "build": "yarn clear && node -r @swc-node/register ./scripts/build.ts",
+    "build:raw": "node -r @swc-node/register ./scripts/build.ts && yarn generate-declarations",
+    "build": "yarn clear && yarn build:raw",
     "prettier:fix": "prettier --write './src/**/*.{ts,js,css,scss,html}'",
     "lint:fix": "eslint --fix './src/**/*.{ts,js,css,scss,html}'",
-    "postbuild": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir ./dist"
+    "generate-declarations": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir ./dist"
   },
   "license": "MIT",
   "dependencies": {
