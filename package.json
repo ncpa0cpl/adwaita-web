@@ -15,7 +15,7 @@
     "build": "yarn clear && node -r @swc-node/register ./scripts/build.ts",
     "prettier:fix": "prettier --write './src/**/*.{ts,js,css,scss,html}'",
     "lint:fix": "eslint --fix './src/**/*.{ts,js,css,scss,html}'",
-    "t:postbuild": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir ./dist"
+    "postbuild": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir ./dist"
   },
   "license": "MIT",
   "dependencies": {
