@@ -1,5 +1,4 @@
 import cx from "clsx";
-import prop from "prop-types";
 import React from "react";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
@@ -65,14 +64,6 @@ export function List({
     </div>
   );
 }
-
-Item.propTypes = {
-  className: prop.string,
-  title: prop.bool,
-  selected: prop.bool,
-  activatable: prop.bool,
-  expandable: prop.bool,
-};
 
 export type ItemProps = ExtendElementProps<
   "div",

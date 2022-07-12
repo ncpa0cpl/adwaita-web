@@ -14,13 +14,11 @@
     "build": "yarn clear && node -r @swc-node/register ./scripts/build.ts",
     "prettier:fix": "prettier --write './src/**/*.{ts,js,css,scss,html}'",
     "lint:fix": "eslint --fix './src/**/*.{ts,js,css,scss,html}'",
-    "tmp:postbuild": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outFile ./dist/index.js"
+    "t:postbuild": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir ./dist"
   },
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.12.13",
     "@popperjs/core": "^2.6.0",
-    "classname": "^0.0.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.17.0",
     "rambda": "^6.4.0",
@@ -36,6 +34,7 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.12.13",
     "@svgr/core": "^5.5.0",
     "@swc/core": "^1.2.211",
     "@swc/jest": "^0.2.21",
@@ -87,6 +86,7 @@
     "rimraf": "^3.0.2",
     "semver": "6.3.0",
     "swc-node": "^1.0.0",
+    "tiny-glob": "^0.2.9",
     "ts-pnp": "1.1.4",
     "typescript": "^4.7.4",
     "workbox-webpack-plugin": "4.3.1",

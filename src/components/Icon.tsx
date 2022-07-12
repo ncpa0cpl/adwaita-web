@@ -551,7 +551,7 @@ import ZoomOriginalSymbolic from "../icons/zoom-original-symbolic.svg";
 import ZoomOutSymbolic from "../icons/zoom-out-symbolic.svg";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
-const byName = {
+export const IconType = {
   "ac-adapter": AcAdapterSymbolic,
   "accessories-calculator": AccessoriesCalculatorSymbolic,
   "accessories-character-map": AccessoriesCharacterMapSymbolic,
@@ -1103,27 +1103,24 @@ const byName = {
   "zoom-out": ZoomOutSymbolic,
 };
 
-export type IconName = keyof typeof byName;
-
 export type IconProps = ExtendElementProps<
   "span",
   {
     className?: string;
-    name: IconName;
+    icon: typeof IconType[keyof typeof IconType];
     colored?: boolean;
   }
 >;
 
-export function Icon({ className, name, colored = false, ...rest }: IconProps) {
-  const Element = byName[name];
-
-  if (!Element) return <span>Invalid name: {name}</span>;
-
+export function Icon({
+  className,
+  icon: Element,
+  colored = false,
+  ...rest
+}: IconProps) {
   return (
     <span className={cx("Icon", className, { colored })} {...rest}>
       <Element />
     </span>
   );
 }
-
-Icon.byName = byName;

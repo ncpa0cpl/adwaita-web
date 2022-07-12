@@ -1,5 +1,4 @@
-import "./adwaita/index";
-
+import { Adwaita } from "./adwaita/index";
 import { Alert } from "./components/Alert";
 import { Autocomplete } from "./components/Autocomplete";
 import { Box } from "./components/Box";
@@ -52,7 +51,7 @@ import type { ExpanderProps } from "./components/Expander";
 import type { FrameProps } from "./components/Frame";
 import type { HeaderBarProps, HeaderBarTitleProps } from "./components/HeaderBar";
 import type { HeadingProps } from "./components/Heading";
-import type { IconName, IconProps } from "./components/Icon";
+import type { IconProps, IconType } from "./components/Icon";
 import type { InfoBarProps } from "./components/InfoBar";
 import type { GroupProps, InputProps } from "./components/Input";
 import type { InputNumberProps } from "./components/InputNumber";
@@ -108,7 +107,7 @@ export type {
   HeaderBarProps,
   HeaderBarTitleProps,
   HeadingProps,
-  IconName,
+  IconType,
   IconProps,
   InfoBarProps,
   InputFilterProps,
@@ -146,6 +145,7 @@ export type {
   ToolbarProps,
 };
 export {
+  Adwaita,
   Alert,
   Autocomplete,
   Box,
@@ -185,6 +185,7 @@ export {
 };
 
 export default {
+  Adwaita,
   Alert,
   Autocomplete,
   Box,

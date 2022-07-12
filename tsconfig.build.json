@@ -1,4 +1,15 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["./scripts", "./web-toolkit-docs", "./dist", "./docs"]
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "exclude": [
+    "./scripts",
+    "./web-toolkit-docs",
+    "./dist",
+    "./docs",
+    "./jest.config.js",
+    "./node_modules"
+  ]
 }

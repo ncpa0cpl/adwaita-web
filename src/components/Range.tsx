@@ -144,7 +144,7 @@ export const Range = React.forwardRef<HTMLSpanElement, RangeProps>(function Rang
   // - The active state isn't triggered when clicking on the rail.
   // - The active state isn't transfered when inversing a range slider.
   const [active, setActive] = React.useState(-1);
-  const [open, setOpen] = React.useState(-1);
+  const [_, setOpen] = React.useState(-1);
 
   const [valueDerived, setValueState] = useControlled(valueProp, defaultValue);
 
