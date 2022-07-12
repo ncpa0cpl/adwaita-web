@@ -137,7 +137,7 @@ export function Table({
                     <Box.Fill>{column.render("Header")}</Box.Fill>
                     {hasKey(column, "canSort") && column.canSort && (
                       <Icon
-                        name="pan-down"
+                        type={Icon.Type.panDown}
                         className={cx("table__sortIcon", {
                           hidden: !hasKey(column, "isSorted") || !column.isSorted,
                           descending:
@@ -228,7 +228,7 @@ function DropdownFilter<T extends string | number | boolean>({
       <Button
         flat
         size="small"
-        icon="window-close"
+        icon={Icon.Type.windowClose}
         onClick={() => setFilter && setFilter(undefined)}
       />
     </Box>

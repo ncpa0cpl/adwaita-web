@@ -4,6 +4,7 @@ import { findDOMNode } from "react-dom";
 
 import useControlled from "../utils/useControlled";
 import { Calendar } from "./Calendar";
+import { Icon } from "./Icon";
 import type { InputProps } from "./Input";
 import { Input } from "./Input";
 import { Popover } from "./Popover";
@@ -76,7 +77,7 @@ export function DatePicker({
     <Popover open={open} content={popover} className="DatePicker__popover">
       <Input
         className="DatePicker__input"
-        iconAfter="x-office-calendar"
+        iconAfter={Icon.Type.xOfficeCalendar}
         placeholder="Pick a date"
         value={inputValue}
         onChange={onInputChange}

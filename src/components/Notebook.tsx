@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import { Button } from "./Button";
+import { Icon } from "./Icon";
 import { Label } from "./Label";
 import type { PageSwitcherProps } from "./PageSwitcher";
 import { PageSwitcher } from "./PageSwitcher";
@@ -60,7 +61,7 @@ export function Notebook({
           {arrows && (
             <Button
               className="Notebook__arrow"
-              icon={isHorizontal ? "pan-start" : "pan-up"}
+              icon={isHorizontal ? Icon.Type.panStart : Icon.Type.panUp}
               disabled={activePage === 0}
               onClick={previousPage}
             />
@@ -80,7 +81,7 @@ export function Notebook({
               {page.closable && (
                 <Button
                   size="small"
-                  icon="window-close"
+                  icon={Icon.Type.windowClose}
                   tabIndex={-1}
                   onClick={(ev) => (ev.stopPropagation(), onClose(i))}
                 />
@@ -90,7 +91,7 @@ export function Notebook({
           {arrows && (
             <Button
               className="Notebook__arrow"
-              icon={isHorizontal ? "pan-end" : "pan-down"}
+              icon={isHorizontal ? Icon.Type.panEnd : Icon.Type.panDown}
               disabled={activePage >= pages.length - 1}
               onClick={nextPage}
             />

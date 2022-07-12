@@ -153,11 +153,11 @@ export class Expander extends React.Component<ExpanderProps> {
     ) : !label ? null : (
       <button type="button" className={triggerClassName} onClick={toggle}>
         {iconPosition === "before" && (
-          <Icon name="pan-end" className="arrow-before" />
+          <Icon type={Icon.Type.panEnd} className="arrow-before" />
         )}
         <Label>{label}</Label>
         {iconPosition === "after" && (
-          <Icon name="pan-start" className="arrow-after" />
+          <Icon type={Icon.Type.panStart} className="arrow-after" />
         )}
       </button>
     );

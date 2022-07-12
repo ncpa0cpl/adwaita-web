@@ -73,7 +73,7 @@ export function InputNumber({
         disabled={downDisabled}
         onClick={onDown}
       >
-        <Icon name="list-remove" />
+        <Icon type={Icon.Type.listRemove} />
       </button>
       <button
         tabIndex={-1}
@@ -81,7 +81,7 @@ export function InputNumber({
         disabled={upDisabled}
         onClick={onUp}
       >
-        <Icon name="list-add" />
+        <Icon type={Icon.Type.listAdd} />
       </button>
     </div>
   );

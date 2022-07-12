@@ -32,17 +32,17 @@ export function Alert({
   danger,
   ...rest
 }: AlertProps) {
-  const icon =
+  const iconType =
     iconProp ?? info
-      ? "dialog-information"
+      ? Icon.Type.dialogInformation
       : success
-      ? "emblem-ok"
+      ? Icon.Type.emblemOk
       : warning
-      ? "dialog-warning"
+      ? Icon.Type.dialogWarning
       : danger
-      ? "dialog-warning"
-      : "dialog-information";
-  const showIcon = Boolean(icon);
+      ? Icon.Type.dialogWarning
+      : Icon.Type.dialogInformation;
+  const showIcon = Boolean(iconType);
 
   const alertClassName = cx("Alert", className, size, {
     info,
@@ -55,7 +55,7 @@ export function Alert({
     <Box horizontal className={alertClassName} {...rest}>
       {showIcon && (
         <Box className="Alert__icon">
-          {typeof icon === "string" ? <Icon name={icon} /> : icon}
+          <Icon type={iconType} />
         </Box>
       )}
       <Box.Fill className="Alert__content">
@@ -63,7 +63,11 @@ export function Alert({
         <div className="Alert__message">{children}</div>
       </Box.Fill>
       {showClose && (
-        <Button className="Alert__close" icon="window-close" onClick={onClose} />
+        <Button
+          className="Alert__close"
+          icon={Icon.Type.windowClose}
+          onClick={onClose}
+        />
       )}
     </Box>
   );

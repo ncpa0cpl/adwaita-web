@@ -4,7 +4,7 @@ import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import type { BoxProps } from "./Box";
 import { Box } from "./Box";
-import type { IconName } from "./Icon";
+import type { IconProps } from "./Icon";
 import { Icon } from "./Icon";
 import type { LabelProps } from "./Label";
 import { Label } from "./Label";
@@ -30,7 +30,7 @@ export type MenuButtonProps = ExtendElementProps<
   "button",
   {
     className?: string;
-    icon?: IconName;
+    icon?: IconProps["type"];
     radio?: boolean;
     checkbox?: boolean;
     accelerator?: string;
@@ -51,14 +51,16 @@ export function Button({
 }: MenuButtonProps) {
   return (
     <button className={cx("ModelButton Menu__button", className)} {...rest}>
-      {checkbox !== undefined && <Icon name="emblem-ok" className="Menu__icon" />}
-      {radio && <Icon name="radio" className="Menu__icon" />}
+      {checkbox !== undefined && (
+        <Icon type={Icon.Type.emblemOk} className="Menu__icon" />
+      )}
+      {radio && <Icon type={Icon.Type.radio} className="Menu__icon" />}
       <span className="Label Menu__button__text">{children}</span>
       {accelerator && (
         <span className="Label Menu__button__accelerator">{accelerator}</span>
       )}
-      {icon && <Icon name={icon} className="Menu__iconAfter" />}
-      {menu && <Icon name="go-next" className="Menu__iconAfter submenu" />}
+      {icon && <Icon type={icon} className="Menu__iconAfter" />}
+      {menu && <Icon type={Icon.Type.goNext} className="Menu__iconAfter submenu" />}
     </button>
   );
 }
@@ -76,7 +78,7 @@ export function Back({ children, className, ...rest }: MenuBackProps) {
       className={cx("ModelButton Menu__button Menu__back", className)}
       {...rest}
     >
-      <Icon name="go-previous" className="Menu__icon submenu" />
+      <Icon type={Icon.Type.goPrevious} className="Menu__icon submenu" />
       <span className="Label Menu__button__text">{children}</span>
     </button>
   );

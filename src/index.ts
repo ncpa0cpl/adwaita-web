@@ -51,7 +51,7 @@ import type { ExpanderProps } from "./components/Expander";
 import type { FrameProps } from "./components/Frame";
 import type { HeaderBarProps, HeaderBarTitleProps } from "./components/HeaderBar";
 import type { HeadingProps } from "./components/Heading";
-import type { IconProps, IconType } from "./components/Icon";
+import type { IconProps } from "./components/Icon";
 import type { InfoBarProps } from "./components/InfoBar";
 import type { GroupProps, InputProps } from "./components/Input";
 import type { InputNumberProps } from "./components/InputNumber";
@@ -107,7 +107,6 @@ export type {
   HeaderBarProps,
   HeaderBarTitleProps,
   HeadingProps,
-  IconType,
   IconProps,
   InfoBarProps,
   InputFilterProps,

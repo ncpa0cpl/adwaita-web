@@ -2,7 +2,7 @@ import cx from "clsx";
 import React from "react";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
-import type { IconName } from "./Icon";
+import type { IconProps } from "./Icon";
 import { Icon } from "./Icon";
 import { Spinner } from "./Spinner";
 
@@ -12,7 +12,7 @@ export type ButtonProps = ExtendElementProps<
     className?: string;
     size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
     /** An icon name */
-    icon?: IconName;
+    icon?: IconProps["type"];
     /** HTML button type */
     type?: "button" | "submit" | "reset";
     /** Shows a spinner and disables the button */
@@ -63,6 +63,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) {
     const isImageButton = image !== undefined ? image : Boolean(!children);
     return (
+      // @ts-ignore
       <button
         className={
           cx("Button", size, {
@@ -86,12 +87,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...rest}
       >
         {loading && <Spinner />}
-        {icon &&
-          (typeof icon === "string" ? (
-            <Icon name={icon} colored className="Button__icon" />
-          ) : (
-            icon
-          ))}
+        {icon && <Icon type={icon} colored className="Button__icon" />}
         {children}
       </button>
     );

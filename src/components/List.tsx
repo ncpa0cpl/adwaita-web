@@ -105,7 +105,9 @@ export function Item({
       {...rest}
     >
       {children}
-      {expandable && <Icon name="go-next" className="arrow" colored={false} />}
+      {expandable && (
+        <Icon type={Icon.Type.goNext} className="arrow" colored={false} />
+      )}
     </Element>
   );
 }

@@ -266,7 +266,7 @@ export class Dropdown<T extends string | number | boolean> extends React.Compone
           <Label align="left" className="Box__fill">
             {label}
           </Label>
-          <Icon name="pan-down" className="Dropdown__arrow" />
+          <Icon type={Icon.Type.panDown} className="Dropdown__arrow" />
         </Button>
       );
     } else {
@@ -285,7 +285,7 @@ export class Dropdown<T extends string | number | boolean> extends React.Compone
           onBlur={this.onInputBlur}
           onChange={this.onInputChange}
           onAccept={this.onInputAccept}
-          iconAfter="pan-down"
+          iconAfter={Icon.Type.panDown}
           ref={(ref) => ref && (this.trigger = ref)}
           {...rest}
         >

@@ -9,6 +9,9 @@ export type SpinnerProps = {
 
 export function Spinner({ hidden, disabled }: SpinnerProps) {
   return (
-    <Icon className={cx("Spinner", { hidden, disabled })} name="process-working" />
+    <Icon
+      className={cx("Spinner", { hidden, disabled })}
+      type={Icon.Type.processWorking}
+    />
   );
 }

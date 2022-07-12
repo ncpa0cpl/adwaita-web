@@ -4,6 +4,7 @@ import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import { Box } from "./Box";
 import { Button } from "./Button";
+import { Icon } from "./Icon";
 
 export type InfoBarProps = ExtendElementProps<
   "div",
@@ -53,7 +54,9 @@ export function InfoBar({
     >
       <Box horizontal align fill>
         <span className="Box__fill">{children}</span>
-        {closable && <Button icon="window-close" onClick={() => setClose(true)} />}
+        {closable && (
+          <Button icon={Icon.Type.windowClose} onClick={() => setClose(true)} />
+        )}
       </Box>
     </div>
   );
