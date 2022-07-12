@@ -1,11 +1,15 @@
 __tests__
+.github
 .husky
 .vscode
+docs
 coverage
 examples
 node_modules
 scripts
 src
+static
+web-toolkit-docs
 .eslintignore
 .eslintrc.json
 .gitignore
@@ -13,5 +17,6 @@ src
 git-hook-tasks.config.json
 .prettierrc.json
 jest.config.js
+tsconfig.build.json
 tsconfig.json
 
