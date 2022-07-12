@@ -8,6 +8,10 @@
     "ui",
     "adwaita"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ncpa0cpl/adwaita-web"
+  },
   "main": "dist/index.js",
   "scripts": {
     "clear": "bash ./scripts/clear-build-dir.sh",
