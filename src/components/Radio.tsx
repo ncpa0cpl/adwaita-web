@@ -1,28 +1,29 @@
-/*
- * Radio.js
- */
-
-import React from "react";
-import prop from "prop-types";
 import cx from "clsx";
+import React from "react";
 import useControlled from "../utils/useControlled";
 
-import Box from "./Box";
+import { Box } from "./Box";
 
 const noop = () => {};
 
 let nextId = 1;
 
-class Radio extends React.Component {
-  static propTypes = {
-    label: prop.string,
-    size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega"]),
-    showLabel: prop.bool,
-    value: prop.string,
-    checked: prop.bool,
-    defaultChecked: prop.bool,
-    onChange: prop.func,
-  };
+export type RadioProps = {
+  id?: string;
+  name?: string;
+  className?: string;
+  disabled?: boolean;
+  label?: string;
+  size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+  showLabel?: boolean;
+  value?: string;
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onChange?: (checked: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export class Radio extends React.Component<RadioProps> {
+  static Group = RadioGroup;
 
   static defaultProps = {
     showLabel: true,
@@ -30,22 +31,23 @@ class Radio extends React.Component {
     onChange: noop,
   };
 
-  constructor(props) {
+  id: string;
+
+  constructor(props: RadioProps) {
     super(props);
     this.id = `radio_${nextId++}`;
   }
 
-  onChange = (ev) => {
-    this.props.onChange(ev.target.checked, ev);
+  onChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    if (this.props.onChange) this.props.onChange(ev.target.checked, ev);
   };
 
-  render() {
+  override render() {
     const {
       id,
       name,
       label,
       showLabel,
-      children,
       className,
       size,
       value,
@@ -79,7 +81,23 @@ class Radio extends React.Component {
   }
 }
 
-function Group({
+export type RadioGroupProps = {
+  name?: string;
+  className?: string;
+  size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+  options: Array<{
+    value: string;
+    label: string;
+    data?: any;
+  }>;
+  value?: string;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+  horizontal?: boolean;
+  compact?: boolean;
+};
+
+export function RadioGroup({
   size,
   compact,
   horizontal,
@@ -88,7 +106,7 @@ function Group({
   onChange,
   name,
   options,
-}) {
+}: RadioGroupProps) {
   const isControlled = valueProp !== undefined;
   const [value, setValue] = useControlled(valueProp, defaultValue, onChange);
   return (
@@ -112,28 +130,7 @@ function Group({
   );
 }
 
-Group.propTypes = {
-  size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega"]),
-  name: prop.string,
-  value: prop.string,
-  defaultValue: prop.string,
-  options: prop.arrayOf(
-    prop.shape({
-      value: prop.any.isRequired,
-      label: prop.node.isRequired,
-      data: prop.object,
-    })
-  ),
-  horizontal: prop.bool,
-  compact: prop.bool,
-  onChange: prop.func,
-};
-
-Group.defaultProps = {
+RadioGroup.defaultProps = {
   compact: false,
   horizontal: true,
 };
-
-Radio.Group = Group;
-
-export default Radio;

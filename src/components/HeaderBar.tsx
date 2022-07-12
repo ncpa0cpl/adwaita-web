@@ -1,13 +1,22 @@
-/*
- * HeaderBar.js
- */
-
+import cx from "clsx";
 import React from "react";
-import cx from "classname";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-import Box from "./Box";
+import { Box } from "./Box";
 
-function HeaderBar({ className, children, titlebar, ...rest }) {
+export type HeaderBarProps = ExtendElementProps<
+  "div",
+  {
+    titlebar?: boolean;
+  }
+>;
+
+export function HeaderBar({
+  className,
+  children,
+  titlebar,
+  ...rest
+}: HeaderBarProps) {
   return (
     <div className={cx("HeaderBar", className, { titlebar })} {...rest}>
       <Box horizontal align fill>
@@ -17,7 +26,13 @@ function HeaderBar({ className, children, titlebar, ...rest }) {
   );
 }
 
-function Title({ children, subtitle, className, fill }) {
+export type HeaderBarTitleProps = React.PropsWithChildren<{
+  subtitle?: string;
+  className?: string;
+  fill?: boolean;
+}>;
+
+export function Title({ children, subtitle, className, fill }: HeaderBarTitleProps) {
   return (
     <Box
       vertical
@@ -32,7 +47,7 @@ function Title({ children, subtitle, className, fill }) {
   );
 }
 
-function Controls({ children }) {
+export function Controls({ children }: React.PropsWithChildren) {
   return (
     <Box horizontal align className="HeaderBar__controls control-buttons">
       {children}
@@ -42,5 +57,3 @@ function Controls({ children }) {
 
 HeaderBar.Title = Title;
 HeaderBar.Controls = Controls;
-
-export default HeaderBar;

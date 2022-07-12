@@ -7,7 +7,7 @@ export type LabelProps = ExtendElementProps<
   {
     size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
     align?: "left" | "center" | "right";
-    fill?: boolean | "left" | "right";
+    fill?: boolean | "width" | "height";
     ellipsis?: boolean;
     title?: string;
     disabled?: boolean;

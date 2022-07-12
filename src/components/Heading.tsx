@@ -1,26 +1,32 @@
-/*
- * Heading.js
- */
-
-import React from "react";
-import prop from "prop-types";
 import cx from "clsx";
+import React from "react";
 import { onlyText } from "react-children-utilities";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-const propTypes = {
-  as: prop.string,
-  className: prop.string,
-  weight: prop.oneOf([100, 300, 400, 700, 900]),
-  anchor: prop.bool,
-};
+export type HeadingProps<A extends keyof JSX.IntrinsicElements> = ExtendElementProps<
+  A,
+  {
+    as?: A;
+    className?: string;
+    weight?: 100 | 300 | 400 | 700 | 900;
+    anchor?: boolean;
+  }
+>;
 
 const defaultProps = {
   as: "h1",
   anchor: true,
 };
 
-function Heading({ as, children, className, weight, anchor, ...rest }) {
-  const Component = as;
+export function Heading<A extends keyof JSX.IntrinsicElements>({
+  as,
+  children,
+  className,
+  weight,
+  anchor,
+  ...rest
+}: HeadingProps<A>) {
+  const Component = as as string;
   const id = anchor ? toID(onlyText(children)) : undefined;
   return (
     <Component
@@ -38,11 +44,8 @@ function Heading({ as, children, className, weight, anchor, ...rest }) {
   );
 }
 
-Heading.propTypes = propTypes;
 Heading.defaultProps = defaultProps;
 
-export default Heading;
-
-function toID(string) {
+function toID(string: string) {
   return string.toLowerCase().replace(/\W+/g, "-");
 }

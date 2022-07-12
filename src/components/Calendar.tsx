@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import prop from "prop-types";
-import { format, addDays, addMonths, startOfMonth, endOfMonth } from "date-fns";
 import cx from "clsx";
-
-import Box from "./Box";
-import Button from "./Button";
-import Input from "./Input";
-import Label from "./Label";
+import { addDays, addMonths, endOfMonth, format, startOfMonth } from "date-fns";
+import React, { useState } from "react";
+import { Box } from "./Box";
+import { Button } from "./Button";
+import { Input } from "./Input";
+import { Label } from "./Label";
 
 const weekDayLetters = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -21,45 +19,45 @@ const yearButtons = Array(3)
   .fill(0)
   .map((_, n) => n);
 
-const MODE = {
-  DAY: "day",
-  MONTH: "month",
-  YEAR: "year",
+enum MODE {
+  DAY = "day",
+  MONTH = "month",
+  YEAR = "year",
+}
+
+export type CalendarProps = {
+  value?: Date;
+  onChange?: (date: Date) => void;
 };
 
-class Calendar extends React.Component {
-  static propTypes = {
-    value: prop.object,
-    onChange: prop.func,
-  };
-
-  state = {
+export class Calendar extends React.Component<CalendarProps> {
+  override state = {
     mode: MODE.DAY,
     value: new Date(),
     current: startOfMonth(new Date()),
   };
 
-  setMode(mode) {
+  setMode(mode: MODE) {
     this.setState({ mode });
   }
 
-  setCurrent(current) {
+  setCurrent(current: Date) {
     this.setState({ current });
   }
 
-  setMonth = (month) => {
+  setMonth = (month: number) => {
     const current = new Date(this.state.current);
     current.setMonth(month);
     this.setCurrent(current);
     this.setMode(MODE.DAY);
   };
 
-  setYear = (year) => {
+  setYear = (year: number) => {
     this.changeYear(year);
     this.setMode(MODE.DAY);
   };
 
-  changeYear = (year) => {
+  changeYear = (year: number) => {
     const current = new Date(this.state.current);
     current.setFullYear(year);
     this.setCurrent(current);
@@ -73,7 +71,7 @@ class Calendar extends React.Component {
     this.setCurrent(addMonths(this.state.current, +1));
   };
 
-  select = (item) => {
+  select = (item: { date: number; month: number; year: number }) => {
     const value = toDate(item);
     if (this.props.onChange) this.props.onChange(value);
     else this.setState({ value });
@@ -158,7 +156,7 @@ class Calendar extends React.Component {
     );
   }
 
-  render() {
+  override render() {
     const { current, mode } = this.state;
     return (
       <Box className={cx("Calendar", `mode-${mode}`)} vertical compact>
@@ -212,9 +210,15 @@ class Calendar extends React.Component {
   }
 }
 
-function YearPicker({ value, onChange, onAccept }) {
+type YearPickerProps = {
+  value: number;
+  onChange: (year: number) => void;
+  onAccept: (year: number) => void;
+};
+
+function YearPicker({ value, onChange, onAccept }: YearPickerProps) {
   const [ticks, setTicks] = useState(0);
-  const onWheel = (ev) => {
+  const onWheel = (ev: React.WheelEvent) => {
     ev.preventDefault();
     const direction = ev.deltaY < 0 ? -1 : ev.deltaY > 0 ? +1 : 0;
     const newTicks = ticks + direction;
@@ -226,7 +230,7 @@ function YearPicker({ value, onChange, onAccept }) {
     }
   };
 
-  const onSubmit = (ev) => {
+  const onSubmit = (ev: React.FormEvent) => {
     ev.preventDefault();
     onAccept(value);
   };
@@ -253,8 +257,8 @@ function YearPicker({ value, onChange, onAccept }) {
               flat
               size="huge"
               type="number"
-              value={value}
-              onChange={onChange}
+              value={value.toString()}
+              onChange={(v) => onChange(Number(v.replace(/[^0-9.,]/g, "") ?? 0))}
             />
             <Button
               flat
@@ -276,9 +280,14 @@ function YearPicker({ value, onChange, onAccept }) {
   );
 }
 
-export default Calendar;
-
-function isEqual(item, value) {
+function isEqual(
+  item: {
+    date: number;
+    month: number;
+    year: number;
+  },
+  value: Date
+) {
   return (
     value.getFullYear() === item.year &&
     value.getMonth() === item.month &&
@@ -286,15 +295,23 @@ function isEqual(item, value) {
   );
 }
 
-function isEqualMonth(item, value) {
+function isEqualMonth(
+  item: {
+    year: number;
+    month: number;
+  },
+  value: Date
+) {
   return value.getFullYear() === item.year && value.getMonth() === item.month;
 }
 
-function toDate(item) {
+function toDate(item: { year: number; month: number; date: number }) {
   return new Date(item.year, item.month, item.date);
 }
 
-function getWeeks(current) {
+function getWeeks(current: Date): { date: number; month: number; year: number }[][] {
+  // No idea how does this function work, and I don't have the mental capacity
+  // to figure it out, therefore no typings in here, everything is `any`.
   const year = current.getFullYear();
   const month = current.getMonth();
   const firstDay = startOfMonth(current);
@@ -304,7 +321,7 @@ function getWeeks(current) {
   const lastDate = lastDay.getDate();
 
   const weeks = [Array(7).fill(undefined)];
-  let currentWeek = weeks[0];
+  let currentWeek: any = weeks[0];
   let currentDate = firstDate;
   for (let i = 1; i <= lastDate; i++) {
     if (currentDate === 7) {
@@ -318,7 +335,7 @@ function getWeeks(current) {
 
   if (firstDay.getDay() !== 0) {
     const previousMonth = addMonths(current, -1);
-    const currentWeek = weeks[0];
+    const currentWeek: any = weeks[0];
     const firstDayOfWeek = addDays(firstDay, -firstDay.getDay());
     const firstDayOfWeekDate = firstDayOfWeek.getDate();
     for (let i = 0; i < firstDay.getDay(); i++) {
@@ -332,7 +349,7 @@ function getWeeks(current) {
 
   if (lastDay.getDay() !== 6) {
     const nextMonth = addMonths(current, 1);
-    const currentWeek = weeks[weeks.length - 1];
+    const currentWeek: any = weeks[weeks.length - 1];
     let currentDate = 1;
     for (let i = lastDay.getDay() + 1; i <= 6; i++) {
       currentWeek[i] = {
@@ -345,10 +362,10 @@ function getWeeks(current) {
 
   if (weeks.length <= 5) {
     const nextMonth = addMonths(current, 1);
-    const lastDayOfCalendar = weeks[weeks.length - 1][6];
-    const currentWeek = [];
+    const lastDayOfCalendar: any = weeks[weeks.length - 1]![6]!;
+    const currentWeek: any = [];
     weeks.push(currentWeek);
-    const lastDayOfWeekDate =
+    const lastDayOfWeekDate: number =
       lastDayOfCalendar.month === nextMonth.getMonth() ? lastDayOfCalendar.date : 1;
     for (let i = 0; i <= 6; i++) {
       currentWeek[i] = {

@@ -1,19 +1,30 @@
-/*
- * Notebook.js
- */
-
+import cx from "clsx";
 import React, { useState } from "react";
-import prop from "prop-types";
-import cx from "classname";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-import Button from "./Button";
-import Label from "./Label";
-import PageSwitcher from "./PageSwitcher";
+import { Button } from "./Button";
+import { Label } from "./Label";
+import type { PageSwitcherProps } from "./PageSwitcher";
+import { PageSwitcher } from "./PageSwitcher";
 
 const noop = () => {};
 
-function Notebook({
-  children,
+export type NotebookProps = ExtendElementProps<
+  "div",
+  {
+    position?: "top" | "bottom" | "left" | "right";
+    transition?: PageSwitcherProps["transition"];
+    arrows?: boolean;
+    className?: string;
+    value?: number;
+    pages: PageSwitcherProps["pages"];
+    action?: React.ReactNode;
+    onChange: (value: number) => void;
+    onClose: (pageIndex: number) => void;
+  }
+>;
+
+export function Notebook({
   className,
   position,
   transition,
@@ -24,7 +35,7 @@ function Notebook({
   onChange,
   onClose,
   ...rest
-}) {
+}: NotebookProps) {
   const orientation =
     position === "top" || position === "bottom" ? "horizontal" : "vertical";
   const isHorizontal = orientation === "horizontal";
@@ -62,7 +73,7 @@ function Notebook({
                 reorderable: true,
               })}
               role="button"
-              tabIndex="0"
+              tabIndex={0}
               onClick={() => setPage(i)}
             >
               <Label>{page.label}</Label>
@@ -70,7 +81,7 @@ function Notebook({
                 <Button
                   size="small"
                   icon="window-close"
-                  tabIndex="-1"
+                  tabIndex={-1}
                   onClick={(ev) => (ev.stopPropagation(), onClose(i))}
                 />
               )}
@@ -101,24 +112,9 @@ function Notebook({
   );
 }
 
-Notebook.propTypes = {
-  children: prop.node,
-  position: prop.oneOf(["top", "bottom", "left", "right"]),
-  transition: PageSwitcher.propTypes.transition,
-  arrows: prop.bool,
-  className: prop.string,
-  value: prop.number,
-  pages: PageSwitcher.propTypes.pages,
-  action: prop.node,
-  onChange: prop.func,
-  onClose: prop.func,
-};
-
 Notebook.defaultProps = {
   position: "top",
   arrows: false,
   onChange: noop,
   onClose: noop,
 };
-
-export default Notebook;

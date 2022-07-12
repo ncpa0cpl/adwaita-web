@@ -1,36 +1,43 @@
-/*
- * PageSwitcher.js
- */
-
-import React from "react";
 import cx from "clsx";
-import prop from "prop-types";
+import React from "react";
 
-class PageSwitcher extends React.Component {
-  static propTypes = {
-    className: prop.string,
-    pages: prop.arrayOf(
-      prop.shape({
-        key: prop.oneOfType([prop.string, prop.number]).isRequired,
-        label: prop.node,
-        content: prop.node.isRequired,
-      })
-    ),
-    mainPage: prop.number,
-    activePage: prop.number,
-    transition: prop.oneOf(["horizontal", "vertical", "opacity", false]),
-    expand: prop.bool,
-    padded: prop.bool,
-    useMainPageDimensions: prop.oneOf([prop.bool, "width", "height"]),
-  };
+export type PageSwitcherPage = {
+  key: string | number;
+  label?: React.ReactNode;
+  content: React.ReactNode;
+  closable?: boolean;
+};
 
+export type PageSwitcherProps = {
+  className?: string;
+  pages: Array<PageSwitcherPage>;
+  mainPage?: number;
+  activePage?: number;
+  transition?: "horizontal" | "vertical" | "opacity" | false;
+  expand?: boolean;
+  padded?: boolean;
+  useMainPageDimensions?: boolean | "width" | "height";
+  style?: React.CSSProperties;
+};
+
+export class PageSwitcher extends React.Component<PageSwitcherProps> {
   static defaultProps = {
     transition: "horizontal",
     expand: false,
     useMainPageDimensions: false,
   };
 
-  constructor(props) {
+  activePage: React.MutableRefObject<HTMLDivElement | null>;
+  mustSetIsSwitching?: boolean;
+
+  override state: {
+    activePage?: number;
+    isSwitching: boolean;
+    width?: number;
+    height?: number;
+  };
+
+  constructor(props: PageSwitcherProps) {
     super(props);
     this.activePage = React.createRef();
     this.state = {
@@ -41,21 +48,24 @@ class PageSwitcher extends React.Component {
     };
   }
 
-  getPagesToRender() {
+  getPagesToRender(): number[] {
     const { activePage: activePageProp, transition } = this.props;
     const { activePage } = this.state;
 
-    if (transition === false) return [activePageProp];
+    if (transition === false)
+      return activePageProp !== undefined ? [activePageProp] : [];
 
     const pages = Array.from(
-      new Set([activePage, activePageProp].filter((n) => n !== undefined))
+      new Set(
+        [activePage, activePageProp].filter((n): n is number => n !== undefined)
+      )
     );
     pages.sort(compare);
 
     return pages;
   }
 
-  componentDidUpdate() {
+  override componentDidUpdate() {
     if (this.mustSetIsSwitching) {
       this.mustSetIsSwitching = false;
       requestAnimationFrame(() => {
@@ -71,7 +81,7 @@ class PageSwitcher extends React.Component {
     });
   };
 
-  onRef = (ref) => {
+  onRef = (ref: HTMLDivElement) => {
     this.activePage.current = ref;
     if (!ref) return;
     const { activePage, useMainPageDimensions, mainPage } = this.props;
@@ -80,7 +90,7 @@ class PageSwitcher extends React.Component {
     if (useMainPageDimensions === false && !isMainPage) return;
 
     const { width, height } = this.activePage.current.getBoundingClientRect();
-    const state = {};
+    const state: Partial<typeof this.state> = {};
     if (
       isMainPage ||
       useMainPageDimensions === true ||
@@ -96,7 +106,7 @@ class PageSwitcher extends React.Component {
     this.setState(state);
   };
 
-  render() {
+  override render() {
     const {
       className,
       pages,
@@ -139,7 +149,7 @@ class PageSwitcher extends React.Component {
       >
         {renderedPages.map((n) => (
           <div
-            key={pages[n].key || n}
+            key={pages[n]?.key || n}
             className={cx("PageSwitcher__page", {
               active: n === activePageValue,
               main: n === mainPage,
@@ -156,10 +166,8 @@ class PageSwitcher extends React.Component {
   }
 }
 
-export default PageSwitcher;
-
 // Helpers
 
-function compare(a, b) {
+function compare(a: number, b: number) {
   return a - b;
 }

@@ -1,10 +1,5 @@
-/*
- * Switch.js
- */
-
-import React from "react";
-import prop from "prop-types";
 import cx from "clsx";
+import React from "react";
 
 const noop = () => {};
 
@@ -12,39 +7,43 @@ const DEFAULT_LABELS = ["On", "Off"];
 
 let nextId = 1;
 
-class Switch extends React.Component {
-  static propTypes = {
-    value: prop.bool,
-    defaultValue: prop.bool,
-    /** Not shown. For screen-readers only */
-    label: prop.string,
-    /** On/Off if `true`, or provide your own 2 labels */
-    labels: prop.oneOfType([prop.bool, prop.arrayOf(prop.string)]),
-    size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega"]),
-    onChange: prop.func,
-  };
+export type SwitchProps = {
+  id?: string;
+  value?: boolean;
+  className?: string;
+  defaultValue?: boolean;
+  disabled?: boolean;
+  /** Not shown. For screen-readers only */
+  label?: string;
+  /** On/Off if `true`, or provide your own 2 labels */
+  labels?: string[];
+  size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+  onChange?: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
+export class Switch extends React.Component<SwitchProps> {
   static defaultProps = {
     size: "medium",
     labels: false,
     onChange: noop,
   };
 
-  constructor(props) {
+  id: string;
+
+  constructor(props: SwitchProps) {
     super(props);
     this.id = `switch_${nextId++}`;
   }
 
-  onChange = (ev) => {
-    this.props.onChange(ev.target.checked, ev);
+  onChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    if (this.props.onChange) this.props.onChange(ev.target.checked, ev);
   };
 
-  render() {
+  override render() {
     const {
       id,
       label,
       labels: labelsValue,
-      children,
       className,
       size,
       value,
@@ -79,5 +78,3 @@ class Switch extends React.Component {
     );
   }
 }
-
-export default Switch;

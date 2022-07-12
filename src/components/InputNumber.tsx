@@ -1,15 +1,32 @@
-/*
- * InputNumber.js
- */
-
-import React, { useState } from "react";
-import prop from "prop-types";
 import cx from "clsx";
-import Icon from "./Icon";
+import React, { useState } from "react";
+import type { ExtendElementProps } from "../utils/extendElementProp";
+import { Icon } from "./Icon";
 
 const noop = () => {};
 
-function InputNumber({
+const asNumber = (value: number | string) => {
+  if (value === "") return 0;
+  return Number(value);
+};
+
+export type InputNumberProps = ExtendElementProps<
+  "input",
+  {
+    className?: string;
+    size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+    vertical?: boolean;
+    disabled?: boolean;
+    value?: number;
+    defaultValue?: number;
+    onChange?: (value: number) => void;
+    step?: number;
+    min?: number;
+    max?: number;
+  }
+>;
+
+export function InputNumber({
   className,
   size,
   vertical,
@@ -18,23 +35,24 @@ function InputNumber({
   defaultValue,
   onChange,
   ...rest
-}) {
+}: InputNumberProps) {
   const [valueState, setValueState] = useState(defaultValue ?? "");
   const value = valueProp ?? valueState;
   const step = rest.step ?? 1;
   const min = rest.min ?? -Infinity;
   const max = rest.max ?? +Infinity;
-  const setValue = valueProp !== undefined ? onChange : setValueState;
+  const setValue =
+    valueProp !== undefined ? onChange ?? setValueState : setValueState;
 
-  const onInputChange = (ev) => {
-    setValue(Number(ev.target.value), ev);
+  const onInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(ev.target.value));
   };
 
-  const onUp = () => setValue(Number(value) + step);
-  const onDown = () => setValue(Number(value) - step);
+  const onUp = () => setValue(asNumber(value) + step);
+  const onDown = () => setValue(asNumber(value) - step);
 
-  const downDisabled = disabled || value - step < min;
-  const upDisabled = disabled || value + step > max;
+  const downDisabled = disabled || asNumber(value) - step < min;
+  const upDisabled = disabled || asNumber(value) + step > max;
 
   const buttonClassNames = vertical ? "Button image-button" : undefined;
 
@@ -50,7 +68,7 @@ function InputNumber({
         />
       </div>
       <button
-        tabIndex="-1"
+        tabIndex={-1}
         className={cx("InputNumber__button down", buttonClassNames)}
         disabled={downDisabled}
         onClick={onDown}
@@ -58,7 +76,7 @@ function InputNumber({
         <Icon name="list-remove" />
       </button>
       <button
-        tabIndex="-1"
+        tabIndex={-1}
         className={cx("InputNumber__button up", buttonClassNames)}
         disabled={upDisabled}
         onClick={onUp}
@@ -69,22 +87,7 @@ function InputNumber({
   );
 }
 
-InputNumber.propTypes = {
-  className: prop.string,
-  size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega"]),
-  vertical: prop.bool,
-  disabled: prop.bool,
-  value: prop.number,
-  defaultValue: prop.number,
-  step: prop.number,
-  min: prop.number,
-  max: prop.number,
-  onChange: prop.func,
-};
-
 InputNumber.defaultProps = {
   size: "medium",
   onChange: noop,
 };
-
-export default InputNumber;

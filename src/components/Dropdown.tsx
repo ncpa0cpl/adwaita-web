@@ -3,64 +3,95 @@
  */
 
 import cx from "clsx";
-import prop from "prop-types";
 import React from "react";
 
 import { Button } from "./Button";
 import { Icon } from "./Icon";
 import { Input } from "./Input";
 import { Label } from "./Label";
-import Menu from "./Menu";
+import { Menu } from "./Menu";
 import { Popover } from "./Popover";
 import { Separator } from "./Separator";
 
-class Dropdown extends React.Component {
-  static propTypes = {
-    /** ClassName of the component's popover */
-    className: prop.string,
-    triggerClassName: prop.string,
-    size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega", "mega"]),
-    align: prop.oneOf(["left", "right"]),
-    label: prop.node,
-    value: prop.any,
-    options: prop.arrayOf(
-      prop.shape({
-        value: prop.any.isRequired,
-        label: prop.node.isRequired,
-        data: prop.object,
-      })
-    ),
-    disabled: prop.bool,
-    loading: prop.bool,
-    open: prop.bool,
-    allowClear: prop.bool,
-    input: prop.bool,
-    filterKey: prop.string,
-    filter: prop.func,
-    onClose: prop.func,
-    onOpen: prop.func,
-  };
+export type DropdownOption<T> = {
+  value: T;
+  label: React.ReactNode;
+  data?: any;
+};
+
+export type DropdownProps<T> = {
+  id?: string;
+  className?: string;
+  triggerClassName?: string;
+  placeholder?: string;
+  size?: "mini" | "small" | "medium" | "large" | "huge" | "mega" | "mega";
+  align?: "left" | "right";
+  label?: React.ReactNode;
+  value?: T;
+  options?: Array<DropdownOption<T>>;
+  disabled?: boolean;
+  loading?: boolean;
+  open?: boolean;
+  allowClear?: boolean;
+  input?: boolean;
+  filterKey?: string;
+  filter?: (option: any, filter?: string) => boolean;
+  onClose?: () => void;
+  onOpen?: () => void;
+  onChange?: (value: T | undefined) => void;
+};
+
+export class Dropdown<T extends string | number | boolean> extends React.Component<
+  DropdownProps<T>
+> {
+  static Item = Menu.Item;
+  static Button = Menu.Button;
+  static Separator = Separator;
 
   static defaultProps = {
     size: "medium",
     align: "right",
     disabled: false,
+    options: [],
   };
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: DropdownProps<any>) {
     if ("open" in props) return { open: props.open };
     return null;
   }
 
-  constructor(props) {
+  domNode: HTMLDivElement;
+  trigger?: HTMLButtonElement | HTMLDivElement;
+
+  lastValue: T | undefined;
+  lastOption: DropdownOption<T> | undefined;
+  lastOptions: Array<DropdownOption<T>> | undefined;
+  lastRenderedOptions: Array<DropdownOption<T>> | undefined;
+  lastRenderedOptionsArgs: Array<
+    | string
+    | ((option: any, filter?: string | undefined) => boolean)
+    | DropdownOption<T>[]
+    | undefined
+  >;
+
+  override state: {
+    value: T | undefined;
+    selectedOption: DropdownOption<T> | undefined;
+    open: boolean;
+    position: {
+      top: number;
+      left: number;
+    };
+    inputValue: string;
+    previousInputValue: string;
+  };
+
+  constructor(props: DropdownProps<T>) {
     super(props);
 
     this.domNode = document.createElement("div");
     document.body.append(this.domNode);
 
-    this.lastValue = null;
-    this.lastOption = null;
-    this.lastOptions = null;
     this.lastRenderedOptions = [];
     this.lastRenderedOptionsArgs = [];
 
@@ -74,7 +105,7 @@ class Dropdown extends React.Component {
     };
   }
 
-  componentWillUnmount() {
+  override componentWillUnmount() {
     document.body.removeChild(this.domNode);
   }
 
@@ -82,7 +113,7 @@ class Dropdown extends React.Component {
     setTimeout(this.close, 200);
   };
 
-  onInputChange = (inputValue) => {
+  onInputChange = (inputValue: string) => {
     this.setState({ inputValue });
   };
 
@@ -90,13 +121,13 @@ class Dropdown extends React.Component {
     const options = this.getRenderedOptions();
     if (options.length === 0) return;
     const option = options[0];
-    this.select(option);
+    this.select(option!);
     if (this.trigger) {
-      this.trigger.querySelector("input").blur();
+      this.trigger.querySelector("input")?.blur();
     }
   };
 
-  onToggle = (ev) => {
+  onToggle = () => {
     if (this.state.open) this.close();
     else this.open();
   };
@@ -123,9 +154,10 @@ class Dropdown extends React.Component {
     return "value" in this.props;
   };
 
-  select = (option) => {
+  select = (option: DropdownOption<T> | null) => {
     if (this.isControlled()) {
-      if (this.props.onChange) this.props.onChange(option ? option.value : null);
+      if (this.props.onChange)
+        this.props.onChange(option ? option.value : undefined);
     } else {
       this.setState({ value: option?.value, selectedOption: option });
     }
@@ -137,7 +169,7 @@ class Dropdown extends React.Component {
     return this.state.value;
   }
 
-  getRenderedOptions() {
+  getRenderedOptions(): DropdownOption<T>[] {
     const { options: optionsProp, filterKey, filter } = this.props;
     const open = this.isOpen();
     const { inputValue, previousInputValue } = this.state;
@@ -147,7 +179,7 @@ class Dropdown extends React.Component {
     // IMPORTANT: variables used below must be include in `args`
     const args = [optionsProp, value, filterKey, filter];
     if (args.every((a, i) => this.lastRenderedOptionsArgs[i] === a)) {
-      return this.lastRenderedOptions;
+      return this.lastRenderedOptions ?? [];
     }
 
     let options;
@@ -155,28 +187,29 @@ class Dropdown extends React.Component {
       options = optionsProp;
     } else {
       const needle = value.toLowerCase();
-      options = optionsProp.filter((o) => {
-        const optionValue = filterKey
-          ? o.data[filterKey]
-          : filter
-          ? filter(o)
-          : typeof o.label === "string"
-          ? o.label
-          : o.value;
-        return String(optionValue).toLowerCase().includes(needle);
-      });
+      options =
+        optionsProp?.filter((o) => {
+          const optionValue = filterKey
+            ? o.data[filterKey]
+            : filter
+            ? filter(o)
+            : typeof o.label === "string"
+            ? o.label
+            : o.value;
+          return String(optionValue).toLowerCase().includes(needle);
+        }) ?? [];
     }
 
     this.lastRenderedOptionsArgs = args;
     this.lastRenderedOptions = options;
-    return options;
+    return options ?? [];
   }
 
   getSelectedOption() {
     const value = this.getValue();
     if (value === this.lastValue && this.props.options === this.lastOptions)
       return this.lastOption;
-    const option = this.props.options.find((o) => o.value === value);
+    const option = this.props.options!.find((o) => o.value === value);
     if (option) {
       this.lastValue = value;
       this.lastOption = option;
@@ -186,7 +219,7 @@ class Dropdown extends React.Component {
     return undefined;
   }
 
-  render() {
+  override render() {
     const {
       className,
       triggerClassName,
@@ -264,7 +297,7 @@ class Dropdown extends React.Component {
     const options = this.getRenderedOptions();
     const actualChildren = options.map((o) => (
       <Menu.Button
-        key={o.value}
+        key={o.value.toString()}
         selected={String(o.value) === String(value)}
         onClick={() => this.select(o)}
       >
@@ -311,17 +344,9 @@ class Dropdown extends React.Component {
   }
 }
 
-// Exports
-
-Dropdown.Item = Menu.Item;
-Dropdown.Button = Menu.Button;
-Dropdown.Separator = Separator;
-
-export default Dropdown;
-
 // Helpers
 
-function wrapLabel(label) {
+function wrapLabel(label: React.ReactNode) {
   if (typeof label !== "string") return label;
   return (
     <Label align="left" fill="width" ellipsis>

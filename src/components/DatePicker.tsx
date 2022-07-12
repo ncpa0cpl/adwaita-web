@@ -1,64 +1,69 @@
-import React, { useState, useRef } from "react";
+import { format, isEqual, parse } from "date-fns";
+import React, { useRef, useState } from "react";
 import { findDOMNode } from "react-dom";
-import prop from "prop-types";
-import { isEqual, parse, format } from "date-fns";
 
 import useControlled from "../utils/useControlled";
-import Calendar from "./Calendar";
-import Input from "./Input";
-import Popover from "./Popover";
+import { Calendar } from "./Calendar";
+import type { InputProps } from "./Input";
+import { Input } from "./Input";
+import { Popover } from "./Popover";
 
-const propTypes = {
+export type DatePickerProps = {
   /** A date object */
-  value: prop.object,
+  value: Date;
   /** A date object */
-  defaultValue: prop.object,
-  format: prop.string,
+  defaultValue: Date;
   /** A function that receives a date object */
-  onChange: prop.func,
-};
+  onChange: (value: Date | null) => void;
+  /** A string that represents the date format */
+  format?: string;
+} & Omit<
+  InputProps,
+  "onChange" | "iconAfter" | "value" | "onFocus" | "onBlur" | "defaultValue"
+>;
 
-const defaultProps = {
-  format: "d MMM yyyy",
-};
-
-function DatePicker({
-  format: formatString,
+export function DatePicker({
+  format: formatString = "d MMM yyyy",
   value: valueProp,
   defaultValue,
   onChange,
   ...rest
-}) {
-  const calendarRef = useRef();
+}: DatePickerProps) {
+  const calendarRef = useRef<Calendar | null>(null);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useControlled(valueProp, defaultValue, onChange);
+  const [value, setValue] = useControlled<Date | null>(
+    valueProp,
+    defaultValue,
+    onChange
+  );
   const [inputValue, setInputValue] = useState(
     value ? format(value, formatString) : ""
   );
 
-  const onInputChange = (newValue) => {
+  const onInputChange = (newValue: string) => {
     setInputValue(newValue);
   };
 
-  const onCalendarChange = (date) => {
+  const onCalendarChange = (date: Date) => {
     setValue(date);
     setInputValue(format(date, formatString));
     setOpen(false);
   };
 
-  const onBlur = (ev) => {
+  const onBlur = (ev: React.FocusEvent) => {
     // Skip click inside calendar
     const calendar = findDOMNode(calendarRef.current);
-    if (calendar.contains(ev.relatedTarget)) return;
+    if (calendar && calendar.contains(ev.relatedTarget)) return;
 
     const newValue =
       inputValue === "" ? null : parse(inputValue, formatString, new Date());
     const isNewValue =
-      (newValue === null || !Number.isNaN(+newValue)) && !isEqual(value, newValue);
+      (newValue === null || !Number.isNaN(+newValue)) &&
+      (!value || !newValue || !isEqual(value, newValue));
     if (isNewValue) {
       setValue(newValue);
       setInputValue(newValue ? format(newValue, formatString) : "");
-    } else {
+    } else if (value) {
       setInputValue(format(value, formatString));
     }
 
@@ -82,8 +87,3 @@ function DatePicker({
     </Popover>
   );
 }
-
-DatePicker.propTypes = propTypes;
-DatePicker.defaultProps = defaultProps;
-
-export default DatePicker;

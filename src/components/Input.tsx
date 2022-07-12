@@ -52,7 +52,7 @@ export type InputProps = ExtendElementProps<
   }
 >;
 
-export const Input = React.forwardRef<HTMLDivElement, InputProps>(function Input(
+const InputImpl = React.forwardRef<HTMLDivElement, InputProps>(function Input(
   {
     type = "text",
     value: valueProp,
@@ -188,7 +188,7 @@ export type GroupProps = React.PropsWithChildren<{
   className?: string;
 }>;
 
-export const Group = React.forwardRef<HTMLDivElement>(function Group(
+export const Group = React.forwardRef<HTMLDivElement, GroupProps>(function Group(
   { children, className }: GroupProps,
   ref
 ) {
@@ -198,3 +198,7 @@ export const Group = React.forwardRef<HTMLDivElement>(function Group(
     </div>
   );
 });
+
+Object.assign(InputImpl, { Group });
+
+export const Input = InputImpl as any as { Group: typeof Group } & typeof InputImpl;

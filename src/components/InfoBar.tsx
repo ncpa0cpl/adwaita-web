@@ -1,14 +1,26 @@
-/*
- * InfoBar.js
- */
-
+import cx from "clsx";
 import React, { useState } from "react";
-import cx from "classname";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-import Box from "./Box";
-import Button from "./Button";
+import { Box } from "./Box";
+import { Button } from "./Button";
 
-function InfoBar({
+export type InfoBarProps = ExtendElementProps<
+  "div",
+  {
+    className?: string;
+    closable?: boolean;
+    activatable?: boolean;
+    info?: boolean;
+    success?: boolean;
+    warning?: boolean;
+    danger?: boolean;
+    close?: boolean;
+    onClose?: () => void;
+  }
+>;
+
+export function InfoBar({
   className,
   children,
   closable,
@@ -20,7 +32,7 @@ function InfoBar({
   close: closeValue,
   onClose,
   ...rest
-}) {
+}: InfoBarProps) {
   const [closeState, setClose] = useState(false);
   const close = closeValue ?? closeState;
   const activatable = activatableValue ?? Boolean(rest.onClick);
@@ -46,5 +58,3 @@ function InfoBar({
     </div>
   );
 }
-
-export default InfoBar;

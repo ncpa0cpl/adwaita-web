@@ -15,4 +15,4 @@ export type Rewrap<T> = T extends Function
 export type ExtendElementProps<
   E extends keyof JSX.IntrinsicElements,
   P extends object
-> = P & Omit<JSX.IntrinsicElements[E], keyof P>;
+> = P & Omit<JSX.IntrinsicElements[E], keyof P | "ref">;

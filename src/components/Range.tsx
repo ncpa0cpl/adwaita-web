@@ -4,30 +4,114 @@
  */
 
 import cx from "clsx";
-import prop from "prop-types";
 import { identity } from "rambda";
 import React from "react";
+import { getPropAndCastOr } from "../utils/getPropAndCastOr";
 
 import ownerDocument from "../utils/ownerDocument";
+import { trackFinger } from "../utils/trackFinger";
+import useControlled from "../utils/useControlled";
 import useForkRef from "../utils/useForkRef";
 import useIsFocusVisible from "../utils/useIsFocusVisible";
 
 const axisProps = {
   horizontal: {
-    offset: (percent) => ({ left: `${percent}%` }),
-    leap: (percent) => ({ width: `${percent}%` }),
+    offset: (percent: number) => ({ left: `${percent}%` }),
+    leap: (percent: number) => ({ width: `${percent}%` }),
   },
   "horizontal-reverse": {
-    offset: (percent) => ({ right: `${percent}%` }),
-    leap: (percent) => ({ width: `${percent}%` }),
+    offset: (percent: number) => ({ right: `${percent}%` }),
+    leap: (percent: number) => ({ width: `${percent}%` }),
   },
   vertical: {
-    offset: (percent) => ({ bottom: `${percent}%` }),
-    leap: (percent) => ({ height: `${percent}%` }),
+    offset: (percent: number) => ({ bottom: `${percent}%` }),
+    leap: (percent: number) => ({ height: `${percent}%` }),
   },
 };
 
-const Range = React.forwardRef(function Range(props, ref) {
+export type RangeProps = {
+  /** The label of the slider. */
+  "aria-label"?: string;
+  /** The id of the element containing a label for the slider. */
+  "aria-labelledby"?: string;
+  /** A string value that provides a user-friendly name for the current value of the slider. */
+  "aria-valuetext"?: string;
+  className?: string;
+  size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+  /** The default element value. Use when the component is not controlled. */
+  defaultValue?: number | number[];
+  /** If `true`, the slider will be disabled. */
+  disabled?: boolean;
+  /**
+   * Marks indicate predetermined values to which the user can move the slider. If
+   * `true` the marks will be spaced according the value of the `step` prop. If an
+   * array, it should contain objects with `value` and an optional `label` keys.
+   */
+  marks?: boolean | Array<{ value: number; label?: string }>;
+  /** The maximum allowed value of the slider. Should not be equal to min. */
+  max?: number;
+  /** The minimum allowed value of the slider. Should not be equal to max. */
+  min?: number;
+  /** Name attribute of the hidden `input` element. */
+  name?: string;
+  /** Callback function that is fired when the slider's value changed. */
+  onChange?: (
+    value: number | number[],
+    ev: React.ChangeEvent | React.MouseEvent | MouseEvent | TouchEvent
+  ) => void;
+  /** Callback function that is fired when the `mouseup` is triggered. */
+  onChangeCommitted?: (
+    ev: React.ChangeEvent | MouseEvent | TouchEvent,
+    value: number | number[]
+  ) => void;
+  onMouseDown?: (event: React.MouseEvent) => void;
+  /** If the slider is vertical. */
+  vertical?: boolean;
+  /** A transformation function, to change the scale of the slider. */
+  scale?: typeof identity;
+  /**
+   * The granularity with which the slider can step through values. (A "discrete"
+   * slider.) The `min` prop serves as the origin for the valid values. We recommend
+   * (max - min) to be evenly divisible by the step.
+   *
+   * When step is `null`, the thumb can only be slid onto marks provided with the `marks` prop.
+   */
+  step?: number;
+  /** The component used to display the value label. */
+  ThumbComponent?: React.ElementType;
+  /**
+   * The track presentation:
+   *
+   * - `normal` the track will render a bar representing the slider value.
+   * - `inverted` the track will render a bar representing the remaining slider value.
+   * - `false` the track will render without a bar.
+   */
+  track?: boolean | "normal" | "inverted";
+  /** The value of the slider. For ranged sliders, provide an array with two values. */
+  value?: number | number[];
+  /**
+   * Controls when the value label is displayed:
+   *
+   * - `auto` the value label will display when the thumb is hovered or focused.
+   * - `on` will display persistently.
+   * - `off` will never display.
+   */
+  valueLabelDisplay?: "off" | "auto" | "on";
+  /**
+   * The format function the value label's value.
+   *
+   * When a function is provided, it should have the following signature:
+   *
+   * - {number} value The value label's value to format
+   * - {number} index The value label's index to format
+   */
+  valueLabelFormat?: string | ((value: number, index: number) => string);
+};
+
+export const Range = React.forwardRef<HTMLSpanElement, RangeProps>(function Range(
+  props,
+  ref
+) {
   const {
     "aria-label": ariaLabel,
     "aria-labelledby": ariaLabelledby,
@@ -55,28 +139,31 @@ const Range = React.forwardRef(function Range(props, ref) {
   } = props;
   const orientation = vertical ? "vertical" : "horizontal";
 
-  const touchId = React.useRef();
+  const touchId = React.useRef<number>();
   // We can't use the :active browser pseudo-classes.
   // - The active state isn't triggered when clicking on the rail.
   // - The active state isn't transfered when inversing a range slider.
   const [active, setActive] = React.useState(-1);
   const [open, setOpen] = React.useState(-1);
 
-  const [valueDerived, setValueState] = useControlled({
-    controlled: valueProp,
-    default: defaultValue,
-    name: "Range",
-  });
+  const [valueDerived, setValueState] = useControlled(valueProp, defaultValue);
 
   const range = Array.isArray(valueDerived);
-  let values = range ? valueDerived.slice().sort(asc) : [valueDerived];
+  let values = range
+    ? valueDerived.slice().sort(asc)
+    : valueDerived !== undefined
+    ? [valueDerived]
+    : [];
   values = values.map((value) => clamp(value, min, max));
   const marks =
     marksProp === true && step !== null
       ? [...Array(Math.floor((max - min) / step) + 1)].map((_, index) => ({
           value: min + step * index,
+          label: undefined,
         }))
-      : marksProp || [];
+      : Array.isArray(marksProp)
+      ? marksProp
+      : [];
 
   const {
     isFocusVisible,
@@ -85,17 +172,18 @@ const Range = React.forwardRef(function Range(props, ref) {
   } = useIsFocusVisible();
   const [focusVisible, setFocusVisible] = React.useState(-1);
 
-  const sliderRef = React.useRef();
+  const sliderRef = React.useRef<HTMLSpanElement | null>(null);
   const handleFocusRef = useForkRef(focusVisibleRef, sliderRef);
   const handleRef = useForkRef(ref, handleFocusRef);
 
-  const handleFocus = (event) => {
+  const handleFocus = (event: React.FocusEvent<HTMLElement>) => {
     const index = Number(event.currentTarget.getAttribute("data-index"));
     if (isFocusVisible(event)) {
       setFocusVisible(index);
     }
     setOpen(index);
   };
+
   const handleBlur = () => {
     if (focusVisible !== -1) {
       setFocusVisible(-1);
@@ -103,23 +191,26 @@ const Range = React.forwardRef(function Range(props, ref) {
     }
     setOpen(-1);
   };
-  const handleMouseOver = (event) => {
+
+  const handleMouseOver = (event: React.MouseEvent<HTMLElement>) => {
     const index = Number(event.currentTarget.getAttribute("data-index"));
     setOpen(index);
   };
+
   const handleMouseLeave = () => {
     setOpen(-1);
   };
 
   const isRtl = false;
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     const index = Number(event.currentTarget.getAttribute("data-index"));
     const value = values[index];
+    if (!value) return;
     const tenPercents = (max - min) / 10;
     const marksValues = marks.map((mark) => mark.value);
     const marksIndex = marksValues.indexOf(value);
-    let newValue;
+    let newValue: number | undefined;
     const increaseKey = isRtl ? "ArrowLeft" : "ArrowRight";
     const decreaseKey = isRtl ? "ArrowRight" : "ArrowLeft";
 
@@ -164,41 +255,67 @@ const Range = React.forwardRef(function Range(props, ref) {
     // Prevent scroll of the page
     event.preventDefault();
 
+    if (!newValue) {
+      throw new Error("newValue is undefined");
+    }
+
     if (step) {
       newValue = roundValueToStep(newValue, step, min);
     }
 
     newValue = clamp(newValue, min, max);
 
+    let newValues: number[] | undefined = undefined;
+
     if (range) {
       const previousValue = newValue;
-      newValue = setValueIndex({
+      newValues = setValueIndex({
         values,
         source: valueDerived,
         newValue,
         index,
       }).sort(asc);
-      focusThumb({ sliderRef, activeIndex: newValue.indexOf(previousValue) });
+      focusThumb({
+        sliderRef,
+        activeIndex: newValues.indexOf(previousValue),
+        setActive() {},
+      });
     }
 
-    setValueState(newValue);
+    setValueState(newValues ?? newValue);
     setFocusVisible(index);
 
     if (onChange) {
-      onChange(newValue, event);
+      onChange(newValues ?? newValue, event);
     }
     if (onChangeCommitted) {
-      onChangeCommitted(event, newValue);
+      onChangeCommitted(event, newValues ?? newValue);
     }
   };
 
-  const previousIndex = React.useRef();
-  let axis = orientation;
+  const previousIndex = React.useRef<number>();
+  let axis: typeof orientation | "horizontal-reverse" = orientation;
   if (isRtl && vertical == false) {
-    axis += "-reverse";
+    axis = "horizontal-reverse";
   }
 
-  const getFingerNewValue = ({ finger, move = false, values: values2, source }) => {
+  const getFingerNewValue = ({
+    finger,
+    move = false,
+    values: values2,
+    source,
+  }: {
+    finger: {
+      x: number;
+      y: number;
+    };
+    move?: boolean;
+    values: number[];
+    source: number[];
+  }) => {
+    if (!sliderRef.current) {
+      throw new Error("sliderRef is null");
+    }
     const { current: slider } = sliderRef;
     const { width, height, bottom, left } = slider.getBoundingClientRect();
     let percent;
@@ -213,43 +330,47 @@ const Range = React.forwardRef(function Range(props, ref) {
       percent = 1 - percent;
     }
 
-    let newValue;
-    newValue = percentToValue(percent, min, max);
+    let newValue = percentToValue(percent, min, max);
     if (step) {
       newValue = roundValueToStep(newValue, step, min);
     } else {
       const marksValues = marks.map((mark) => mark.value);
       const closestIndex = findClosest(marksValues, newValue);
-      newValue = marksValues[closestIndex];
+      if (closestIndex) {
+        const nv = marksValues[closestIndex];
+        if (nv !== undefined) newValue = nv;
+      }
     }
 
     newValue = clamp(newValue, min, max);
     let activeIndex = 0;
 
+    let newValues: number[] | undefined = undefined;
+
     if (range) {
       if (!move) {
-        activeIndex = findClosest(values2, newValue);
+        activeIndex = findClosest(values2, newValue) ?? activeIndex;
       } else {
-        activeIndex = previousIndex.current;
+        activeIndex = previousIndex.current ?? activeIndex;
       }
 
       const previousValue = newValue;
-      newValue = setValueIndex({
+      newValues = setValueIndex({
         values: values2,
         source,
         newValue,
         index: activeIndex,
       }).sort(asc);
-      activeIndex = newValue.indexOf(previousValue);
+      activeIndex = newValues.indexOf(previousValue);
       previousIndex.current = activeIndex;
     }
 
-    return { newValue, activeIndex };
+    return { newValue: newValues ?? newValue, activeIndex };
   };
 
   const [isMoving, setIsMoving] = React.useState(false);
 
-  const handleTouchMove = (event) => {
+  const handleTouchMove = (event: MouseEvent | TouchEvent) => {
     const finger = trackFinger(event, touchId);
 
     if (!finger) {
@@ -260,7 +381,11 @@ const Range = React.forwardRef(function Range(props, ref) {
       finger,
       move: true,
       values,
-      source: valueDerived,
+      source: Array.isArray(valueDerived)
+        ? valueDerived
+        : valueDerived !== undefined
+        ? [valueDerived]
+        : [],
     });
 
     focusThumb({ sliderRef, activeIndex, setActive });
@@ -270,14 +395,26 @@ const Range = React.forwardRef(function Range(props, ref) {
       onChange(newValue, event);
     }
   };
-  const handleTouchEnd = (event) => {
+  const handleTouchEnd = (event: MouseEvent | TouchEvent) => {
+    if (!sliderRef.current) {
+      return;
+    }
+
     const finger = trackFinger(event, touchId);
 
     if (!finger) {
       return;
     }
 
-    const { newValue } = getFingerNewValue({ finger, values, source: valueDerived });
+    const { newValue } = getFingerNewValue({
+      finger,
+      values,
+      source: Array.isArray(valueDerived)
+        ? valueDerived
+        : valueDerived !== undefined
+        ? [valueDerived]
+        : [],
+    });
 
     setActive(-1);
     if (event.type === "touchend") {
@@ -298,19 +435,29 @@ const Range = React.forwardRef(function Range(props, ref) {
 
     setIsMoving(false);
   };
-  const handleTouchStart = (event) => {
+  const handleTouchStart = (event: TouchEvent) => {
     // Workaround as Safari has partial support for touchAction: 'none'.
     event.preventDefault();
+
+    if (!sliderRef.current) {
+      return;
+    }
+
     const touch = event.changedTouches[0];
     if (touch != null) {
       // A number that uniquely identifies the current finger in the touch session.
       touchId.current = touch.identifier;
     }
     const finger = trackFinger(event, touchId);
+    if (!finger) return;
     const { newValue, activeIndex } = getFingerNewValue({
       finger,
       values,
-      source: valueDerived,
+      source: Array.isArray(valueDerived)
+        ? valueDerived
+        : valueDerived !== undefined
+        ? [valueDerived]
+        : [],
     });
     focusThumb({ sliderRef, activeIndex, setActive });
 
@@ -326,6 +473,10 @@ const Range = React.forwardRef(function Range(props, ref) {
   };
 
   React.useEffect(() => {
+    if (!sliderRef.current) {
+      return;
+    }
+
     const { current: slider } = sliderRef;
     slider.addEventListener("touchstart", handleTouchStart);
     const doc = ownerDocument(slider);
@@ -345,17 +496,28 @@ const Range = React.forwardRef(function Range(props, ref) {
     };
   }, [handleTouchEnd, handleTouchMove, handleTouchStart]);
 
-  const handleMouseDown = (event) => {
+  const handleMouseDown = (event: React.MouseEvent) => {
+    if (!sliderRef.current) {
+      return;
+    }
+
     if (onMouseDown) {
       onMouseDown(event);
     }
 
     event.preventDefault();
     const finger = trackFinger(event, touchId);
+    if (!finger) {
+      return;
+    }
     const { newValue, activeIndex } = getFingerNewValue({
       finger,
       values,
-      source: valueDerived,
+      source: Array.isArray(valueDerived)
+        ? valueDerived
+        : valueDerived !== undefined
+        ? [valueDerived]
+        : [],
     });
     focusThumb({ sliderRef, activeIndex, setActive });
 
@@ -372,9 +534,9 @@ const Range = React.forwardRef(function Range(props, ref) {
     setIsMoving(true);
   };
 
-  const trackOffset = valueToPercent(range ? values[0] : min, min, max);
+  const trackOffset = valueToPercent(range ? values[0] ?? min : min, min, max);
   const trackLeap =
-    valueToPercent(values[values.length - 1], min, max) - trackOffset;
+    valueToPercent(values[values.length - 1] ?? min, min, max) - trackOffset;
   const trackStyle = {
     ...axisProps[axis].offset(trackOffset),
     ...axisProps[axis].leap(trackLeap),
@@ -410,17 +572,21 @@ const Range = React.forwardRef(function Range(props, ref) {
           if (track === false) {
             markActive = values.indexOf(mark.value) !== -1;
           } else {
+            const firstValue = values[0];
+            const lastValue = values[values.length - 1];
             markActive =
               (track === "normal" &&
                 (range
-                  ? mark.value >= values[0] &&
-                    mark.value <= values[values.length - 1]
-                  : mark.value <= values[0])) ||
+                  ? firstValue !== undefined &&
+                    mark.value >= firstValue &&
+                    lastValue !== undefined &&
+                    mark.value <= lastValue
+                  : firstValue !== undefined && mark.value <= firstValue)) ||
               (track === "inverted" &&
                 (range
-                  ? mark.value <= values[0] ||
-                    mark.value >= values[values.length - 1]
-                  : mark.value >= values[0]));
+                  ? (firstValue !== undefined && mark.value <= firstValue) ||
+                    (lastValue !== undefined && mark.value >= lastValue)
+                  : firstValue !== undefined && mark.value >= firstValue));
           }
 
           return (
@@ -481,155 +647,51 @@ const Range = React.forwardRef(function Range(props, ref) {
   );
 });
 
-Range.propTypes = {
-  /** The label of the slider. */
-  "aria-label": prop.string,
-  /** The id of the element containing a label for the slider. */
-  "aria-labelledby": prop.string,
-  /** A string value that provides a user-friendly name for the current value of the slider. */
-  "aria-valuetext": prop.string,
-  className: prop.string,
-  size: prop.oneOf(["mini", "small", "medium", "large", "huge", "mega"]),
-  /** The default element value. Use when the component is not controlled. */
-  defaultValue: prop.oneOfType([prop.number, prop.arrayOf(prop.number)]),
-  /** If `true`, the slider will be disabled. */
-  disabled: prop.bool,
-  /**
-   * Marks indicate predetermined values to which the user can move the slider. If
-   * `true` the marks will be spaced according the value of the `step` prop. If an
-   * array, it should contain objects with `value` and an optional `label` keys.
-   */
-  marks: prop.oneOfType([prop.bool, prop.array]),
-  /** The maximum allowed value of the slider. Should not be equal to min. */
-  max: prop.number,
-  /** The minimum allowed value of the slider. Should not be equal to max. */
-  min: prop.number,
-  /** Name attribute of the hidden `input` element. */
-  name: prop.string,
-  /**
-   * Callback function that is fired when the slider's value changed.
-   *
-   * @param {number | number[]} value The new value.
-   * @param {object} event The event source of the callback.
-   */
-  onChange: prop.func,
-  /**
-   * Callback function that is fired when the `mouseup` is triggered.
-   *
-   * @param {object} event The event source of the callback.
-   * @param {number | number[]} value The new value.
-   */
-  onChangeCommitted: prop.func,
-  /** @ignore */
-  onMouseDown: prop.func,
-  /** If the slider is vertical. */
-  vertical: prop.bool,
-  /** A transformation function, to change the scale of the slider. */
-  scale: prop.func,
-  /**
-   * The granularity with which the slider can step through values. (A "discrete"
-   * slider.) The `min` prop serves as the origin for the valid values. We recommend
-   * (max - min) to be evenly divisible by the step.
-   *
-   * When step is `null`, the thumb can only be slid onto marks provided with the `marks` prop.
-   */
-  step: prop.number,
-  /** The component used to display the value label. */
-  ThumbComponent: prop.elementType,
-  /**
-   * The track presentation:
-   *
-   * - `normal` the track will render a bar representing the slider value.
-   * - `inverted` the track will render a bar representing the remaining slider value.
-   * - `false` the track will render without a bar.
-   */
-  track: prop.oneOf(["normal", false, "inverted"]),
-  /** The value of the slider. For ranged sliders, provide an array with two values. */
-  value: prop.oneOfType([prop.number, prop.arrayOf(prop.number)]),
-  /**
-   * Controls when the value label is displayed:
-   *
-   * - `auto` the value label will display when the thumb is hovered or focused.
-   * - `on` will display persistently.
-   * - `off` will never display.
-   */
-  valueLabelDisplay: prop.oneOf(["on", "auto", "off"]),
-  /**
-   * The format function the value label's value.
-   *
-   * When a function is provided, it should have the following signature:
-   *
-   * - {number} value The value label's value to format
-   * - {number} index The value label's index to format
-   */
-  valueLabelFormat: prop.oneOfType([prop.string, prop.func]),
-};
-
-export default Range;
-
 // Helpers
 
-function asc(a, b) {
+function asc(a: number, b: number) {
   return a - b;
 }
 
-function clamp(value, min, max) {
+function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(min, value), max);
 }
 
-function findClosest(values, currentValue) {
-  const { index: closestIndex } = values.reduce((acc, value, index) => {
-    const distance = Math.abs(currentValue - value);
+function findClosest(values: number[], currentValue: number) {
+  const result = values.reduce(
+    (acc: null | { distance: number; index: number }, value, index) => {
+      const distance = Math.abs(currentValue - value);
 
-    if (acc === null || distance < acc.distance || distance === acc.distance) {
-      return {
-        distance,
-        index,
-      };
-    }
-
-    return acc;
-  }, null);
-  return closestIndex;
-}
-
-function trackFinger(event, touchId) {
-  if (touchId.current !== undefined && event.changedTouches) {
-    for (let i = 0; i < event.changedTouches.length; i += 1) {
-      const touch = event.changedTouches[i];
-      if (touch.identifier === touchId.current) {
+      if (acc === null || distance < acc.distance || distance === acc.distance) {
         return {
-          x: touch.clientX,
-          y: touch.clientY,
+          distance,
+          index,
         };
       }
-    }
 
-    return false;
-  }
-
-  return {
-    x: event.clientX,
-    y: event.clientY,
-  };
+      return acc;
+    },
+    null
+  );
+  return result ? result.index : result;
 }
 
-function valueToPercent(value, min, max) {
+function valueToPercent(value: number, min: number, max: number) {
   return ((value - min) * 100) / (max - min);
 }
 
-function percentToValue(percent, min, max) {
+function percentToValue(percent: number, min: number, max: number) {
   return (max - min) * percent + min;
 }
 
-function getDecimalPrecision(num) {
+function getDecimalPrecision(num: number): number {
   // This handles the case when num is very small (0.00000001), js will turn this into 1e-8.
   // When num is bigger than 1 or less than -1 it won't get converted to this notation so it's fine.
   if (Math.abs(num) < 1) {
     const parts = num.toExponential().split("e-");
-    const matissaDecimalPart = parts[0].split(".")[1];
+    const matissaDecimalPart = parts[0]!.split(".")[1];
     return (
-      (matissaDecimalPart ? matissaDecimalPart.length : 0) + parseInt(parts[1], 10)
+      (matissaDecimalPart ? matissaDecimalPart.length : 0) + parseInt(parts[1]!, 10)
     );
   }
 
@@ -637,12 +699,22 @@ function getDecimalPrecision(num) {
   return decimalPart ? decimalPart.length : 0;
 }
 
-function roundValueToStep(value, step, min) {
+function roundValueToStep(value: number, step: number, min: number): number {
   const nearest = Math.round((value - min) / step) * step + min;
   return Number(nearest.toFixed(getDecimalPrecision(step)));
 }
 
-function setValueIndex({ values, source, newValue, index }) {
+function setValueIndex({
+  values,
+  source,
+  newValue,
+  index,
+}: {
+  values: number[];
+  source: number[];
+  newValue: number;
+  index: number;
+}): number[] {
   // Performance shortcut
   if (values[index] === newValue) {
     return source;
@@ -653,31 +725,26 @@ function setValueIndex({ values, source, newValue, index }) {
   return output;
 }
 
-function focusThumb({ sliderRef, activeIndex, setActive }) {
+function focusThumb({
+  sliderRef,
+  activeIndex,
+  setActive,
+}: {
+  sliderRef: React.RefObject<HTMLElement>;
+  activeIndex: number;
+  setActive?: (index: number) => void;
+}) {
   if (
-    !sliderRef.current.contains(document.activeElement) ||
-    Number(document.activeElement.getAttribute("data-index")) !== activeIndex
+    !sliderRef.current?.contains(document.activeElement) ||
+    Number(document.activeElement?.getAttribute("data-index")) !== activeIndex
   ) {
-    sliderRef.current
-      .querySelector(`[role="slider"][data-index="${activeIndex}"]`)
-      .focus();
+    const elem = sliderRef.current?.querySelector(
+      `[role="slider"][data-index="${activeIndex}"]`
+    );
+    getPropAndCastOr(elem, "focus", () => {})();
   }
 
   if (setActive) {
     setActive(activeIndex);
   }
-}
-
-function useControlled({ controlled, default: defaultProp, name, state = "value" }) {
-  const { current: isControlled } = React.useRef(controlled !== undefined);
-  const [valueState, setValue] = React.useState(defaultProp);
-  const value = isControlled ? controlled : valueState;
-
-  const setValueIfUncontrolled = React.useCallback((newValue) => {
-    if (!isControlled) {
-      setValue(newValue);
-    }
-  }, []);
-
-  return [value, setValueIfUncontrolled];
 }

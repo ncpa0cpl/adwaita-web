@@ -14,7 +14,7 @@ export type MenuProps = ExtendElementProps<
   "div",
   React.PropsWithChildren<{
     className?: string;
-    icons: boolean;
+    icons?: boolean;
   }>
 >;
 
@@ -35,6 +35,7 @@ export type MenuButtonProps = ExtendElementProps<
     checkbox?: boolean;
     accelerator?: string;
     menu?: boolean;
+    selected?: boolean;
   }
 >;
 

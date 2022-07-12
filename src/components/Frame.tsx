@@ -1,30 +1,30 @@
-/*
- * Frame.js
- */
-
-import React from "react";
 import cx from "clsx";
-import prop from "prop-types";
+import React from "react";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 
-const propTypes = {
-  className: prop.string,
-  /** The label of the frame (using <fieldset>/<legend>) */
-  label: prop.node,
-  /** The background color */
-  background: prop.oneOf(["low", "default", "medium", "high"]),
-  /** If true, is displayed as an inline element */
-  inline: prop.bool,
-  /** If true, is scrollable */
-  scrollable: prop.bool,
-  /** If true, shows a border */
-  border: prop.bool,
-};
+export type FrameProps = ExtendElementProps<
+  "div",
+  {
+    className?: string;
+    /** The label of the frame (using <fieldset>/<legend>) */
+    label?: React.ReactNode;
+    /** The background color */
+    background?: "low" | "default" | "medium" | "high";
+    /** If true, is displayed as an inline element */
+    inline?: boolean;
+    /** If true, is scrollable */
+    scrollable?: boolean;
+    /** If true, shows a border */
+    border?: boolean;
+    padded?: boolean;
+  }
+>;
 
 const defaultProps = {
   border: true,
 };
 
-function Frame({
+export function Frame({
   children,
   className,
   inline,
@@ -34,9 +34,10 @@ function Frame({
   label,
   padded,
   ...rest
-}) {
+}: FrameProps) {
   const Component = label ? "fieldset" : "div";
   return (
+    // @ts-ignore
     <Component
       className={cx(
         "Frame",
@@ -58,7 +59,4 @@ function Frame({
   );
 }
 
-Frame.propTypes = propTypes;
 Frame.defaultProps = defaultProps;
-
-export default Frame;

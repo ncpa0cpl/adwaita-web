@@ -2,14 +2,17 @@
  * MenuBar.js
  */
 
+import cx from "clsx";
 import React, { useState } from "react";
-import cx from "classname";
 
-import Menu from "./Menu";
-import Label from "./Label";
-import Popover from "./Popover";
+import type { ExtendElementProps } from "../utils/extendElementProp";
+import { Label } from "./Label";
+import { Menu } from "./Menu";
+import { Popover } from "./Popover";
 
-function MenuBar({ children, className, ...rest }) {
+export type MenuBarProps = ExtendElementProps<"div", {}>;
+
+export function MenuBar({ children, className, ...rest }: MenuBarProps) {
   return (
     <div className={cx("MenuBar", className)} {...rest}>
       {children}
@@ -17,7 +20,14 @@ function MenuBar({ children, className, ...rest }) {
   );
 }
 
-function Button({ label, children, className, ...rest }) {
+export type MenuBarButtonProps = ExtendElementProps<
+  "button",
+  {
+    label?: string;
+  }
+>;
+
+export function Button({ label, children, className, ...rest }: MenuBarButtonProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -46,8 +56,6 @@ function Button({ label, children, className, ...rest }) {
 }
 
 MenuBar.Button = Button;
-
-export default MenuBar;
 
 // Helpers
 
