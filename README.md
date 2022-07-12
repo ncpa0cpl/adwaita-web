@@ -52,9 +52,6 @@ function App() {
 export default App;
 ```
 
-At the moment, the [source code](https://github.com/romgrk/web-toolkit/blob/master/packages/web-toolkit/src/demo/App.js)
-for the [live demo](https://romgrk.github.io/web-toolkit/) is the best place to understand how to use the framework.
-
 Some [documentation](https://romgrk.github.io/web-toolkit/docs) is also available
 but is a work in progress and not complete yet.
 
