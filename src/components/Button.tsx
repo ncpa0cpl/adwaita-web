@@ -1,9 +1,7 @@
 import cx from "clsx";
 import React from "react";
+import type { AdwaitaIcon } from "../icons";
 import type { ExtendElementProps } from "../utils/extendElementProp";
-
-import type { IconProps } from "./Icon";
-import { Icon } from "./Icon";
 import { Spinner } from "./Spinner";
 
 export type ButtonProps = ExtendElementProps<
@@ -12,7 +10,7 @@ export type ButtonProps = ExtendElementProps<
     className?: string;
     size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
     /** An icon name */
-    icon?: IconProps["type"];
+    icon?: AdwaitaIcon;
     /** HTML button type */
     type?: "button" | "submit" | "reset";
     /** Shows a spinner and disables the button */
@@ -44,7 +42,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       className,
       size = "medium",
-      icon,
+      icon: IconElement,
       type = "button",
       disabled,
       loading,
@@ -87,7 +85,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...rest}
       >
         {loading && <Spinner />}
-        {icon && <Icon type={icon} colored className="Button__icon" />}
+        {IconElement && (
+          <IconElement colored containerProps={{ className: "Button__icon" }} />
+        )}
         {children}
       </button>
     );

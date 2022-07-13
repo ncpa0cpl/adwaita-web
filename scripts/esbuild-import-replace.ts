@@ -33,10 +33,10 @@ export const replaceImports = (options: {
           for (const index of lines.keys()) {
             const line = lines[index]!;
 
-            if (line.match(/^import.+/)) {
-              const importPath = line.match(/^import.+?["'](.+?)["']/);
-              if (importPath && importPath[1]) {
-                const path = importPath[1];
+            if (line.match(/^(import.+)|(export.+from.+)/)) {
+              const importPath = line.match(/^(import|export).+?["'](.+?)["']/);
+              if (importPath && importPath[2]) {
+                const path = importPath[2];
 
                 for (const [pattern, replaceWith] of options.replaceMap) {
                   if (path.match(pattern)) {
@@ -44,7 +44,10 @@ export const replaceImports = (options: {
                     lines.splice(
                       index,
                       1,
-                      line.replace(/^(import.+?["'])(.+)(["'].+)$/, `$1${newPath}$3`)
+                      line.replace(
+                        /^(import.+?["']|export.+?["'])(.+)(["'].+)$/,
+                        `$1${newPath}$3`
+                      )
                     );
                   }
                 }

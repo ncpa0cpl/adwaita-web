@@ -1,9 +1,9 @@
 import cx from "clsx";
 import React from "react";
 
+import { DialogInformation, DialogWarning, EmblemOk, WindowClose } from "../icons";
 import { Box } from "./Box";
 import { Button } from "./Button";
-import { Icon } from "./Icon";
 
 export type AlertProps = React.PropsWithChildren<{
   title: string;
@@ -32,17 +32,17 @@ export function Alert({
   danger,
   ...rest
 }: AlertProps) {
-  const iconType =
+  const IconElement =
     iconProp ?? info
-      ? Icon.Type.dialogInformation
+      ? DialogInformation
       : success
-      ? Icon.Type.emblemOk
+      ? EmblemOk
       : warning
-      ? Icon.Type.dialogWarning
+      ? DialogWarning
       : danger
-      ? Icon.Type.dialogWarning
-      : Icon.Type.dialogInformation;
-  const showIcon = Boolean(iconType);
+      ? DialogWarning
+      : DialogWarning;
+  const showIcon = Boolean(IconElement);
 
   const alertClassName = cx("Alert", className, size, {
     info,
@@ -55,7 +55,7 @@ export function Alert({
     <Box horizontal className={alertClassName} {...rest}>
       {showIcon && (
         <Box className="Alert__icon">
-          <Icon type={iconType} />
+          <IconElement />
         </Box>
       )}
       <Box.Fill className="Alert__content">
@@ -63,11 +63,7 @@ export function Alert({
         <div className="Alert__message">{children}</div>
       </Box.Fill>
       {showClose && (
-        <Button
-          className="Alert__close"
-          icon={Icon.Type.windowClose}
-          onClick={onClose}
-        />
+        <Button className="Alert__close" icon={WindowClose} onClick={onClose} />
       )}
     </Box>
   );

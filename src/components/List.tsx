@@ -1,8 +1,7 @@
 import cx from "clsx";
 import React from "react";
+import { GoNext } from "../icons";
 import type { ExtendElementProps } from "../utils/extendElementProp";
-
-import { Icon } from "./Icon";
 import { Separator } from "./Separator";
 
 export type ListProps = ExtendElementProps<
@@ -105,9 +104,7 @@ export function Item({
       {...rest}
     >
       {children}
-      {expandable && (
-        <Icon type={Icon.Type.goNext} className="arrow" colored={false} />
-      )}
+      {expandable && <GoNext className="arrow" colored={false} />}
     </Element>
   );
 }

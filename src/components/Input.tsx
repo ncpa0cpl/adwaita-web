@@ -1,12 +1,12 @@
 import cx from "clsx";
 import React, { useRef } from "react";
+import type { AdwaitaIcon } from "../icons";
+import { WindowClose } from "../icons";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import useControlled from "../utils/useControlled";
 import { useForceUpdate } from "../utils/useForceUpdates";
 import { Button } from "./Button";
-import type { IconProps } from "./Icon";
-import { Icon } from "./Icon";
 import { Spinner } from "./Spinner";
 
 const noop = () => {};
@@ -24,9 +24,9 @@ export type InputProps = ExtendElementProps<
     /** Shows a loading indicator */
     loading?: boolean;
     /** Icon name or node (left) */
-    icon?: IconProps["type"];
+    icon?: AdwaitaIcon;
     /** Icon name or node (right) */
-    iconAfter?: IconProps["type"];
+    iconAfter?: AdwaitaIcon;
     placeholder?: string;
     /** Disable the input */
     disabled?: boolean;
@@ -60,8 +60,8 @@ const InputImpl = React.forwardRef<HTMLDivElement, InputProps>(function Input(
     className,
     size = "medium",
     loading,
-    icon: iconValue,
-    iconAfter,
+    icon: IconElement,
+    iconAfter: IconAfterElement,
     placeholder,
     flat,
     disabled: disabledValue,
@@ -121,18 +121,16 @@ const InputImpl = React.forwardRef<HTMLDivElement, InputProps>(function Input(
 
   if (allowClear) {
     if (value) {
-      iconAfter = Icon.Type.windowClose;
+      IconAfterElement = WindowClose;
       onClickIconAfter = () => setValue("");
     } else {
-      iconAfter = undefined;
+      IconAfterElement = undefined;
     }
   }
 
   return (
     <div className={inputClassName} ref={ref} onClick={onClickContainer}>
-      <span className="Input__left">
-        {iconValue ? <Icon type={iconValue} /> : spinner}
-      </span>
+      <span className="Input__left">{IconElement ? <IconElement /> : spinner}</span>
       <div className="Input__area">
         <input
           type={type}
@@ -162,7 +160,7 @@ const InputImpl = React.forwardRef<HTMLDivElement, InputProps>(function Input(
           />
         </div>
       )}
-      {iconAfter &&
+      {IconAfterElement &&
         (onClickIconAfter ? (
           <Button
             className="Input__right"
@@ -170,11 +168,11 @@ const InputImpl = React.forwardRef<HTMLDivElement, InputProps>(function Input(
             size={size}
             onClick={onClickIconAfter}
           >
-            <Icon type={iconAfter} />
+            <IconAfterElement />
           </Button>
         ) : (
           <span className="Input__right">
-            <Icon type={iconAfter} />
+            <IconAfterElement />
           </span>
         ))}
     </div>

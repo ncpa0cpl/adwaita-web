@@ -18,7 +18,7 @@
   },
   "eslint.validate": ["javascript", "typescript", "typescriptreact"],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": ["Immer", "Middlewares"],
+  "cSpell.words": ["Adwaita", "Immer", "Middlewares"],
   "json.schemas": [
     {
       "fileMatch": ["git-hook-tasks.config.json"],

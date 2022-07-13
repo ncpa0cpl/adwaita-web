@@ -1,8 +1,8 @@
 import cx from "clsx";
 import { equals } from "rambda";
 import React from "react";
+import { PanEnd, PanStart } from "../icons";
 
-import { Icon } from "./Icon";
 import { Label } from "./Label";
 
 export type ExpanderProps = React.PropsWithChildren<{
@@ -153,12 +153,10 @@ export class Expander extends React.Component<ExpanderProps> {
     ) : !label ? null : (
       <button type="button" className={triggerClassName} onClick={toggle}>
         {iconPosition === "before" && (
-          <Icon type={Icon.Type.panEnd} className="arrow-before" />
+          <PanEnd containerProps={{ className: "arrow-before" }} />
         )}
         <Label>{label}</Label>
-        {iconPosition === "after" && (
-          <Icon type={Icon.Type.panStart} className="arrow-after" />
-        )}
+        {iconPosition === "after" && <PanStart className="arrow-after" />}
       </button>
     );
 

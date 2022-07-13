@@ -1,9 +1,9 @@
 import cx from "clsx";
 import { addDays, addMonths, endOfMonth, format, startOfMonth } from "date-fns";
 import React, { useState } from "react";
+import { GoNext, GoPrevious } from "../icons";
 import { Box } from "./Box";
 import { Button } from "./Button";
-import { Icon } from "./Icon";
 import { Input } from "./Input";
 import { Label } from "./Label";
 
@@ -164,7 +164,7 @@ export class Calendar extends React.Component<CalendarProps> {
         <Box className="Calendar__header" horizontal compact>
           <Button
             flat
-            icon={Icon.Type.goPrevious}
+            icon={GoPrevious}
             onClick={this.onPrevious}
             className="Calendar__previous"
           />
@@ -192,7 +192,7 @@ export class Calendar extends React.Component<CalendarProps> {
           </Button>
           <Button
             flat
-            icon={Icon.Type.goNext}
+            icon={GoNext}
             onClick={this.onNext}
             className="Calendar__next"
           />
@@ -251,7 +251,7 @@ function YearPicker({ value, onChange, onAccept }: YearPickerProps) {
             <Button
               flat
               size="huge"
-              icon={Icon.Type.goPrevious}
+              icon={GoPrevious}
               onClick={() => onChange(value - 1)}
             />
             <Input
@@ -264,7 +264,7 @@ function YearPicker({ value, onChange, onAccept }: YearPickerProps) {
             <Button
               flat
               size="huge"
-              icon={Icon.Type.goNext}
+              icon={GoNext}
               onClick={() => onChange(value + 1)}
             />
           </Input.Group>

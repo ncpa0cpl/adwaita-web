@@ -3,6 +3,7 @@ import svgr from "esbuild-plugin-svgr";
 import { sassPlugin } from "esbuild-sass-plugin";
 import glob from "tiny-glob";
 import { replaceImports } from "./esbuild-import-replace";
+import { svgReactTemplate } from "./svgr-icon-template";
 
 async function buildScss() {
   const files = await glob("./src/adwaita/adwaita*.{scss}");
@@ -29,7 +30,10 @@ async function main() {
   build({
     entryPoints: files,
     plugins: [
-      svgr(),
+      svgr({
+        memo: true,
+        template: svgReactTemplate,
+      }),
       replaceImports({
         replaceMap: [
           [/.+\.(scss|sass)$/i, (path) => path.replace(/\.scss$/, ".js")],
@@ -39,7 +43,7 @@ async function main() {
     ],
     bundle: false,
     outdir: "./dist",
-    target: "es2020",
+    target: "es2022",
     jsx: "transform",
     loader: {
       ".js": "jsx",
@@ -47,6 +51,7 @@ async function main() {
     minify: false,
     tsconfig: "./tsconfig.json",
     format: "esm",
+    pure: ["Alert"],
   });
 }
 

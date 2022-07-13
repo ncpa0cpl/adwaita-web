@@ -1,11 +1,11 @@
 import cx from "clsx";
 import React from "react";
+import type { AdwaitaIcon } from "../icons";
+import { EmblemOk, GoNext, GoPrevious, Radio } from "../icons";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import type { BoxProps } from "./Box";
 import { Box } from "./Box";
-import type { IconProps } from "./Icon";
-import { Icon } from "./Icon";
 import type { LabelProps } from "./Label";
 import { Label } from "./Label";
 import { Separator } from "./Separator";
@@ -30,7 +30,7 @@ export type MenuButtonProps = ExtendElementProps<
   "button",
   {
     className?: string;
-    icon?: IconProps["type"];
+    icon?: AdwaitaIcon;
     radio?: boolean;
     checkbox?: boolean;
     accelerator?: string;
@@ -45,22 +45,24 @@ export function Button({
   radio,
   checkbox,
   accelerator,
-  icon,
+  icon: IconElement,
   menu,
   ...rest
 }: MenuButtonProps) {
   return (
     <button className={cx("ModelButton Menu__button", className)} {...rest}>
       {checkbox !== undefined && (
-        <Icon type={Icon.Type.emblemOk} className="Menu__icon" />
+        <EmblemOk containerProps={{ className: "Menu__icon" }} />
       )}
-      {radio && <Icon type={Icon.Type.radio} className="Menu__icon" />}
+      {radio && <Radio containerProps={{ className: "Menu__icon" }} />}
       <span className="Label Menu__button__text">{children}</span>
       {accelerator && (
         <span className="Label Menu__button__accelerator">{accelerator}</span>
       )}
-      {icon && <Icon type={icon} className="Menu__iconAfter" />}
-      {menu && <Icon type={Icon.Type.goNext} className="Menu__iconAfter submenu" />}
+      {IconElement && (
+        <IconElement containerProps={{ className: "Menu__iconAfter" }} />
+      )}
+      {menu && <GoNext containerProps={{ className: "Menu__iconAfter submenu" }} />}
     </button>
   );
 }
@@ -78,7 +80,7 @@ export function Back({ children, className, ...rest }: MenuBackProps) {
       className={cx("ModelButton Menu__button Menu__back", className)}
       {...rest}
     >
-      <Icon type={Icon.Type.goPrevious} className="Menu__icon submenu" />
+      <GoPrevious containerProps={{ className: "Menu__icon submenu" }} />
       <span className="Label Menu__button__text">{children}</span>
     </button>
   );

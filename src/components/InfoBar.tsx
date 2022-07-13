@@ -1,10 +1,10 @@
 import cx from "clsx";
 import React, { useState } from "react";
+import { WindowClose } from "../icons";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import { Box } from "./Box";
 import { Button } from "./Button";
-import { Icon } from "./Icon";
 
 export type InfoBarProps = ExtendElementProps<
   "div",
@@ -54,9 +54,7 @@ export function InfoBar({
     >
       <Box horizontal align fill>
         <span className="Box__fill">{children}</span>
-        {closable && (
-          <Button icon={Icon.Type.windowClose} onClick={() => setClose(true)} />
-        )}
+        {closable && <Button icon={WindowClose} onClick={() => setClose(true)} />}
       </Box>
     </div>
   );

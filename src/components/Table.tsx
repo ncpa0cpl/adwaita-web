@@ -11,6 +11,7 @@ import {
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList } from "react-window";
 import getScrollbarWidth from "scrollbar-size";
+import { PanDown, WindowClose } from "../icons";
 import { getPropAndCastOr } from "../utils/getPropAndCastOr";
 import { hasKey } from "../utils/hasKey";
 
@@ -18,7 +19,6 @@ import { Box } from "./Box";
 import { Button } from "./Button";
 import type { DropdownOption } from "./Dropdown";
 import { Dropdown } from "./Dropdown";
-import { Icon } from "./Icon";
 import { Input } from "./Input";
 
 export type TableProps = {
@@ -136,13 +136,14 @@ export function Table({
                   >
                     <Box.Fill>{column.render("Header")}</Box.Fill>
                     {hasKey(column, "canSort") && column.canSort && (
-                      <Icon
-                        type={Icon.Type.panDown}
-                        className={cx("table__sortIcon", {
-                          hidden: !hasKey(column, "isSorted") || !column.isSorted,
-                          descending:
-                            hasKey(column, "isSortedDesc") && column.isSortedDesc,
-                        })}
+                      <PanDown
+                        containerProps={{
+                          className: cx("table__sortIcon", {
+                            hidden: !hasKey(column, "isSorted") || !column.isSorted,
+                            descending:
+                              hasKey(column, "isSortedDesc") && column.isSortedDesc,
+                          }),
+                        }}
                       />
                     )}
                   </Box>
@@ -228,7 +229,7 @@ function DropdownFilter<T extends string | number | boolean>({
       <Button
         flat
         size="small"
-        icon={Icon.Type.windowClose}
+        icon={WindowClose}
         onClick={() => setFilter && setFilter(undefined)}
       />
     </Box>

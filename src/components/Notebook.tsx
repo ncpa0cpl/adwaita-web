@@ -1,9 +1,9 @@
 import cx from "clsx";
 import React, { useState } from "react";
+import { PanDown, PanEnd, PanStart, PanUp, WindowClose } from "../icons";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import { Button } from "./Button";
-import { Icon } from "./Icon";
 import { Label } from "./Label";
 import type { PageSwitcherProps } from "./PageSwitcher";
 import { PageSwitcher } from "./PageSwitcher";
@@ -61,7 +61,7 @@ export function Notebook({
           {arrows && (
             <Button
               className="Notebook__arrow"
-              icon={isHorizontal ? Icon.Type.panStart : Icon.Type.panUp}
+              icon={isHorizontal ? PanStart : PanUp}
               disabled={activePage === 0}
               onClick={previousPage}
             />
@@ -81,7 +81,7 @@ export function Notebook({
               {page.closable && (
                 <Button
                   size="small"
-                  icon={Icon.Type.windowClose}
+                  icon={WindowClose}
                   tabIndex={-1}
                   onClick={(ev) => (ev.stopPropagation(), onClose(i))}
                 />
@@ -91,7 +91,7 @@ export function Notebook({
           {arrows && (
             <Button
               className="Notebook__arrow"
-              icon={isHorizontal ? Icon.Type.panEnd : Icon.Type.panDown}
+              icon={isHorizontal ? PanEnd : PanDown}
               disabled={activePage >= pages.length - 1}
               onClick={nextPage}
             />

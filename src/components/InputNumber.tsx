@@ -1,7 +1,7 @@
 import cx from "clsx";
 import React, { useState } from "react";
+import { ListAdd, ListRemove } from "../icons";
 import type { ExtendElementProps } from "../utils/extendElementProp";
-import { Icon } from "./Icon";
 
 const noop = () => {};
 
@@ -73,7 +73,7 @@ export function InputNumber({
         disabled={downDisabled}
         onClick={onDown}
       >
-        <Icon type={Icon.Type.listRemove} />
+        <ListRemove />
       </button>
       <button
         tabIndex={-1}
@@ -81,7 +81,7 @@ export function InputNumber({
         disabled={upDisabled}
         onClick={onUp}
       >
-        <Icon type={Icon.Type.listAdd} />
+        <ListAdd />
       </button>
     </div>
   );

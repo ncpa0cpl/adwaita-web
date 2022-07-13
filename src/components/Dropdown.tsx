@@ -4,9 +4,9 @@
 
 import cx from "clsx";
 import React from "react";
+import { PanDown } from "../icons";
 
 import { Button } from "./Button";
-import { Icon } from "./Icon";
 import { Input } from "./Input";
 import { Label } from "./Label";
 import { Menu } from "./Menu";
@@ -266,7 +266,7 @@ export class Dropdown<T extends string | number | boolean> extends React.Compone
           <Label align="left" className="Box__fill">
             {label}
           </Label>
-          <Icon type={Icon.Type.panDown} className="Dropdown__arrow" />
+          <PanDown containerProps={{ className: "Dropdown__arrow" }} />
         </Button>
       );
     } else {
@@ -285,7 +285,7 @@ export class Dropdown<T extends string | number | boolean> extends React.Compone
           onBlur={this.onInputBlur}
           onChange={this.onInputChange}
           onAccept={this.onInputAccept}
-          iconAfter={Icon.Type.panDown}
+          iconAfter={PanDown}
           ref={(ref) => ref && (this.trigger = ref)}
           {...rest}
         >

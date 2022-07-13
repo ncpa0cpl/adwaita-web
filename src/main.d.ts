@@ -4,6 +4,11 @@ declare module "*.scss" {
 }
 
 declare module "*.svg" {
-  const SVG: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  const SVG: React.ComponentType<
+    React.SVGProps<SVGSVGElement> & {
+      colored?: boolean;
+      containerProps?: JSX.IntrinsicElements["span"];
+    }
+  >;
   export default SVG;
 }
