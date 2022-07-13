@@ -51,7 +51,6 @@ async function main() {
     minify: false,
     tsconfig: "./tsconfig.json",
     format: "esm",
-    pure: ["Alert"],
   });
 }
 

@@ -20,7 +20,7 @@
     "build": "yarn clear && yarn build:raw",
     "prettier:fix": "prettier --write './src/**/*.{ts,js,css,scss,html}'",
     "lint:fix": "eslint --fix './src/**/*.{ts,js,css,scss,html}'",
-    "generate-declarations": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir ./dist"
+    "generate-declarations": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir ./dist && cp ./src/declarations.d.ts ./dist/"
   },
   "license": "MIT",
   "dependencies": {
