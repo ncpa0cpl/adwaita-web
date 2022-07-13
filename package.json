@@ -20,6 +20,7 @@
     "build": "yarn clear && yarn build:raw",
     "prettier:fix": "prettier --write './src/**/*.{ts,js,css,scss,html}'",
     "lint:fix": "eslint --fix './src/**/*.{ts,js,css,scss,html}'",
+    "generate-docs": "node -r @swc-node/register ./scripts/generate-docs/generate-type-docs.ts",
     "generate-declarations": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir ./dist && cp ./src/declarations.d.ts ./dist/"
   },
   "license": "MIT",
@@ -52,6 +53,7 @@
     "@types/react-table": "^7.6.2",
     "@types/react-virtualized-auto-sizer": "^1.0.1",
     "@types/react-window": "^1.8.5",
+    "@types/workerpool": "^6.1.0",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "camelcase": "^5.2.0",
@@ -94,8 +96,10 @@
     "swc-node": "^1.0.0",
     "tiny-glob": "^0.2.9",
     "ts-pnp": "1.1.4",
+    "typedoc": "^0.23.7",
     "typescript": "^4.7.4",
     "workbox-webpack-plugin": "4.3.1",
+    "workerpool": "^6.2.1",
     "xml-js": "^1.6.11"
   },
   "sideEffects": [

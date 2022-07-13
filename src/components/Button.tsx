@@ -36,60 +36,65 @@ export type ButtonProps = ExtendElementProps<
   }
 >;
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  function Button(
-    {
-      children,
-      className,
-      size = "medium",
-      icon: IconElement,
-      type = "button",
-      disabled,
-      loading,
-      circular,
-      flat,
-      link,
-      active,
-      hover,
-      text,
-      image,
-      primary,
-      danger,
-      ...rest
-    },
-    ref
-  ) {
-    const isImageButton = image !== undefined ? image : Boolean(!children);
-    return (
-      // @ts-ignore
-      <button
-        className={
-          cx("Button", size, {
-            disabled,
-            circular,
-            flat,
-            link,
-            active,
-            hover,
-            "text-button": text,
-            "image-button": isImageButton,
-            "suggested-action": primary,
-            "destructive-action": danger,
-          }) +
-          " " +
-          cx(className)
-        }
-        disabled={disabled || loading}
-        type={type}
-        ref={ref}
-        {...rest}
-      >
-        {loading && <Spinner />}
-        {IconElement && (
-          <IconElement colored containerProps={{ className: "Button__icon" }} />
-        )}
-        {children}
-      </button>
-    );
-  }
-);
+/**
+ * This is a button component.
+ *
+ * @Group Components
+ */
+export function ButtonImpl(
+  {
+    children,
+    className,
+    size = "medium",
+    icon: IconElement,
+    type = "button",
+    disabled,
+    loading,
+    circular,
+    flat,
+    link,
+    active,
+    hover,
+    text,
+    image,
+    primary,
+    danger,
+    ...rest
+  }: ButtonProps,
+  ref: React.ForwardedRef<HTMLButtonElement>
+) {
+  const isImageButton = image !== undefined ? image : Boolean(!children);
+  return (
+    // @ts-ignore
+    <button
+      className={
+        cx("Button", size, {
+          disabled,
+          circular,
+          flat,
+          link,
+          active,
+          hover,
+          "text-button": text,
+          "image-button": isImageButton,
+          "suggested-action": primary,
+          "destructive-action": danger,
+        }) +
+        " " +
+        cx(className)
+      }
+      disabled={disabled || loading}
+      type={type}
+      ref={ref}
+      {...rest}
+    >
+      {loading && <Spinner />}
+      {IconElement && (
+        <IconElement colored containerProps={{ className: "Button__icon" }} />
+      )}
+      {children}
+    </button>
+  );
+}
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(ButtonImpl);
