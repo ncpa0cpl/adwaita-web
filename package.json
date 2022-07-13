@@ -36,8 +36,8 @@
     "scrollbar-size": "^2.1.0"
   },
   "peerDependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.12.13",
