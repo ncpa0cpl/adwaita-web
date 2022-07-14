@@ -22,7 +22,7 @@ export type LabelProps = ExtendElementProps<
   }
 >;
 
-export function Label({
+export function LabelImpl({
   children,
   className,
   size = "medium",
@@ -72,3 +72,5 @@ export function Label({
     children
   );
 }
+
+export const Label = LabelImpl;

@@ -52,7 +52,7 @@ export type InputProps = ExtendElementProps<
   }
 >;
 
-const InputImpl = React.forwardRef<HTMLDivElement, InputProps>(function Input(
+export const InputImpl = React.forwardRef<HTMLDivElement, InputProps>(function Input(
   {
     type = "text",
     value: valueProp,

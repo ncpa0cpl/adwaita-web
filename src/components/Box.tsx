@@ -20,7 +20,7 @@ export type BoxProps = ExtendElementProps<
   }>
 >;
 
-export function Box({
+export function BoxImpl({
   children,
   className,
   inline,
@@ -83,7 +83,9 @@ function Fill({ children, className, expandChildren, ...rest }: FillProps) {
   );
 }
 
-Box.Fill = Fill;
+BoxImpl.Fill = Fill;
+
+export const Box = BoxImpl;
 
 // Helpers
 

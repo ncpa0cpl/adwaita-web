@@ -31,7 +31,7 @@ export type CalendarProps = {
   onChange?: (date: Date) => void;
 };
 
-export class Calendar extends React.Component<CalendarProps> {
+export class CalendarImpl extends React.Component<CalendarProps> {
   override state = {
     mode: MODE.DAY,
     value: new Date(),
@@ -210,6 +210,8 @@ export class Calendar extends React.Component<CalendarProps> {
     );
   }
 }
+
+export const Calendar = CalendarImpl;
 
 type YearPickerProps = {
   value: number;

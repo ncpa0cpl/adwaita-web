@@ -22,7 +22,7 @@ export type RadioProps = {
   onChange?: (checked: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export class Radio extends React.Component<RadioProps> {
+export class RadioImpl extends React.Component<RadioProps> {
   static Group = RadioGroup;
 
   static defaultProps = {
@@ -81,6 +81,8 @@ export class Radio extends React.Component<RadioProps> {
   }
 }
 
+export const Radio = RadioImpl;
+
 export type RadioGroupProps = {
   name?: string;
   className?: string;
@@ -112,7 +114,7 @@ export function RadioGroup({
   return (
     <Box horizontal={horizontal} vertical={!horizontal} compact={compact}>
       {options.map((o) => (
-        <Radio
+        <RadioImpl
           key={o.value}
           size={size}
           name={name}

@@ -547,6 +547,7 @@ export { default as ZoomIn } from "./icons/zoom-in-symbolic.svg";
 export { default as ZoomOriginal } from "./icons/zoom-original-symbolic.svg";
 export { default as ZoomOut } from "./icons/zoom-out-symbolic.svg";
 
+/** @notExported */
 export type AdwaitaIcon = React.ComponentType<
   React.SVGProps<SVGSVGElement> & {
     colored?: boolean;

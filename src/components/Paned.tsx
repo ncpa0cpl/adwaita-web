@@ -3,7 +3,7 @@ import React from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { trackFinger } from "../utils/trackFinger";
 
-const properties = {
+export const properties = {
   horizontal: {
     size: "width",
     position: "left",
@@ -16,7 +16,7 @@ const properties = {
   } as const,
 };
 
-type Orientation = keyof typeof properties;
+export type Orientation = keyof typeof properties;
 
 export type PanedProps = React.PropsWithChildren<{
   className?: string;
@@ -27,7 +27,7 @@ export type PanedProps = React.PropsWithChildren<{
   fill?: boolean | "width" | "height";
 }>;
 
-export class Paned extends React.Component<PanedProps> {
+export class PanedImpl extends React.Component<PanedProps> {
   static defaultProps = {
     orientation: "horizontal",
     border: true,
@@ -200,6 +200,8 @@ export class Paned extends React.Component<PanedProps> {
     );
   }
 }
+
+export const Paned = PanedImpl;
 
 function handleStyle(orientation: Orientation, size: number) {
   return {

@@ -21,7 +21,7 @@ export type SwitchProps = {
   onChange?: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export class Switch extends React.Component<SwitchProps> {
+export class SwitchImpl extends React.Component<SwitchProps> {
   static defaultProps = {
     size: "medium",
     labels: false,
@@ -78,3 +78,5 @@ export class Switch extends React.Component<SwitchProps> {
     );
   }
 }
+
+export const Switch = SwitchImpl;

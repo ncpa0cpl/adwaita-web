@@ -20,7 +20,7 @@ export type ListProps = ExtendElementProps<
   }>
 >;
 
-export function List({
+export function ListImpl({
   children,
   className,
   size = "medium",
@@ -63,6 +63,8 @@ export function List({
     </div>
   );
 }
+
+export const List = ListImpl;
 
 export type ItemProps = ExtendElementProps<
   "div",
@@ -109,8 +111,8 @@ export function Item({
   );
 }
 
-List.Item = Item;
-List.Separator = Separator;
+ListImpl.Item = Item;
+ListImpl.Separator = Separator;
 
 // Helpers
 

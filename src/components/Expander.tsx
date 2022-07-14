@@ -37,7 +37,7 @@ type ExpanderState = {
   containerStyle: React.CSSProperties;
 };
 
-export class Expander extends React.Component<ExpanderProps> {
+export class ExpanderImpl extends React.Component<ExpanderProps> {
   static defaultProps = {
     transition: "vertical",
     iconPosition: "after",
@@ -198,6 +198,8 @@ export class Expander extends React.Component<ExpanderProps> {
     );
   }
 }
+
+export const Expander = ExpanderImpl;
 
 // Helpers
 

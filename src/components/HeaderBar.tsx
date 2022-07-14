@@ -11,7 +11,7 @@ export type HeaderBarProps = ExtendElementProps<
   }
 >;
 
-export function HeaderBar({
+export function HeaderBarImpl({
   className,
   children,
   titlebar,
@@ -25,6 +25,8 @@ export function HeaderBar({
     </div>
   );
 }
+
+export const HeaderBar = HeaderBarImpl;
 
 export type HeaderBarTitleProps = React.PropsWithChildren<{
   subtitle?: string;
@@ -55,5 +57,5 @@ export function Controls({ children }: React.PropsWithChildren) {
   );
 }
 
-HeaderBar.Title = Title;
-HeaderBar.Controls = Controls;
+HeaderBarImpl.Title = Title;
+HeaderBarImpl.Controls = Controls;

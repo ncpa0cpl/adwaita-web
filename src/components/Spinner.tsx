@@ -7,10 +7,12 @@ export type SpinnerProps = {
   disabled?: boolean;
 };
 
-export function Spinner({ hidden, disabled }: SpinnerProps) {
+export function SpinnerImpl({ hidden, disabled }: SpinnerProps) {
   return (
     <ProcessWorking
       containerProps={{ className: cx("Spinner", { hidden, disabled }) }}
     />
   );
 }
+
+export const Spinner = SpinnerImpl;

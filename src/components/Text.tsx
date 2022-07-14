@@ -24,7 +24,7 @@ export type TextProps<P extends keyof JSX.IntrinsicElements = "p"> =
     }>
   >;
 
-export function Text<P extends keyof JSX.IntrinsicElements = "p">({
+export function TextImpl<P extends keyof JSX.IntrinsicElements = "p">({
   children,
   className,
   size,
@@ -72,3 +72,5 @@ export function Text<P extends keyof JSX.IntrinsicElements = "p">({
     children
   );
 }
+
+export const Text = TextImpl;

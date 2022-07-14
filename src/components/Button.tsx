@@ -97,4 +97,6 @@ export function ButtonImpl(
   );
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(ButtonImpl);
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  React.memo(ButtonImpl)
+);

@@ -108,9 +108,9 @@ export type RangeProps = {
   valueLabelFormat?: string | ((value: number, index: number) => string);
 };
 
-export const Range = React.forwardRef<HTMLSpanElement, RangeProps>(function Range(
-  props,
-  ref
+export const RangeImpl = function Range(
+  props: RangeProps,
+  ref: React.ForwardedRef<HTMLSpanElement>
 ) {
   const {
     "aria-label": ariaLabel,
@@ -645,7 +645,9 @@ export const Range = React.forwardRef<HTMLSpanElement, RangeProps>(function Rang
       </span>
     </span>
   );
-});
+};
+
+export const Range = React.forwardRef<HTMLSpanElement, RangeProps>(RangeImpl);
 
 // Helpers
 

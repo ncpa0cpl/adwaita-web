@@ -29,7 +29,7 @@ export type TableProps = {
   filterable?: boolean;
 };
 
-export function Table({
+export function TableImpl({
   className,
   columns: columnsValue,
   data,
@@ -183,6 +183,8 @@ export function Table({
   );
 }
 
+export const Table = TableImpl;
+
 export type InputFilterProps = {
   column: {
     id?: string;
@@ -236,8 +238,8 @@ function DropdownFilter<T extends string | number | boolean>({
   );
 }
 
-Table.InputFilter = InputFilter;
-Table.DropdownFilter = DropdownFilter;
+TableImpl.InputFilter = InputFilter;
+TableImpl.DropdownFilter = DropdownFilter;
 
 function transformColumns<T extends Record<string, any>>(cs: Array<T>): Array<T> {
   return cs.map((c) => {

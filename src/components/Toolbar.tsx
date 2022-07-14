@@ -7,7 +7,7 @@ export type ToolbarProps = React.PropsWithChildren<{
   vertical?: boolean;
 }>;
 
-export function Toolbar({
+export function ToolbarImpl({
   className,
   children,
   horizontal,
@@ -19,3 +19,5 @@ export function Toolbar({
     </div>
   );
 }
+
+export const Toolbar = ToolbarImpl;

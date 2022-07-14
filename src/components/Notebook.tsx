@@ -5,27 +5,33 @@ import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import { Button } from "./Button";
 import { Label } from "./Label";
-import type { PageSwitcherProps } from "./PageSwitcher";
 import { PageSwitcher } from "./PageSwitcher";
 
 const noop = () => {};
+
+export type PageSwitcherPage = {
+  key: string | number;
+  label?: React.ReactNode;
+  content: React.ReactNode;
+  closable?: boolean;
+};
 
 export type NotebookProps = ExtendElementProps<
   "div",
   {
     position?: "top" | "bottom" | "left" | "right";
-    transition?: PageSwitcherProps["transition"];
+    transition?: "horizontal" | "vertical" | "opacity" | false;
     arrows?: boolean;
     className?: string;
     value?: number;
-    pages: PageSwitcherProps["pages"];
+    pages: PageSwitcherPage[];
     action?: React.ReactNode;
     onChange: (value: number) => void;
     onClose: (pageIndex: number) => void;
   }
 >;
 
-export function Notebook({
+export function NotebookImpl({
   className,
   position,
   transition,
@@ -113,7 +119,9 @@ export function Notebook({
   );
 }
 
-Notebook.defaultProps = {
+export const Notebook = NotebookImpl;
+
+NotebookImpl.defaultProps = {
   position: "top",
   arrows: false,
   onChange: noop,
