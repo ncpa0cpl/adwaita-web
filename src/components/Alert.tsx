@@ -18,7 +18,7 @@ export type AlertProps = React.PropsWithChildren<{
   danger: boolean;
 }>;
 
-export function AlertImpl({
+export function Alert({
   title,
   children,
   className,
@@ -69,9 +69,7 @@ export function AlertImpl({
   );
 }
 
-AlertImpl.defaultProps = {
+Alert.defaultProps = {
   showClose: false,
   onClose: () => {},
 };
-
-export const Alert = AlertImpl;

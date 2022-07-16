@@ -26,7 +26,7 @@ export type InputNumberProps = ExtendElementProps<
   }
 >;
 
-export function InputNumberImpl({
+export function InputNumber({
   className,
   size,
   vertical,
@@ -87,9 +87,7 @@ export function InputNumberImpl({
   );
 }
 
-export const InputNumber = InputNumberImpl;
-
-InputNumberImpl.defaultProps = {
+InputNumber.defaultProps = {
   size: "medium",
   onChange: noop,
 };

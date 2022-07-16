@@ -19,7 +19,7 @@ async function main() {
   console.log("Generating Type Docs");
 
   try {
-    const componentFiles = await glob("./src/components/*.{ts,tsx,svg}");
+    const componentFiles = await glob("./src/components/*.{ts,tsx,svg}"); // TODO: revert changes
 
     const componentTypeDocs = await Promise.all(
       componentFiles.map(async (f) => {

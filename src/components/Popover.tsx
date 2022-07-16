@@ -52,7 +52,7 @@ type PopoverState = {
   actualPlacement: PopoverProps["placement"];
   styles: React.CSSProperties;
 };
-export class PopoverImpl extends React.PureComponent<PopoverProps> {
+export class Popover extends React.PureComponent<PopoverProps> {
   static defaultProps = {
     arrow: true,
     placement: "bottom",
@@ -459,5 +459,3 @@ export class PopoverImpl extends React.PureComponent<PopoverProps> {
     );
   }
 }
-
-export const Popover = PopoverImpl;

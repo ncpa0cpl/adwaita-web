@@ -19,64 +19,63 @@ export type TextAreaProps = ExtendElementProps<
   }
 >;
 
-export const TextAreaImpl = function TextArea(
-  {
-    className,
-    size = "medium",
-    placeholder,
-    flat,
-    disabled: disabledValue,
-    error,
-    warning,
-    progress,
-    onChange,
-    ...rest
-  }: TextAreaProps,
-  ref: React.ForwardedRef<HTMLDivElement>
-) {
-  const disabled = disabledValue;
-
-  const forceUpdate = useForceUpdate();
-  const inputRef = useRef<HTMLTextAreaElement | null>(null);
-  const isControlled = typeof rest.value === "string";
-  const value = isControlled
-    ? rest.value
-    : inputRef.current?.value || rest.defaultValue || "";
-
-  const inputClassName =
-    cx("Input TextArea", size, {
+export const TextArea = React.forwardRef<HTMLDivElement, TextAreaProps>(
+  (
+    {
+      className,
+      size = "medium",
+      placeholder,
       flat,
-      disabled,
+      disabled: disabledValue,
       error,
       warning,
-      progress: progress !== undefined,
-    }) +
-    " " +
-    cx(className);
+      progress,
+      onChange,
+      ...rest
+    }: TextAreaProps,
+    ref: React.ForwardedRef<HTMLDivElement>
+  ) => {
+    const disabled = disabledValue;
 
-  const onTextAreaChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (!isControlled) forceUpdate();
-    onChange && onChange(ev.target.value, ev);
-  };
+    const forceUpdate = useForceUpdate();
+    const inputRef = useRef<HTMLTextAreaElement | null>(null);
+    const isControlled = typeof rest.value === "string";
+    const value = isControlled
+      ? rest.value
+      : inputRef.current?.value || rest.defaultValue || "";
 
-  const onClickContainer = (ev: React.MouseEvent<HTMLDivElement>) => {
-    if (ev.target !== inputRef.current && inputRef.current) inputRef.current.focus();
-  };
+    const inputClassName =
+      cx("Input TextArea", size, {
+        flat,
+        disabled,
+        error,
+        warning,
+        progress: progress !== undefined,
+      }) +
+      " " +
+      cx(className);
 
-  return (
-    <div className={inputClassName} ref={ref} onClick={onClickContainer}>
-      <textarea
-        placeholder={placeholder}
-        disabled={disabled}
-        className={cx("Input__area", { empty: !value })}
-        ref={inputRef as any}
-        onChange={onTextAreaChange}
-        {...rest}
-      />
-    </div>
-  );
-};
+    const onTextAreaChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
+      if (!isControlled) forceUpdate();
+      onChange && onChange(ev.target.value, ev);
+    };
 
-export const TextArea = React.forwardRef<HTMLDivElement, TextAreaProps>(
-  TextAreaImpl
+    const onClickContainer = (ev: React.MouseEvent<HTMLDivElement>) => {
+      if (ev.target !== inputRef.current && inputRef.current)
+        inputRef.current.focus();
+    };
+
+    return (
+      <div className={inputClassName} ref={ref} onClick={onClickContainer}>
+        <textarea
+          placeholder={placeholder}
+          disabled={disabled}
+          className={cx("Input__area", { empty: !value })}
+          ref={inputRef as any}
+          onChange={onTextAreaChange}
+          {...rest}
+        />
+      </div>
+    );
+  }
 );

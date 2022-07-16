@@ -23,7 +23,7 @@ export type DatePickerProps = {
   "onChange" | "iconAfter" | "value" | "onFocus" | "onBlur" | "defaultValue"
 >;
 
-export function DatePickerImpl({
+export function DatePicker({
   format: formatString = "d MMM yyyy",
   value: valueProp,
   defaultValue,
@@ -89,5 +89,3 @@ export function DatePickerImpl({
     </Popover>
   );
 }
-
-export const DatePicker = DatePickerImpl;

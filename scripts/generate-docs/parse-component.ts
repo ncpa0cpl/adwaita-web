@@ -1,18 +1,22 @@
+import fs from "fs/promises";
 import type { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName } from "json-schema";
 import path from "path";
 import { Application, JSONOutput, TSConfigReader } from "typedoc";
+import { TYPE_MAP } from "./external-packages-type-map";
 
 function getComment(commentSection?: JSONOutput.Comment) {
   if (!commentSection) return "";
 
   let text = [];
 
-  for (const summary of commentSection.summary) {
-    if (summary.kind === "code") text.push(`<code>${summary.text}</code>`);
-    else text.push(summary.text);
+  for (const line of commentSection.shortText?.split("\n") ?? []) {
+    text.push(line);
+  }
+  for (const line of commentSection.text?.split("\n") ?? []) {
+    text.push(line);
   }
 
-  return text.join("");
+  return text.join("\n");
 }
 
 function getSchemaTypeNameFor(value: any): JSONSchema4TypeName {
@@ -34,7 +38,7 @@ function traverseAndFind(
   | undefined {
   for (const child of allChildren) {
     if (child.id === id) return child;
-    for (const tp of child.typeParameters ?? []) {
+    for (const tp of child.typeParameter ?? []) {
       if (tp.id === id) return tp;
     }
     const found = traverseAndFind(child.children ?? [], id);
@@ -43,11 +47,57 @@ function traverseAndFind(
   return undefined;
 }
 
+function parseMethod(
+  methodReflection: JSONOutput.DeclarationReflection,
+  allChildren: JSONOutput.DeclarationReflection[],
+  description?: string,
+  defaultValue?: any
+): JSONSchema4 {
+  const callSignature = methodReflection.signatures?.find(
+    (s) => s.kindString === "Call signature"
+  );
+
+  if (callSignature) {
+    return {
+      default: defaultValue,
+      title: "Function",
+      type: "object",
+      description,
+      properties: {
+        arguments: Object.fromEntries(
+          callSignature.parameters?.map((p, i) => [
+            i.toString(),
+            p.type
+              ? {
+                  title: p.name,
+                  ...parseTypeKindToSchema(
+                    p.type as JSONOutput.SomeType,
+                    allChildren
+                  ),
+                }
+              : { title: p.name, type: "any" },
+          ]) ?? []
+        ),
+        returns: callSignature.type
+          ? parseTypeKindToSchema(callSignature.type, allChildren)
+          : { type: "null" },
+      },
+      additionalProperties: false,
+      required: ["arguments", "returns"],
+    };
+  }
+
+  throw new Error(
+    `Could not find call signature for method ${methodReflection.name}`
+  );
+}
+
 function parseTypeKindToSchema(
   typeKind: JSONOutput.SomeType,
   allChildren: JSONOutput.DeclarationReflection[],
   description?: string,
-  defaultValue?: JSONSchema4Type
+  defaultValue?: JSONSchema4Type,
+  typeOf?: JSONOutput.DeclarationReflection | JSONOutput.TypeParameterReflection
 ): JSONSchema4 {
   switch (typeKind.type) {
     case "array":
@@ -62,51 +112,6 @@ function parseTypeKindToSchema(
         ? getComment(typeKind.declaration.comment)
         : "";
 
-      const callSignature = typeKind.declaration?.signatures?.find(
-        (s) => s.kindString === "Call signature"
-      );
-
-      if (callSignature) {
-        return {
-          default: defaultValue,
-          title: "Function",
-          type: "object",
-          description,
-          properties: {
-            arguments: Object.fromEntries(
-              callSignature.parameters?.map((p, i) => [
-                i.toString(),
-                p.type
-                  ? { title: p.name, ...parseTypeKindToSchema(p.type, allChildren) }
-                  : { title: p.name, type: "any" },
-              ]) ?? []
-            ),
-            returns: callSignature.type
-              ? parseTypeKindToSchema(callSignature.type, allChildren)
-              : { type: "null" },
-            properties: {
-              type: "object",
-              properties: Object.fromEntries(
-                typeKind.declaration?.children?.map((c) => [
-                  c.name,
-                  c.type
-                    ? parseTypeKindToSchema(
-                        c.type,
-                        allChildren,
-                        getComment(c.comment)
-                      )
-                    : ({ type: "any" } as const),
-                ]) ?? []
-              ),
-              required:
-                typeKind.declaration?.children
-                  ?.filter((c) => !c.flags.isOptional)
-                  ?.map((c) => c.name) ?? [],
-            },
-          },
-          required: ["arguments", "returns"],
-        };
-      }
       return {
         default: defaultValue,
         type: "object",
@@ -115,8 +120,25 @@ function parseTypeKindToSchema(
           typeKind.declaration?.children?.map((c) => [
             c.name,
             c.type
-              ? parseTypeKindToSchema(c.type, allChildren, getComment(c.comment))
-              : ({ type: "any" } as const),
+              ? parseTypeKindToSchema(
+                  c.type as JSONOutput.SomeType,
+                  allChildren,
+                  getComment(c.comment),
+                  undefined,
+                  c
+                )
+              : c.kindString === "Method"
+              ? parseMethod(
+                  c,
+                  allChildren,
+                  c.comment ? getComment(c.comment) : "",
+                  c.defaultValue
+                )
+              : ({
+                  type: "any",
+                  description,
+                  title: "Type for this property could not be resolved.",
+                } as const),
           ]) ?? []
         ),
         required:
@@ -153,10 +175,11 @@ function parseTypeKindToSchema(
           };
         }
         return parseTypeKindToSchema(
-          referencedChild.type,
+          referencedChild.type as JSONOutput.SomeType,
           allChildren,
           getComment(referencedChild.comment),
-          defaultValue
+          defaultValue,
+          referencedChild
         );
       } else if (typeKind.name === "ExtendElementProps") {
         const actualType = typeKind.typeArguments![1];
@@ -175,12 +198,39 @@ function parseTypeKindToSchema(
           defaultValue
         );
       } else if (typeKind.package) {
-        return {
-          title: `External Type (package: ${typeKind.package}, name: ${typeKind.name})`,
-          default: defaultValue,
-          type: "any",
-          description,
+        if (TYPE_MAP.has(typeKind.name)) {
+          const schema = {
+            allOf: [
+              {
+                title: typeKind.name,
+                description: `External Type from '${typeKind.package}}'.`,
+                default: defaultValue,
+              },
+              TYPE_MAP.get(typeKind.name)!,
+            ],
+          };
+
+          if (description) {
+            schema.allOf.unshift({ description });
+          }
+
+          return schema;
+        }
+        const schema = {
+          allOf: [
+            {
+              title: typeKind.name,
+              description: `External Type from '${typeKind.package}'.`,
+              type: "any",
+              default: defaultValue,
+            },
+          ] as JSONSchema4[],
         };
+        if (description) {
+          schema.allOf.unshift({ description });
+        }
+
+        return schema;
       } else {
         throw new Error(`Unsupported reference type ${typeKind.name}`);
       }
@@ -189,7 +239,9 @@ function parseTypeKindToSchema(
       return {
         default: defaultValue,
         description,
-        oneOf: typeKind.types.map((t) => parseTypeKindToSchema(t, allChildren)),
+        oneOf: typeKind.types.map((t) =>
+          parseTypeKindToSchema(t as JSONOutput.SomeType, allChildren)
+        ),
       };
     case "literal":
       return {
@@ -197,19 +249,6 @@ function parseTypeKindToSchema(
         description,
         type: getSchemaTypeNameFor(typeKind.value),
         enum: [typeKind.value],
-      };
-    case "named-tuple-member":
-      return {
-        default: defaultValue,
-        description,
-        type: "array",
-        items: parseTypeKindToSchema(typeKind.element, allChildren),
-      };
-    case "template-literal":
-      return {
-        default: defaultValue,
-        description,
-        type: "string",
       };
     case "tuple":
       return {
@@ -246,19 +285,8 @@ function parseTypeKindToSchema(
 }
 
 function parseImplementation(implementation: JSONOutput.DeclarationReflection) {
-  const comments =
-    implementation.signatures
-      ?.map((s) => s.comment)
-      .filter((c): c is JSONOutput.Comment => !!c) ?? [];
-
-  let text = "";
-
-  for (const comment of comments) {
-    text += getComment(comment);
-  }
-
   return {
-    comment: text,
+    comment: implementation.comment ? getComment(implementation.comment) : "",
     sources: implementation.sources,
   };
 }
@@ -274,7 +302,13 @@ function parseProps(
   const schema: JSONSchema4 = {
     $schema: "http://json-schema.org/draft-04/schema#",
     type: "object",
-    ...parseTypeKindToSchema(props.type, allChildren),
+    ...parseTypeKindToSchema(
+      props.type as JSONOutput.SomeType,
+      allChildren,
+      undefined,
+      undefined,
+      props
+    ),
   };
 
   return {
@@ -290,7 +324,7 @@ function extractStandardChildrens(
   implementation: JSONOutput.DeclarationReflection;
   props: JSONOutput.DeclarationReflection;
 } {
-  const implementation = children.find((c) => c.name === `${name}Impl`);
+  const implementation = children.find((c) => c.name === `${name}`);
   const props = children.find((c) => c.name === `${name}Props`);
 
   if (!implementation || !props) {
@@ -316,6 +350,7 @@ function mapReflection(
 
   const { comment: componentDescription, sources: componentSources } =
     parseImplementation(implementation);
+
   const { propsSchema, sources: propsSources } = parseProps(
     props,
     packagedReflection.children ?? []
@@ -332,7 +367,7 @@ function mapReflection(
   ];
 }
 
-export function getComponentTypeDocs(
+export async function getComponentTypeDocs(
   rootAbs: string,
   entryPoint: string,
   tsConfigPath: string
@@ -369,11 +404,20 @@ export function getComponentTypeDocs(
       process.exit(1);
     }
 
-    const r = component.toObject(parser.serializer);
+    const jsonFilePath = path.resolve(
+      rootAbs,
+      `./docs/tmp/${componentFile.name}.json`
+    );
+
+    await parser.generateJson(component, jsonFilePath);
+
+    const containerReflection: JSONOutput.ContainerReflection = JSON.parse(
+      await fs.readFile(jsonFilePath, "utf8")
+    );
 
     const reflection = {
-      ...r,
-      children: r.children?.flatMap((c) => c.children),
+      ...containerReflection,
+      children: containerReflection.children?.flatMap((c) => c.children),
     } as JSONOutput.ContainerReflection;
 
     return mapReflection(componentFile.name, reflection);

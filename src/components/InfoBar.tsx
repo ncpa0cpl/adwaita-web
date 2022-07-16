@@ -21,7 +21,7 @@ export type InfoBarProps = ExtendElementProps<
   }
 >;
 
-export function InfoBarImpl({
+export function InfoBar({
   className,
   children,
   closable,
@@ -59,5 +59,3 @@ export function InfoBarImpl({
     </div>
   );
 }
-
-export const InfoBar = InfoBarImpl;

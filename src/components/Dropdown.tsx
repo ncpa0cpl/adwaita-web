@@ -41,9 +41,9 @@ export type DropdownProps<T> = {
   onChange?: (value: T | undefined) => void;
 };
 
-export class DropdownImpl<
-  T extends string | number | boolean
-> extends React.Component<DropdownProps<T>> {
+export class Dropdown<T extends string | number | boolean> extends React.Component<
+  DropdownProps<T>
+> {
   static Item = Menu.Item;
   static Button = Menu.Button;
   static Separator = Separator;
@@ -343,8 +343,6 @@ export class DropdownImpl<
     );
   }
 }
-
-export const Dropdown = DropdownImpl;
 
 // Helpers
 

@@ -18,15 +18,13 @@ export type MenuProps = ExtendElementProps<
   }>
 >;
 
-export function MenuImpl({ children, className, icons, ...rest }: MenuProps) {
+export function Menu({ children, className, icons, ...rest }: MenuProps) {
   return (
     <div className={cx("Menu", className, { icons })} {...rest}>
       {children}
     </div>
   );
 }
-
-export const Menu = MenuImpl;
 
 export type MenuButtonProps = ExtendElementProps<
   "button",
@@ -152,10 +150,10 @@ export function Title({ children, className, ...rest }: MenuTitleProps) {
   );
 }
 
-MenuImpl.Button = Button;
-MenuImpl.Item = Item;
-MenuImpl.Back = Back;
-MenuImpl.Title = Title;
-MenuImpl.CircularButtons = CircularButtons;
-MenuImpl.InlineButtons = InlineButtons;
-MenuImpl.Separator = Separator;
+Menu.Button = Button;
+Menu.Item = Item;
+Menu.Back = Back;
+Menu.Title = Title;
+Menu.CircularButtons = CircularButtons;
+Menu.InlineButtons = InlineButtons;
+Menu.Separator = Separator;

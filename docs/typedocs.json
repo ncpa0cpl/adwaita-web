@@ -23,26 +23,6 @@
             "description": "",
             "type": "boolean"
           },
-          "onClose": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {},
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
           "showClose": {
             "description": "",
             "type": "boolean"
@@ -99,6 +79,22 @@
           "warning": {
             "description": "",
             "type": "boolean"
+          },
+          "onClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": [
@@ -106,39 +102,24 @@
           "danger",
           "icon",
           "info",
-          "onClose",
           "showClose",
           "size",
           "success",
           "title",
-          "warning"
+          "warning",
+          "onClose"
         ]
       },
       "propsSources": [
         {
           "fileName": "components/Alert.tsx",
           "line": 8,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Alert.tsx#L8"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/Alert.tsx",
-          "line": 21,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Alert.tsx#L21"
-        },
-        {
-          "fileName": "components/Alert.tsx",
-          "line": 72,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Alert.tsx#L72"
+          "character": 12
         }
       ]
     },
     "Autocomplete": {
-      "description": "",
+      "description": "An autocomplete input that allows the user to select from a list of options.",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
@@ -160,65 +141,8 @@
             ]
           },
           "enableFilter": {
-            "description": "Enables basic filtering of options. Set to <code>`false`</code> if you want to implement your\nown filtering.",
+            "description": "Enables basic filtering of options. Set to `false` if you want to implement your\nown filtering.",
             "type": "boolean"
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onSearch": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "string"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "options": {
             "description": "The options shown in the list",
@@ -228,9 +152,30 @@
               "description": "",
               "properties": {
                 "label": {
-                  "title": "External Type (package: @types/react, name: React.ReactNode)",
-                  "type": "any",
-                  "description": ""
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
                 },
                 "value": {
                   "description": "",
@@ -260,6 +205,55 @@
                 "type": "number"
               }
             ]
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onSearch": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "string"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": [
@@ -269,17 +263,15 @@
       "propsSources": [
         {
           "fileName": "components/Autocomplete.tsx",
-          "line": 14,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Autocomplete.tsx#L14"
+          "line": 15,
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Autocomplete.tsx",
-          "line": 35,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Autocomplete.tsx#L35"
+          "line": 40,
+          "character": 13
         }
       ]
     },
@@ -412,27 +404,12 @@
         {
           "fileName": "components/Box.tsx",
           "line": 5,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Box.tsx#L5"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/Box.tsx",
-          "line": 23,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Box.tsx#L23"
-        },
-        {
-          "fileName": "components/Box.tsx",
-          "line": 86,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Box.tsx#L86"
+          "character": 12
         }
       ]
     },
     "Button": {
-      "description": "This is a button component.",
+      "description": "A simple button.",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
@@ -463,9 +440,87 @@
             "type": "boolean"
           },
           "icon": {
-            "title": "External Type (package: @types/react, name: React.ComponentType)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "React.ComponentType",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Component, can be a class or function.",
+                "oneOf": [
+                  {
+                    "title": "Function",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "returns": {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "returns"
+                    ]
+                  },
+                  {
+                    "title": "Class",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "methods": {
+                        "type": "object",
+                        "properties": {
+                          "render": {
+                            "title": "Function",
+                            "type": "object",
+                            "properties": {
+                              "arguments": {
+                                "type": "object",
+                                "additionalProperties": false
+                              },
+                              "returns": {
+                                "title": "React Element",
+                                "type": "object"
+                              }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                              "arguments",
+                              "returns"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "methods"
+                    ]
+                  }
+                ]
+              }
+            ]
           },
           "image": {
             "description": "Button containing an image only",
@@ -558,16 +613,14 @@
         {
           "fileName": "components/Button.tsx",
           "line": 7,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Button.tsx#L7"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Button.tsx",
           "line": 44,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Button.tsx#L44"
+          "character": 13
         }
       ]
     },
@@ -578,6 +631,19 @@
         "type": "object",
         "description": "",
         "properties": {
+          "value": {
+            "allOf": [
+              {
+                "title": "Date",
+                "description": "External Type from 'typescript}'."
+              },
+              {
+                "title": "Date",
+                "type": "object",
+                "description": "A JavaScript builtin Date object."
+              }
+            ]
+          },
           "onChange": {
             "title": "Function",
             "type": "object",
@@ -585,28 +651,29 @@
             "properties": {
               "arguments": {
                 "0": {
-                  "title": "External Type (package: typescript, name: Date)",
-                  "type": "any"
+                  "title": "date",
+                  "allOf": [
+                    {
+                      "title": "Date",
+                      "description": "External Type from 'typescript}'."
+                    },
+                    {
+                      "title": "Date",
+                      "type": "object",
+                      "description": "A JavaScript builtin Date object."
+                    }
+                  ]
                 }
               },
               "returns": {
                 "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
               }
             },
+            "additionalProperties": false,
             "required": [
               "arguments",
               "returns"
             ]
-          },
-          "value": {
-            "title": "External Type (package: typescript, name: Date)",
-            "type": "any",
-            "description": ""
           }
         },
         "required": []
@@ -615,16 +682,14 @@
         {
           "fileName": "src/components/Calendar.tsx",
           "line": 29,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Calendar.tsx#L29"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Calendar.tsx",
           "line": 34,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Calendar.tsx#L34"
+          "character": 13
         }
       ]
     },
@@ -646,35 +711,6 @@
           "label": {
             "description": "The checkbox label",
             "type": "string"
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "boolean"
-                },
-                "1": {
-                  "title": "External Type (package: @types/react, name: React.ChangeEvent)",
-                  "type": "any"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "showLabel": {
             "description": "Whether to show the checkbox label.",
@@ -724,6 +760,41 @@
           "value": {
             "description": "The current value of the checkbox.",
             "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "boolean"
+                },
+                "1": {
+                  "title": "ev",
+                  "allOf": [
+                    {
+                      "title": "ChangeEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "ChangeEvent",
+                      "type": "object",
+                      "description": "A synthetic or real ChangeEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": []
@@ -732,16 +803,14 @@
         {
           "fileName": "src/components/Checkbox.tsx",
           "line": 9,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Checkbox.tsx#L9"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Checkbox.tsx",
           "line": 29,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Checkbox.tsx#L29"
+          "character": 13
         }
       ]
     },
@@ -756,13 +825,40 @@
             "description": "",
             "properties": {
               "defaultValue": {
-                "title": "External Type (package: typescript, name: Date)",
-                "type": "any",
-                "description": "A date object"
+                "allOf": [
+                  {
+                    "description": "A date object"
+                  },
+                  {
+                    "title": "Date",
+                    "description": "External Type from 'typescript}'."
+                  },
+                  {
+                    "title": "Date",
+                    "type": "object",
+                    "description": "A JavaScript builtin Date object."
+                  }
+                ]
               },
               "format": {
                 "description": "A string that represents the date format",
                 "type": "string"
+              },
+              "value": {
+                "allOf": [
+                  {
+                    "description": "A date object"
+                  },
+                  {
+                    "title": "Date",
+                    "description": "External Type from 'typescript}'."
+                  },
+                  {
+                    "title": "Date",
+                    "type": "object",
+                    "description": "A JavaScript builtin Date object."
+                  }
+                ]
               },
               "onChange": {
                 "title": "Function",
@@ -774,13 +870,22 @@
                       "title": "value",
                       "oneOf": [
                         {
-                          "title": "External Type (package: typescript, name: Date)",
-                          "type": "any"
-                        },
-                        {
                           "type": "null",
                           "enum": [
                             null
+                          ]
+                        },
+                        {
+                          "allOf": [
+                            {
+                              "title": "Date",
+                              "description": "External Type from 'typescript}'."
+                            },
+                            {
+                              "title": "Date",
+                              "type": "object",
+                              "description": "A JavaScript builtin Date object."
+                            }
                           ]
                         }
                       ]
@@ -788,33 +893,29 @@
                   },
                   "returns": {
                     "type": "void"
-                  },
-                  "properties": {
-                    "type": "object",
-                    "properties": {},
-                    "required": []
                   }
                 },
+                "additionalProperties": false,
                 "required": [
                   "arguments",
                   "returns"
                 ]
-              },
-              "value": {
-                "title": "External Type (package: typescript, name: Date)",
-                "type": "any",
-                "description": "A date object"
               }
             },
             "required": [
               "defaultValue",
-              "onChange",
-              "value"
+              "value",
+              "onChange"
             ]
           },
           {
-            "title": "External Type (package: typescript, name: Omit)",
-            "type": "any"
+            "allOf": [
+              {
+                "title": "Omit",
+                "description": "External Type from 'typescript'.",
+                "type": "any"
+              }
+            ]
           }
         ]
       },
@@ -822,16 +923,14 @@
         {
           "fileName": "components/DatePicker.tsx",
           "line": 12,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/DatePicker.tsx#L12"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/DatePicker.tsx",
           "line": 26,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/DatePicker.tsx#L26"
+          "character": 16
         }
       ]
     },
@@ -871,35 +970,6 @@
             "description": "",
             "type": "boolean"
           },
-          "filter": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "option",
-                  "type": "any"
-                },
-                "1": {
-                  "title": "filter",
-                  "type": "string"
-                }
-              },
-              "returns": {
-                "type": "boolean"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
           "filterKey": {
             "description": "",
             "type": "string"
@@ -913,85 +983,34 @@
             "type": "boolean"
           },
           "label": {
-            "title": "External Type (package: @types/react, name: React.ReactNode)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
           },
           "loading": {
             "description": "",
             "type": "boolean"
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "oneOf": [
-                    {
-                      "type": "any"
-                    },
-                    {
-                      "type": "undefined"
-                    }
-                  ]
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onClose": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {},
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onOpen": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {},
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "open": {
             "description": "",
@@ -1009,9 +1028,30 @@
                   "type": "any"
                 },
                 "label": {
-                  "title": "External Type (package: @types/react, name: React.ReactNode)",
-                  "type": "any",
-                  "description": ""
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
                 },
                 "value": {
                   "description": "",
@@ -1082,6 +1122,91 @@
           "value": {
             "description": "",
             "type": "any"
+          },
+          "filter": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "option",
+                  "type": "any"
+                },
+                "1": {
+                  "title": "filter",
+                  "type": "string"
+                }
+              },
+              "returns": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "oneOf": [
+                    {
+                      "type": "undefined"
+                    },
+                    {
+                      "type": "any"
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onOpen": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": []
@@ -1090,16 +1215,14 @@
         {
           "fileName": "src/components/Dropdown.tsx",
           "line": 22,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Dropdown.tsx#L22"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Dropdown.tsx",
           "line": 44,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Dropdown.tsx#L44"
+          "character": 13
         }
       ]
     },
@@ -1150,33 +1273,32 @@
             ]
           },
           "label": {
-            "title": "External Type (package: @types/react, name: React.ReactNode)",
-            "type": "any",
-            "description": "The label for the default button trigger element (only if <code>`trigger`</code> is not set)"
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "open",
-                  "type": "boolean"
-                }
+            "allOf": [
+              {
+                "description": "The label for the default button trigger element (only if `trigger` is not set)"
               },
-              "returns": {
-                "type": "void"
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
               },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
               }
-            },
-            "required": [
-              "arguments",
-              "returns"
             ]
           },
           "open": {
@@ -1208,61 +1330,44 @@
             "description": "The element that triggers toggling the expander. If not set, a default unstyled\nbutton will be displayed. If it's a render function, it received an argument: ({\ntoggle: Fn })",
             "oneOf": [
               {
-                "title": "External Type (package: @types/react, name: React.ReactElement)",
-                "type": "any"
+                "allOf": [
+                  {
+                    "title": "React.ReactElement",
+                    "description": "External Type from '@types/react}'."
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
               },
               {
-                "title": "Function",
                 "type": "object",
                 "description": "",
-                "properties": {
-                  "arguments": {
-                    "0": {
-                      "title": "param",
-                      "type": "object",
-                      "description": "",
-                      "properties": {
-                        "toggle": {
-                          "title": "Function",
-                          "type": "object",
-                          "description": "",
-                          "properties": {
-                            "arguments": {},
-                            "returns": {
-                              "type": "void"
-                            },
-                            "properties": {
-                              "type": "object",
-                              "properties": {},
-                              "required": []
-                            }
-                          },
-                          "required": [
-                            "arguments",
-                            "returns"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "toggle"
-                      ]
-                    }
-                  },
-                  "returns": {
-                    "title": "External Type (package: @types/react, name: React.ReactElement)",
-                    "type": "any"
-                  },
-                  "properties": {
-                    "type": "object",
-                    "properties": {},
-                    "required": []
-                  }
-                },
-                "required": [
-                  "arguments",
-                  "returns"
-                ]
+                "properties": {},
+                "required": []
               }
+            ]
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "open",
+                  "type": "boolean"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
             ]
           }
         },
@@ -1272,16 +1377,14 @@
         {
           "fileName": "src/components/Expander.tsx",
           "line": 8,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Expander.tsx#L8"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Expander.tsx",
           "line": 40,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Expander.tsx#L40"
+          "character": 13
         }
       ]
     },
@@ -1334,9 +1437,33 @@
             "type": "boolean"
           },
           "label": {
-            "title": "External Type (package: @types/react, name: React.ReactNode)",
-            "type": "any",
-            "description": "The label of the frame (using <fieldset>/<legend>)"
+            "allOf": [
+              {
+                "description": "The label of the frame (using <fieldset>/<legend>)"
+              },
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
           },
           "padded": {
             "description": "",
@@ -1353,22 +1480,7 @@
         {
           "fileName": "components/Frame.tsx",
           "line": 5,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Frame.tsx#L5"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/Frame.tsx",
-          "line": 27,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Frame.tsx#L27"
-        },
-        {
-          "fileName": "components/Frame.tsx",
-          "line": 62,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Frame.tsx#L62"
+          "character": 12
         }
       ]
     },
@@ -1390,28 +1502,7 @@
         {
           "fileName": "src/components/HeaderBar.tsx",
           "line": 7,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/HeaderBar.tsx#L7"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "src/components/HeaderBar.tsx",
-          "line": 14,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/HeaderBar.tsx#L14"
-        },
-        {
-          "fileName": "src/components/HeaderBar.tsx",
-          "line": 60,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/HeaderBar.tsx#L60"
-        },
-        {
-          "fileName": "src/components/HeaderBar.tsx",
-          "line": 61,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/HeaderBar.tsx#L61"
+          "character": 12
         }
       ]
     },
@@ -1427,9 +1518,13 @@
             "type": "boolean"
           },
           "as": {
-            "title": "External Type (package: @types/react, name: JSX.IntrinsicElements)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "JSX.IntrinsicElements",
+                "description": "External Type from '@types/react'.",
+                "type": "any"
+              }
+            ]
           },
           "className": {
             "description": "",
@@ -1477,22 +1572,7 @@
         {
           "fileName": "components/Heading.tsx",
           "line": 6,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Heading.tsx#L6"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/Heading.tsx",
-          "line": 21,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Heading.tsx#L21"
-        },
-        {
-          "fileName": "components/Heading.tsx",
-          "line": 49,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Heading.tsx#L49"
+          "character": 12
         }
       ]
     },
@@ -1527,6 +1607,14 @@
             "description": "",
             "type": "boolean"
           },
+          "success": {
+            "description": "",
+            "type": "boolean"
+          },
+          "warning": {
+            "description": "",
+            "type": "boolean"
+          },
           "onClose": {
             "title": "Function",
             "type": "object",
@@ -1535,25 +1623,13 @@
               "arguments": {},
               "returns": {
                 "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
               }
             },
+            "additionalProperties": false,
             "required": [
               "arguments",
               "returns"
             ]
-          },
-          "success": {
-            "description": "",
-            "type": "boolean"
-          },
-          "warning": {
-            "description": "",
-            "type": "boolean"
           }
         },
         "required": []
@@ -1562,21 +1638,19 @@
         {
           "fileName": "components/InfoBar.tsx",
           "line": 9,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/InfoBar.tsx#L9"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/InfoBar.tsx",
           "line": 24,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/InfoBar.tsx#L24"
+          "character": 16
         }
       ]
     },
     "Input": {
-      "description": "**NOTE**: Exotic components are not callable.",
+      "description": "",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
@@ -1607,95 +1681,181 @@
             "type": "boolean"
           },
           "icon": {
-            "title": "External Type (package: @types/react, name: React.ComponentType)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "React.ComponentType",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Component, can be a class or function.",
+                "oneOf": [
+                  {
+                    "title": "Function",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "returns": {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "returns"
+                    ]
+                  },
+                  {
+                    "title": "Class",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "methods": {
+                        "type": "object",
+                        "properties": {
+                          "render": {
+                            "title": "Function",
+                            "type": "object",
+                            "properties": {
+                              "arguments": {
+                                "type": "object",
+                                "additionalProperties": false
+                              },
+                              "returns": {
+                                "title": "React Element",
+                                "type": "object"
+                              }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                              "arguments",
+                              "returns"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "methods"
+                    ]
+                  }
+                ]
+              }
+            ]
           },
           "iconAfter": {
-            "title": "External Type (package: @types/react, name: React.ComponentType)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "React.ComponentType",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Component, can be a class or function.",
+                "oneOf": [
+                  {
+                    "title": "Function",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "returns": {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "returns"
+                    ]
+                  },
+                  {
+                    "title": "Class",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "methods": {
+                        "type": "object",
+                        "properties": {
+                          "render": {
+                            "title": "Function",
+                            "type": "object",
+                            "properties": {
+                              "arguments": {
+                                "type": "object",
+                                "additionalProperties": false
+                              },
+                              "returns": {
+                                "title": "React Element",
+                                "type": "object"
+                              }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                              "arguments",
+                              "returns"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "methods"
+                    ]
+                  }
+                ]
+              }
+            ]
           },
           "loading": {
             "description": "Shows a loading indicator",
             "type": "boolean"
-          },
-          "onAccept": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "string"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "string"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onClickIconAfter": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {},
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "placeholder": {
             "description": "",
             "type": "string"
           },
           "progress": {
-            "description": "Show a progress bar of <code>`progress`</code> percent size if it's a number, or an\nundeterminate (loading) bar if <code>`true`</code>",
+            "description": "Show a progress bar of `progress` percent size if it's a number, or an\nundeterminate (loading) bar if `true`",
             "oneOf": [
               {
                 "type": "boolean"
@@ -1757,6 +1917,64 @@
           "warning": {
             "description": "Warning style input",
             "type": "boolean"
+          },
+          "onAccept": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "string"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "string"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onClickIconAfter": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": []
@@ -1765,16 +1983,14 @@
         {
           "fileName": "src/components/Input.tsx",
           "line": 14,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Input.tsx#L14"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Input.tsx",
           "line": 55,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Input.tsx#L55"
+          "character": 13
         }
       ]
     },
@@ -1804,31 +2020,6 @@
           "min": {
             "description": "",
             "type": "number"
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "number"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "size": {
             "description": "",
@@ -1882,6 +2073,27 @@
           "vertical": {
             "description": "",
             "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "number"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": []
@@ -1890,22 +2102,7 @@
         {
           "fileName": "components/InputNumber.tsx",
           "line": 13,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/InputNumber.tsx#L13"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/InputNumber.tsx",
-          "line": 29,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/InputNumber.tsx#L29"
-        },
-        {
-          "fileName": "components/InputNumber.tsx",
-          "line": 92,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/InputNumber.tsx#L92"
+          "character": 12
         }
       ]
     },
@@ -2051,21 +2248,19 @@
         {
           "fileName": "src/components/Label.tsx",
           "line": 5,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Label.tsx#L5"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Label.tsx",
           "line": 25,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Label.tsx#L25"
+          "character": 16
         }
       ]
     },
     "LevelBar": {
-      "description": "**NOTE**: Exotic components are not callable.",
+      "description": "",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
@@ -2132,16 +2327,14 @@
         {
           "fileName": "components/LevelBar.tsx",
           "line": 5,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/LevelBar.tsx#L5"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/LevelBar.tsx",
           "line": 16,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/LevelBar.tsx#L16"
+          "character": 13
         }
       ]
     },
@@ -2244,28 +2437,7 @@
         {
           "fileName": "components/List.tsx",
           "line": 7,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/List.tsx#L7"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/List.tsx",
-          "line": 23,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/List.tsx#L23"
-        },
-        {
-          "fileName": "components/List.tsx",
-          "line": 114,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/List.tsx#L114"
-        },
-        {
-          "fileName": "components/List.tsx",
-          "line": 115,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/List.tsx#L115"
+          "character": 12
         }
       ]
     },
@@ -2291,58 +2463,7 @@
         {
           "fileName": "components/Menu.tsx",
           "line": 13,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Menu.tsx#L13"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/Menu.tsx",
-          "line": 21,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Menu.tsx#L21"
-        },
-        {
-          "fileName": "components/Menu.tsx",
-          "line": 155,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Menu.tsx#L155"
-        },
-        {
-          "fileName": "components/Menu.tsx",
-          "line": 156,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Menu.tsx#L156"
-        },
-        {
-          "fileName": "components/Menu.tsx",
-          "line": 157,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Menu.tsx#L157"
-        },
-        {
-          "fileName": "components/Menu.tsx",
-          "line": 158,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Menu.tsx#L158"
-        },
-        {
-          "fileName": "components/Menu.tsx",
-          "line": 159,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Menu.tsx#L159"
-        },
-        {
-          "fileName": "components/Menu.tsx",
-          "line": 160,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Menu.tsx#L160"
-        },
-        {
-          "fileName": "components/Menu.tsx",
-          "line": 161,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Menu.tsx#L161"
+          "character": 12
         }
       ]
     },
@@ -2359,22 +2480,7 @@
         {
           "fileName": "components/MenuBar.tsx",
           "line": 9,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/MenuBar.tsx#L9"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/MenuBar.tsx",
-          "line": 11,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/MenuBar.tsx#L11"
-        },
-        {
-          "fileName": "components/MenuBar.tsx",
-          "line": 56,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/MenuBar.tsx#L56"
+          "character": 12
         }
       ]
     },
@@ -2386,9 +2492,30 @@
         "description": "",
         "properties": {
           "action": {
-            "title": "External Type (package: @types/react, name: React.ReactNode)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
           },
           "arrows": {
             "description": "",
@@ -2397,56 +2524,6 @@
           "className": {
             "description": "",
             "type": "string"
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "number"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onClose": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "pageIndex",
-                  "type": "number"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "pages": {
             "description": "",
@@ -2460,9 +2537,30 @@
                   "type": "boolean"
                 },
                 "content": {
-                  "title": "External Type (package: @types/react, name: React.ReactNode)",
-                  "type": "any",
-                  "description": ""
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
                 },
                 "key": {
                   "description": "",
@@ -2476,9 +2574,30 @@
                   ]
                 },
                 "label": {
-                  "title": "External Type (package: @types/react, name: React.ReactNode)",
-                  "type": "any",
-                  "description": ""
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
                 }
               },
               "required": [
@@ -2548,34 +2667,61 @@
           "value": {
             "description": "",
             "type": "number"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "number"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "pageIndex",
+                  "type": "number"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": [
+          "pages",
           "onChange",
-          "onClose",
-          "pages"
+          "onClose"
         ]
       },
       "propsSources": [
         {
           "fileName": "components/Notebook.tsx",
           "line": 19,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Notebook.tsx#L19"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/Notebook.tsx",
-          "line": 34,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Notebook.tsx#L34"
-        },
-        {
-          "fileName": "components/Notebook.tsx",
-          "line": 124,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Notebook.tsx#L124"
+          "character": 12
         }
       ]
     },
@@ -2618,9 +2764,30 @@
                   "type": "boolean"
                 },
                 "content": {
-                  "title": "External Type (package: @types/react, name: React.ReactNode)",
-                  "type": "any",
-                  "description": ""
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
                 },
                 "key": {
                   "description": "",
@@ -2634,9 +2801,30 @@
                   ]
                 },
                 "label": {
-                  "title": "External Type (package: @types/react, name: React.ReactNode)",
-                  "type": "any",
-                  "description": ""
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
                 }
               },
               "required": [
@@ -2646,9 +2834,13 @@
             }
           },
           "style": {
-            "title": "External Type (package: @types/react, name: React.CSSProperties)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "React.CSSProperties",
+                "description": "External Type from '@types/react'.",
+                "type": "any"
+              }
+            ]
           },
           "transition": {
             "description": "",
@@ -2708,16 +2900,14 @@
         {
           "fileName": "src/components/PageSwitcher.tsx",
           "line": 11,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/PageSwitcher.tsx#L11"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/PageSwitcher.tsx",
           "line": 23,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/PageSwitcher.tsx#L23"
+          "character": 13
         }
       ]
     },
@@ -2855,16 +3045,14 @@
         {
           "fileName": "src/components/Paned.tsx",
           "line": 21,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Paned.tsx#L21"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Paned.tsx",
           "line": 30,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Paned.tsx#L30"
+          "character": 13
         }
       ]
     },
@@ -2897,9 +3085,30 @@
             "type": "boolean"
           },
           "children": {
-            "title": "External Type (package: @types/react, name: React.ReactNode)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
           },
           "className": {
             "description": "",
@@ -2909,29 +3118,36 @@
             "description": "",
             "oneOf": [
               {
-                "title": "External Type (package: @types/react, name: React.ReactNode)",
-                "type": "any"
+                "allOf": [
+                  {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react}'."
+                  },
+                  {
+                    "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    ]
+                  }
+                ]
               },
               {
-                "title": "Function",
                 "type": "object",
                 "description": "",
-                "properties": {
-                  "arguments": {},
-                  "returns": {
-                    "title": "External Type (package: @types/react, name: React.ReactNode)",
-                    "type": "any"
-                  },
-                  "properties": {
-                    "type": "object",
-                    "properties": {},
-                    "required": []
-                  }
-                },
-                "required": [
-                  "arguments",
-                  "returns"
-                ]
+                "properties": {},
+                "required": []
               }
             ]
           },
@@ -2966,86 +3182,6 @@
                   "none"
                 ]
               }
-            ]
-          },
-          "onClose": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {},
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onDidClose": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {},
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onDidOpen": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {},
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onOpen": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {},
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
             ]
           },
           "open": {
@@ -3153,6 +3289,70 @@
                 ]
               }
             ]
+          },
+          "onClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onDidClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onDidOpen": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onOpen": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": [
@@ -3164,16 +3364,14 @@
         {
           "fileName": "src/components/Popover.tsx",
           "line": 18,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Popover.tsx#L18"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Popover.tsx",
           "line": 55,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Popover.tsx#L55"
+          "character": 13
         }
       ]
     },
@@ -3206,9 +3404,30 @@
             "type": "boolean"
           },
           "children": {
-            "title": "External Type (package: @types/react, name: React.ReactNode)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
           },
           "className": {
             "description": "",
@@ -3247,111 +3466,9 @@
               }
             ]
           },
-          "onChangeOpen": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "open",
-                  "type": "boolean"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
           "open": {
             "description": "",
             "type": "boolean"
-          },
-          "pages": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "params",
-                  "type": "object",
-                  "description": "",
-                  "properties": {
-                    "back": {
-                      "type": "any"
-                    },
-                    "change": {
-                      "type": "any"
-                    },
-                    "close": {
-                      "type": "any"
-                    }
-                  },
-                  "required": [
-                    "back",
-                    "change",
-                    "close"
-                  ]
-                }
-              },
-              "returns": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "description": "",
-                  "properties": {
-                    "closable": {
-                      "description": "",
-                      "type": "boolean"
-                    },
-                    "content": {
-                      "title": "External Type (package: @types/react, name: React.ReactNode)",
-                      "type": "any",
-                      "description": ""
-                    },
-                    "key": {
-                      "description": "",
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "label": {
-                      "title": "External Type (package: @types/react, name: React.ReactNode)",
-                      "type": "any",
-                      "description": ""
-                    }
-                  },
-                  "required": [
-                    "content",
-                    "key"
-                  ]
-                }
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "placement": {
             "description": "",
@@ -3454,6 +3571,186 @@
                 ]
               }
             ]
+          },
+          "onChangeOpen": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "open",
+                  "type": "boolean"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "pages": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "params",
+                  "type": "object",
+                  "description": "",
+                  "properties": {
+                    "back": {
+                      "title": "Function",
+                      "type": "object",
+                      "description": "",
+                      "properties": {
+                        "arguments": {},
+                        "returns": {
+                          "type": "void"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "arguments",
+                        "returns"
+                      ]
+                    },
+                    "change": {
+                      "title": "Function",
+                      "type": "object",
+                      "description": "",
+                      "properties": {
+                        "arguments": {
+                          "0": {
+                            "title": "key",
+                            "type": "string"
+                          }
+                        },
+                        "returns": {
+                          "type": "void"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "arguments",
+                        "returns"
+                      ]
+                    },
+                    "close": {
+                      "title": "Function",
+                      "type": "object",
+                      "description": "",
+                      "properties": {
+                        "arguments": {},
+                        "returns": {
+                          "type": "void"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "arguments",
+                        "returns"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "back",
+                    "change",
+                    "close"
+                  ]
+                }
+              },
+              "returns": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "",
+                  "properties": {
+                    "closable": {
+                      "description": "",
+                      "type": "boolean"
+                    },
+                    "content": {
+                      "allOf": [
+                        {
+                          "title": "React.ReactNode",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "title": "React Element",
+                              "type": "object"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "key": {
+                      "description": "",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "label": {
+                      "allOf": [
+                        {
+                          "title": "React.ReactNode",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "title": "React Element",
+                              "type": "object"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content",
+                    "key"
+                  ]
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": [
@@ -3465,16 +3762,14 @@
         {
           "fileName": "components/PopoverMenu.tsx",
           "line": 15,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/PopoverMenu.tsx#L15"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/PopoverMenu.tsx",
           "line": 47,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/PopoverMenu.tsx#L47"
+          "character": 16
         }
       ]
     },
@@ -3508,8 +3803,30 @@
                 "type": "boolean"
               },
               {
-                "title": "External Type (package: @types/react, name: React.ReactNode)",
-                "type": "any"
+                "allOf": [
+                  {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react}'."
+                  },
+                  {
+                    "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -3549,16 +3866,14 @@
         {
           "fileName": "components/Progress.tsx",
           "line": 10,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Progress.tsx#L10"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Progress.tsx",
           "line": 26,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Progress.tsx#L26"
+          "character": 16
         }
       ]
     },
@@ -3596,35 +3911,6 @@
           "name": {
             "description": "",
             "type": "string"
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "checked",
-                  "type": "boolean"
-                },
-                "1": {
-                  "title": "External Type (package: @types/react, name: React.ChangeEvent)",
-                  "type": "any"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "showLabel": {
             "description": "",
@@ -3674,6 +3960,41 @@
           "value": {
             "description": "",
             "type": "string"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "checked",
+                  "type": "boolean"
+                },
+                "1": {
+                  "title": "event",
+                  "allOf": [
+                    {
+                      "title": "ChangeEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "ChangeEvent",
+                      "type": "object",
+                      "description": "A synthetic or real ChangeEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": []
@@ -3682,16 +4003,14 @@
         {
           "fileName": "src/components/Radio.tsx",
           "line": 11,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Radio.tsx#L11"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Radio.tsx",
           "line": 25,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Radio.tsx#L25"
+          "character": 13
         }
       ]
     },
@@ -3703,9 +4022,16 @@
         "description": "",
         "properties": {
           "ThumbComponent": {
-            "title": "External Type (package: @types/react, name: React.ElementType)",
-            "type": "any",
-            "description": "The component used to display the value label."
+            "allOf": [
+              {
+                "description": "The component used to display the value label."
+              },
+              {
+                "title": "React.ElementType",
+                "description": "External Type from '@types/react'.",
+                "type": "any"
+              }
+            ]
           },
           "aria-label": {
             "description": "The label of the slider.",
@@ -3738,11 +4064,11 @@
             ]
           },
           "disabled": {
-            "description": "If <code>`true`</code>, the slider will be disabled.",
+            "description": "If `true`, the slider will be disabled.",
             "type": "boolean"
           },
           "marks": {
-            "description": "Marks indicate predetermined values to which the user can move the slider. If\n<code>`true`</code> the marks will be spaced according the value of the <code>`step`</code> prop. If an\narray, it should contain objects with <code>`value`</code> and an optional <code>`label`</code> keys.",
+            "description": "Marks indicate predetermined values to which the user can move the slider. If\n`true` the marks will be spaced according the value of the `step` prop. If an\narray, it should contain objects with `value` and an optional `label` keys.",
             "oneOf": [
               {
                 "type": "boolean"
@@ -3778,146 +4104,20 @@
             "type": "number"
           },
           "name": {
-            "description": "Name attribute of the hidden <code>`input`</code> element.",
+            "description": "Name attribute of the hidden `input` element.",
             "type": "string"
           },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "oneOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    }
-                  ]
-                },
-                "1": {
-                  "title": "ev",
-                  "oneOf": [
-                    {
-                      "title": "External Type (package: @types/react, name: React.ChangeEvent)",
-                      "type": "any"
-                    },
-                    {
-                      "title": "External Type (package: @types/react, name: React.MouseEvent)",
-                      "type": "any"
-                    },
-                    {
-                      "title": "External Type (package: typescript, name: MouseEvent)",
-                      "type": "any"
-                    },
-                    {
-                      "title": "External Type (package: typescript, name: TouchEvent)",
-                      "type": "any"
-                    }
-                  ]
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onChangeCommitted": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "ev",
-                  "oneOf": [
-                    {
-                      "title": "External Type (package: @types/react, name: React.ChangeEvent)",
-                      "type": "any"
-                    },
-                    {
-                      "title": "External Type (package: typescript, name: MouseEvent)",
-                      "type": "any"
-                    },
-                    {
-                      "title": "External Type (package: typescript, name: TouchEvent)",
-                      "type": "any"
-                    }
-                  ]
-                },
-                "1": {
-                  "title": "value",
-                  "oneOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    }
-                  ]
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
-          "onMouseDown": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "External Type (package: @types/react, name: React.MouseEvent)",
-                  "type": "any"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
-          },
           "scale": {
-            "title": "External Type (package: rambda, name: identity)",
-            "type": "any",
-            "description": "A transformation function, to change the scale of the slider."
+            "allOf": [
+              {
+                "description": "A transformation function, to change the scale of the slider."
+              },
+              {
+                "title": "identity",
+                "description": "External Type from 'rambda'.",
+                "type": "any"
+              }
+            ]
           },
           "size": {
             "description": "",
@@ -3961,11 +4161,11 @@
             ]
           },
           "step": {
-            "description": "The granularity with which the slider can step through values. (A \"discrete\"\nslider.) The <code>`min`</code> prop serves as the origin for the valid values. We recommend\n(max - min) to be evenly divisible by the step.\n\nWhen step is <code>`null`</code>, the thumb can only be slid onto marks provided with the <code>`marks`</code> prop.",
+            "description": "The granularity with which the slider can step through values. (A \"discrete\"\nslider.) The `min` prop serves as the origin for the valid values. We recommend\n(max - min) to be evenly divisible by the step.\nWhen step is `null`, the thumb can only be slid onto marks provided with the `marks` prop.\n",
             "type": "number"
           },
           "track": {
-            "description": "The track presentation:\n\n- <code>`normal`</code> the track will render a bar representing the slider value.\n- <code>`inverted`</code> the track will render a bar representing the remaining slider value.\n- <code>`false`</code> the track will render without a bar.",
+            "description": "The track presentation:\n- `normal` the track will render a bar representing the slider value.\n- `inverted` the track will render a bar representing the remaining slider value.\n- `false` the track will render without a bar.\n",
             "oneOf": [
               {
                 "type": "boolean"
@@ -3999,7 +4199,7 @@
             ]
           },
           "valueLabelDisplay": {
-            "description": "Controls when the value label is displayed:\n\n- <code>`auto`</code> the value label will display when the thumb is hovered or focused.\n- <code>`on`</code> will display persistently.\n- <code>`off`</code> will never display.",
+            "description": "Controls when the value label is displayed:\n- `auto` the value label will display when the thumb is hovered or focused.\n- `on` will display persistently.\n- `off` will never display.\n",
             "oneOf": [
               {
                 "type": "string",
@@ -4022,45 +4222,216 @@
             ]
           },
           "valueLabelFormat": {
-            "description": "The format function the value label's value.\n\nWhen a function is provided, it should have the following signature:\n\n- {number} value The value label's value to format\n- {number} index The value label's index to format",
+            "description": "The format function the value label's value.\nWhen a function is provided, it should have the following signature:\n\n- {number} value The value label's value to format\n- {number} index The value label's index to format\n",
             "oneOf": [
               {
                 "type": "string"
               },
               {
-                "title": "Function",
                 "type": "object",
                 "description": "",
-                "properties": {
-                  "arguments": {
-                    "0": {
-                      "title": "value",
-                      "type": "number"
-                    },
-                    "1": {
-                      "title": "index",
-                      "type": "number"
-                    }
-                  },
-                  "returns": {
-                    "type": "string"
-                  },
-                  "properties": {
-                    "type": "object",
-                    "properties": {},
-                    "required": []
-                  }
-                },
-                "required": [
-                  "arguments",
-                  "returns"
-                ]
+                "properties": {},
+                "required": []
               }
             ]
           },
           "vertical": {
             "description": "If the slider is vertical.",
             "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  ]
+                },
+                "1": {
+                  "title": "ev",
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "title": "MouseEvent",
+                          "description": "External Type from 'typescript}'."
+                        },
+                        {
+                          "title": "MouseEvent",
+                          "type": "object",
+                          "description": "A synthetic or real MouseEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "TouchEvent",
+                          "description": "External Type from 'typescript}'."
+                        },
+                        {
+                          "title": "TouchEvent",
+                          "type": "object",
+                          "description": "A synthetic or real TouchEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "MouseEvent",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "title": "MouseEvent",
+                          "type": "object",
+                          "description": "A synthetic or real MouseEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "ChangeEvent",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "title": "ChangeEvent",
+                          "type": "object",
+                          "description": "A synthetic or real ChangeEvent event."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onChangeCommitted": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "ev",
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "title": "MouseEvent",
+                          "description": "External Type from 'typescript}'."
+                        },
+                        {
+                          "title": "MouseEvent",
+                          "type": "object",
+                          "description": "A synthetic or real MouseEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "TouchEvent",
+                          "description": "External Type from 'typescript}'."
+                        },
+                        {
+                          "title": "TouchEvent",
+                          "type": "object",
+                          "description": "A synthetic or real TouchEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "ChangeEvent",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "title": "ChangeEvent",
+                          "type": "object",
+                          "description": "A synthetic or real ChangeEvent event."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "1": {
+                  "title": "value",
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onMouseDown": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "event",
+                  "allOf": [
+                    {
+                      "title": "MouseEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "MouseEvent",
+                      "type": "object",
+                      "description": "A synthetic or real MouseEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": []
@@ -4069,16 +4440,14 @@
         {
           "fileName": "components/Range.tsx",
           "line": 32,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Range.tsx#L32"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Range.tsx",
           "line": 111,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Range.tsx#L111"
+          "character": 13
         }
       ]
     },
@@ -4095,16 +4464,14 @@
         {
           "fileName": "components/Separator.tsx",
           "line": 3,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Separator.tsx#L3"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Separator.tsx",
           "line": 5,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Separator.tsx#L5"
+          "character": 16
         }
       ]
     },
@@ -4130,16 +4497,14 @@
         {
           "fileName": "components/Spinner.tsx",
           "line": 5,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Spinner.tsx#L5"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Spinner.tsx",
           "line": 10,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Spinner.tsx#L10"
+          "character": 16
         }
       ]
     },
@@ -4171,40 +4536,11 @@
             "type": "string"
           },
           "labels": {
-            "description": "On/Off if <code>`true`</code>, or provide your own 2 labels",
+            "description": "On/Off if `true`, or provide your own 2 labels",
             "type": "array",
             "items": {
               "type": "string"
             }
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "boolean"
-                },
-                "1": {
-                  "title": "External Type (package: @types/react, name: React.ChangeEvent)",
-                  "type": "any"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "size": {
             "description": "",
@@ -4250,6 +4586,41 @@
           "value": {
             "description": "",
             "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "boolean"
+                },
+                "1": {
+                  "title": "event",
+                  "allOf": [
+                    {
+                      "title": "ChangeEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "ChangeEvent",
+                      "type": "object",
+                      "description": "A synthetic or real ChangeEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": []
@@ -4258,16 +4629,14 @@
         {
           "fileName": "src/components/Switch.tsx",
           "line": 10,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Switch.tsx#L10"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Switch.tsx",
           "line": 24,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Switch.tsx#L24"
+          "character": 13
         }
       ]
     },
@@ -4286,16 +4655,26 @@
             "description": "",
             "type": "array",
             "items": {
-              "title": "External Type (package: @types/react-table, name: Column)",
-              "type": "any"
+              "allOf": [
+                {
+                  "title": "Column",
+                  "description": "External Type from '@types/react-table'.",
+                  "type": "any"
+                }
+              ]
             }
           },
           "data": {
             "description": "",
             "type": "array",
             "items": {
-              "title": "External Type (package: typescript, name: Record)",
-              "type": "any"
+              "allOf": [
+                {
+                  "title": "Record",
+                  "description": "External Type from 'typescript'.",
+                  "type": "any"
+                }
+              ]
             }
           },
           "filterable": {
@@ -4316,28 +4695,7 @@
         {
           "fileName": "components/Table.tsx",
           "line": 24,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Table.tsx#L24"
-        }
-      ],
-      "componentSources": [
-        {
-          "fileName": "components/Table.tsx",
-          "line": 32,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Table.tsx#L32"
-        },
-        {
-          "fileName": "components/Table.tsx",
-          "line": 241,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Table.tsx#L241"
-        },
-        {
-          "fileName": "components/Table.tsx",
-          "line": 242,
-          "character": 0,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Table.tsx#L242"
+          "character": 12
         }
       ]
     },
@@ -4372,9 +4730,13 @@
             ]
           },
           "as": {
-            "title": "External Type (package: @types/react, name: JSX.IntrinsicElements)",
-            "type": "any",
-            "description": ""
+            "allOf": [
+              {
+                "title": "JSX.IntrinsicElements",
+                "description": "External Type from '@types/react'.",
+                "type": "any"
+              }
+            ]
           },
           "bold": {
             "description": "",
@@ -4519,16 +4881,14 @@
         {
           "fileName": "components/Text.tsx",
           "line": 5,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Text.tsx#L5"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Text.tsx",
           "line": 27,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Text.tsx#L27"
+          "character": 16
         }
       ]
     },
@@ -4554,35 +4914,6 @@
           "flat": {
             "description": "",
             "type": "boolean"
-          },
-          "onChange": {
-            "title": "Function",
-            "type": "object",
-            "description": "",
-            "properties": {
-              "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "string"
-                },
-                "1": {
-                  "title": "External Type (package: @types/react, name: React.ChangeEvent)",
-                  "type": "any"
-                }
-              },
-              "returns": {
-                "type": "void"
-              },
-              "properties": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "arguments",
-              "returns"
-            ]
           },
           "placeholder": {
             "description": "",
@@ -4640,6 +4971,41 @@
           "warning": {
             "description": "",
             "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "string"
+                },
+                "1": {
+                  "title": "ev",
+                  "allOf": [
+                    {
+                      "title": "ChangeEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "ChangeEvent",
+                      "type": "object",
+                      "description": "A synthetic or real ChangeEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
           }
         },
         "required": []
@@ -4648,16 +5014,14 @@
         {
           "fileName": "components/TextArea.tsx",
           "line": 6,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/TextArea.tsx#L6"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/TextArea.tsx",
           "line": 22,
-          "character": 13,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/TextArea.tsx#L22"
+          "character": 13
         }
       ]
     },
@@ -4687,16 +5051,14 @@
         {
           "fileName": "components/Toolbar.tsx",
           "line": 4,
-          "character": 12,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Toolbar.tsx#L4"
+          "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Toolbar.tsx",
           "line": 10,
-          "character": 16,
-          "url": "https://github.com/ncpa0cpl/adwaita-web/blob/bed8985/src/components/Toolbar.tsx#L10"
+          "character": 16
         }
       ]
     }

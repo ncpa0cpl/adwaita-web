@@ -24,7 +24,7 @@ const defaultProps = {
   border: true,
 };
 
-export function FrameImpl({
+export function Frame({
   children,
   className,
   inline,
@@ -59,6 +59,4 @@ export function FrameImpl({
   );
 }
 
-FrameImpl.defaultProps = defaultProps;
-
-export const Frame = FrameImpl;
+Frame.defaultProps = defaultProps;

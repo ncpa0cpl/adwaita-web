@@ -13,7 +13,7 @@ export type LevelBarProps = {
   level?: "empty" | "danger" | "warning" | "info" | "success";
 };
 
-export const LevelBarImpl = React.forwardRef<HTMLSpanElement, LevelBarProps>(
+export const LevelBar = React.forwardRef<HTMLSpanElement, LevelBarProps>(
   function LevelBar(props, ref) {
     const {
       className,
@@ -51,5 +51,3 @@ export const LevelBarImpl = React.forwardRef<HTMLSpanElement, LevelBarProps>(
     );
   }
 );
-
-export const LevelBar = LevelBarImpl;

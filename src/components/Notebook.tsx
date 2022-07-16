@@ -31,7 +31,7 @@ export type NotebookProps = ExtendElementProps<
   }
 >;
 
-export function NotebookImpl({
+export function Notebook({
   className,
   position,
   transition,
@@ -119,9 +119,7 @@ export function NotebookImpl({
   );
 }
 
-export const Notebook = NotebookImpl;
-
-NotebookImpl.defaultProps = {
+Notebook.defaultProps = {
   position: "top",
   arrows: false,
   onChange: noop,

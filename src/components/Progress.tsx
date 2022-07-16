@@ -23,7 +23,7 @@ export type ProgressProps = {
   label: boolean | React.ReactNode;
 };
 
-export function ProgressImpl(props: ProgressProps) {
+export function Progress(props: ProgressProps) {
   const {
     className,
     orientation = "horizontal",
@@ -70,8 +70,6 @@ export function ProgressImpl(props: ProgressProps) {
     </span>
   );
 }
-
-export const Progress = ProgressImpl;
 
 // Helpers
 

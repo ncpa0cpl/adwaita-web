@@ -26,7 +26,7 @@ export type CheckboxProps = ExtendElementProps<
   }
 >;
 
-export class CheckboxImpl extends React.Component<CheckboxProps> {
+export class Checkbox extends React.Component<CheckboxProps> {
   static defaultProps = {
     showLabel: true,
     size: "medium",
@@ -81,5 +81,3 @@ export class CheckboxImpl extends React.Component<CheckboxProps> {
     );
   }
 }
-
-export const Checkbox = CheckboxImpl;

@@ -20,7 +20,7 @@ export type PageSwitcherProps = {
   style?: React.CSSProperties;
 };
 
-export class PageSwitcherImpl extends React.Component<PageSwitcherProps> {
+export class PageSwitcher extends React.Component<PageSwitcherProps> {
   static defaultProps = {
     transition: "horizontal",
     expand: false,
@@ -165,8 +165,6 @@ export class PageSwitcherImpl extends React.Component<PageSwitcherProps> {
     );
   }
 }
-
-export const PageSwitcher = PageSwitcherImpl;
 
 // Helpers
 

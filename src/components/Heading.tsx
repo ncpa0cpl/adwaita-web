@@ -18,7 +18,7 @@ const defaultProps = {
   anchor: true,
 };
 
-export function HeadingImpl<A extends keyof JSX.IntrinsicElements>({
+export function Heading<A extends keyof JSX.IntrinsicElements>({
   as,
   children,
   className,
@@ -44,9 +44,7 @@ export function HeadingImpl<A extends keyof JSX.IntrinsicElements>({
   );
 }
 
-export const Heading = HeadingImpl;
-
-HeadingImpl.defaultProps = defaultProps;
+Heading.defaultProps = defaultProps;
 
 function toID(string: string) {
   return string.toLowerCase().replace(/\W+/g, "-");

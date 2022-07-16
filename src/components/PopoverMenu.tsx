@@ -44,7 +44,7 @@ export type PopoverMenuProps = {
   shouldAttachEarly?: boolean;
 };
 
-export function PopoverMenuImpl({
+export function PopoverMenu({
   children,
   pages: getPages,
   open: openProp,
@@ -94,5 +94,3 @@ export function PopoverMenuImpl({
     </Popover>
   );
 }
-
-export const PopoverMenu = PopoverMenuImpl;

@@ -27,7 +27,7 @@ export type PanedProps = React.PropsWithChildren<{
   fill?: boolean | "width" | "height";
 }>;
 
-export class PanedImpl extends React.Component<PanedProps> {
+export class Paned extends React.Component<PanedProps> {
   static defaultProps = {
     orientation: "horizontal",
     border: true,
@@ -200,8 +200,6 @@ export class PanedImpl extends React.Component<PanedProps> {
     );
   }
 }
-
-export const Paned = PanedImpl;
 
 function handleStyle(orientation: Orientation, size: number) {
   return {

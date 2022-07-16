@@ -8,15 +8,13 @@ import { Popover } from "./Popover";
 
 export type MenuBarProps = ExtendElementProps<"div", {}>;
 
-export function MenuBarImpl({ children, className, ...rest }: MenuBarProps) {
+export function MenuBar({ children, className, ...rest }: MenuBarProps) {
   return (
     <div className={cx("MenuBar", className)} {...rest}>
       {children}
     </div>
   );
 }
-
-export const MenuBar = MenuBarImpl;
 
 export type MenuBarButtonProps = ExtendElementProps<
   "button",
@@ -53,7 +51,7 @@ export function Button({ label, children, className, ...rest }: MenuBarButtonPro
   );
 }
 
-MenuBarImpl.Button = Button;
+MenuBar.Button = Button;
 
 // Helpers
 
