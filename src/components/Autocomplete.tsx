@@ -1,7 +1,3 @@
-/*
- * Autocomplete.js
- */
-
 import cx from "clsx";
 import React, { useRef, useState } from "react";
 
@@ -15,6 +11,7 @@ import { Popover } from "./Popover";
 
 export type AutocompleteOption = { value: string | number; label: React.ReactNode };
 
+/** Props for the Autocomplete component. */
 export type AutocompleteProps = {
   className?: string;
   value?: string | number;
@@ -35,8 +32,13 @@ export type AutocompleteProps = {
   onSearch?: (value: string) => void;
 };
 
-export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
-  function Autocomplete(
+/**
+ * An autocomplete input that allows the user to select from a list of options.
+ *
+ * @Group Components
+ */
+export const Autocomplete = React.forwardRef(
+  (
     {
       className,
       options = [],
@@ -46,9 +48,9 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
       onSearch,
       onChange: onChangeProp,
       ...rest
-    },
-    refProp
-  ) {
+    }: AutocompleteProps,
+    refProp: React.ForwardedRef<HTMLDivElement>
+  ) => {
     const input = useRef<null | HTMLDivElement>(null);
     const [value, setValue] = useControlled(valueProp, defaultValue, onChangeProp);
     const [isFocused, setIsFocused] = useState(false);

@@ -1,7 +1,7 @@
 import React from "react";
 
-export type SeparatorProps = React.PropsWithChildren<JSX.IntrinsicElements["div"]>;
+export type SeparatorProps = {};
 
-export function Separator(props?: SeparatorProps) {
+export function Separator(props?: SeparatorProps & JSX.IntrinsicElements["div"]) {
   return <div {...props} className="separator" role="separator" />;
 }

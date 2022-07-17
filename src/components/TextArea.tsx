@@ -20,7 +20,7 @@ export type TextAreaProps = ExtendElementProps<
 >;
 
 export const TextArea = React.forwardRef<HTMLDivElement, TextAreaProps>(
-  function TextArea(
+  (
     {
       className,
       size = "medium",
@@ -32,9 +32,9 @@ export const TextArea = React.forwardRef<HTMLDivElement, TextAreaProps>(
       progress,
       onChange,
       ...rest
-    },
-    ref
-  ) {
+    }: TextAreaProps,
+    ref: React.ForwardedRef<HTMLDivElement>
+  ) => {
     const disabled = disabledValue;
 
     const forceUpdate = useForceUpdate();

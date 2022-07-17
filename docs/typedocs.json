@@ -1,0 +1,5066 @@
+{
+  "components": {
+    "Alert": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "danger": {
+            "description": "",
+            "type": "boolean"
+          },
+          "icon": {
+            "description": "",
+            "type": "string"
+          },
+          "info": {
+            "description": "",
+            "type": "boolean"
+          },
+          "showClose": {
+            "description": "",
+            "type": "boolean"
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "success": {
+            "description": "",
+            "type": "boolean"
+          },
+          "title": {
+            "description": "",
+            "type": "string"
+          },
+          "warning": {
+            "description": "",
+            "type": "boolean"
+          },
+          "onClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": [
+          "className",
+          "danger",
+          "icon",
+          "info",
+          "showClose",
+          "size",
+          "success",
+          "title",
+          "warning",
+          "onClose"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Alert.tsx",
+          "line": 8,
+          "character": 12
+        }
+      ]
+    },
+    "Autocomplete": {
+      "description": "An autocomplete input that allows the user to select from a list of options.",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "defaultValue": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "enableFilter": {
+            "description": "Enables basic filtering of options. Set to `false` if you want to implement your\nown filtering.",
+            "type": "boolean"
+          },
+          "options": {
+            "description": "The options shown in the list",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "",
+              "properties": {
+                "label": {
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "value": {
+                  "description": "",
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ]
+            }
+          },
+          "value": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onSearch": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "string"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": [
+          "options"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Autocomplete.tsx",
+          "line": 15,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Autocomplete.tsx",
+          "line": 40,
+          "character": 13
+        }
+      ]
+    },
+    "Box": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "align": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean",
+                "enum": [
+                  true
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "end"
+                ]
+              }
+            ]
+          },
+          "border": {
+            "description": "",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "compact": {
+            "description": "",
+            "type": "boolean"
+          },
+          "expandChildren": {
+            "description": "",
+            "type": "boolean"
+          },
+          "fill": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "horizontal"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "vertical"
+                ]
+              }
+            ]
+          },
+          "horizontal": {
+            "description": "",
+            "type": "boolean"
+          },
+          "inline": {
+            "description": "",
+            "type": "boolean"
+          },
+          "justify": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean",
+                "enum": [
+                  true
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "end"
+                ]
+              }
+            ]
+          },
+          "padded": {
+            "description": "",
+            "type": "boolean"
+          },
+          "space": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "around"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "between"
+                ]
+              }
+            ]
+          },
+          "vertical": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Box.tsx",
+          "line": 5,
+          "character": 12
+        }
+      ]
+    },
+    "Button": {
+      "description": "A simple button.",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "active": {
+            "description": "Active state",
+            "type": "boolean"
+          },
+          "circular": {
+            "description": "Round style button",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "danger": {
+            "description": "Danger style button",
+            "type": "boolean"
+          },
+          "flat": {
+            "description": "Flat style button",
+            "type": "boolean"
+          },
+          "hover": {
+            "description": "Hover state",
+            "type": "boolean"
+          },
+          "icon": {
+            "allOf": [
+              {
+                "title": "React.ComponentType",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Component, can be a class or function.",
+                "oneOf": [
+                  {
+                    "title": "Function",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "returns": {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "returns"
+                    ]
+                  },
+                  {
+                    "title": "Class",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "methods": {
+                        "type": "object",
+                        "properties": {
+                          "render": {
+                            "title": "Function",
+                            "type": "object",
+                            "properties": {
+                              "arguments": {
+                                "type": "object",
+                                "additionalProperties": false
+                              },
+                              "returns": {
+                                "title": "React Element",
+                                "type": "object"
+                              }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                              "arguments",
+                              "returns"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "methods"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "image": {
+            "description": "Button containing an image only",
+            "type": "boolean"
+          },
+          "link": {
+            "description": "Link style button",
+            "type": "boolean"
+          },
+          "loading": {
+            "description": "Shows a spinner and disables the button",
+            "type": "boolean"
+          },
+          "primary": {
+            "description": "Primary style button",
+            "type": "boolean"
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "text": {
+            "description": "Button containing text",
+            "type": "boolean"
+          },
+          "type": {
+            "description": "HTML button type",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "button"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "submit"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "reset"
+                ]
+              }
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Button.tsx",
+          "line": 7,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Button.tsx",
+          "line": 44,
+          "character": 13
+        }
+      ]
+    },
+    "Calendar": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "value": {
+            "allOf": [
+              {
+                "title": "Date",
+                "description": "External Type from 'typescript}'."
+              },
+              {
+                "title": "Date",
+                "type": "object",
+                "description": "A JavaScript builtin Date object."
+              }
+            ]
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "date",
+                  "allOf": [
+                    {
+                      "title": "Date",
+                      "description": "External Type from 'typescript}'."
+                    },
+                    {
+                      "title": "Date",
+                      "type": "object",
+                      "description": "A JavaScript builtin Date object."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Calendar.tsx",
+          "line": 29,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Calendar.tsx",
+          "line": 34,
+          "character": 13
+        }
+      ]
+    },
+    "Checkbox": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "defaultValue": {
+            "description": "Default value of the checkbox.",
+            "type": "boolean"
+          },
+          "disabled": {
+            "description": "Whether the checkbox is disabled.",
+            "type": "boolean"
+          },
+          "label": {
+            "description": "The checkbox label",
+            "type": "string"
+          },
+          "showLabel": {
+            "description": "Whether to show the checkbox label.",
+            "type": "boolean"
+          },
+          "size": {
+            "description": "Size of the checkbox.",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "value": {
+            "description": "The current value of the checkbox.",
+            "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "boolean"
+                },
+                "1": {
+                  "title": "ev",
+                  "allOf": [
+                    {
+                      "title": "ChangeEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "ChangeEvent",
+                      "type": "object",
+                      "description": "A synthetic or real ChangeEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Checkbox.tsx",
+          "line": 9,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Checkbox.tsx",
+          "line": 29,
+          "character": 13
+        }
+      ]
+    },
+    "DatePicker": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "allOf": [
+          {
+            "type": "object",
+            "description": "",
+            "properties": {
+              "defaultValue": {
+                "allOf": [
+                  {
+                    "description": "A date object"
+                  },
+                  {
+                    "title": "Date",
+                    "description": "External Type from 'typescript}'."
+                  },
+                  {
+                    "title": "Date",
+                    "type": "object",
+                    "description": "A JavaScript builtin Date object."
+                  }
+                ]
+              },
+              "format": {
+                "description": "A string that represents the date format",
+                "type": "string"
+              },
+              "value": {
+                "allOf": [
+                  {
+                    "description": "A date object"
+                  },
+                  {
+                    "title": "Date",
+                    "description": "External Type from 'typescript}'."
+                  },
+                  {
+                    "title": "Date",
+                    "type": "object",
+                    "description": "A JavaScript builtin Date object."
+                  }
+                ]
+              },
+              "onChange": {
+                "title": "Function",
+                "type": "object",
+                "description": "",
+                "properties": {
+                  "arguments": {
+                    "0": {
+                      "title": "value",
+                      "oneOf": [
+                        {
+                          "type": "null",
+                          "enum": [
+                            null
+                          ]
+                        },
+                        {
+                          "allOf": [
+                            {
+                              "title": "Date",
+                              "description": "External Type from 'typescript}'."
+                            },
+                            {
+                              "title": "Date",
+                              "type": "object",
+                              "description": "A JavaScript builtin Date object."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "returns": {
+                    "type": "void"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
+                ]
+              }
+            },
+            "required": [
+              "defaultValue",
+              "value",
+              "onChange"
+            ]
+          },
+          {
+            "allOf": [
+              {
+                "title": "Omit",
+                "description": "External Type from 'typescript'.",
+                "type": "any"
+              }
+            ]
+          }
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/DatePicker.tsx",
+          "line": 12,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/DatePicker.tsx",
+          "line": 26,
+          "character": 16
+        }
+      ]
+    },
+    "Dropdown": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "align": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              }
+            ]
+          },
+          "allowClear": {
+            "description": "",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "",
+            "type": "boolean"
+          },
+          "filterKey": {
+            "description": "",
+            "type": "string"
+          },
+          "id": {
+            "description": "",
+            "type": "string"
+          },
+          "input": {
+            "description": "",
+            "type": "boolean"
+          },
+          "label": {
+            "allOf": [
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
+          },
+          "loading": {
+            "description": "",
+            "type": "boolean"
+          },
+          "open": {
+            "description": "",
+            "type": "boolean"
+          },
+          "options": {
+            "description": "",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "",
+              "properties": {
+                "data": {
+                  "description": "",
+                  "type": "any"
+                },
+                "label": {
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "value": {
+                  "description": "",
+                  "type": "any"
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ]
+            }
+          },
+          "placeholder": {
+            "description": "",
+            "type": "string"
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "triggerClassName": {
+            "description": "",
+            "type": "string"
+          },
+          "value": {
+            "description": "",
+            "type": "any"
+          },
+          "filter": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "option",
+                  "type": "any"
+                },
+                "1": {
+                  "title": "filter",
+                  "type": "string"
+                }
+              },
+              "returns": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "oneOf": [
+                    {
+                      "type": "undefined"
+                    },
+                    {
+                      "type": "any"
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onOpen": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Dropdown.tsx",
+          "line": 22,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Dropdown.tsx",
+          "line": 44,
+          "character": 13
+        }
+      ]
+    },
+    "Expander": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "contents": {
+            "description": "If true, the trigger is rendered outside the Expander container",
+            "type": "boolean"
+          },
+          "defaultOpen": {
+            "description": "",
+            "type": "boolean"
+          },
+          "fitContent": {
+            "description": "If true, the container fits its content size",
+            "type": "boolean"
+          },
+          "iconPosition": {
+            "description": "Arrow position",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "before"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "after"
+                ]
+              },
+              {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              }
+            ]
+          },
+          "label": {
+            "allOf": [
+              {
+                "description": "The label for the default button trigger element (only if `trigger` is not set)"
+              },
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
+          },
+          "open": {
+            "description": "Expanded state",
+            "type": "boolean"
+          },
+          "size": {
+            "description": "",
+            "type": "number"
+          },
+          "transition": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "horizontal"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "vertical"
+                ]
+              }
+            ]
+          },
+          "trigger": {
+            "description": "The element that triggers toggling the expander. If not set, a default unstyled\nbutton will be displayed. If it's a render function, it received an argument: ({\ntoggle: Fn })",
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "title": "React.ReactElement",
+                    "description": "External Type from '@types/react}'."
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              },
+              {
+                "type": "object",
+                "description": "",
+                "properties": {},
+                "required": []
+              }
+            ]
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "open",
+                  "type": "boolean"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Expander.tsx",
+          "line": 8,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Expander.tsx",
+          "line": 40,
+          "character": 13
+        }
+      ]
+    },
+    "Frame": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "background": {
+            "description": "The background color",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "low"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "default"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "high"
+                ]
+              }
+            ]
+          },
+          "border": {
+            "description": "If true, shows a border",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "inline": {
+            "description": "If true, is displayed as an inline element",
+            "type": "boolean"
+          },
+          "label": {
+            "allOf": [
+              {
+                "description": "The label of the frame (using <fieldset>/<legend>)"
+              },
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
+          },
+          "padded": {
+            "description": "",
+            "type": "boolean"
+          },
+          "scrollable": {
+            "description": "If true, is scrollable",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Frame.tsx",
+          "line": 5,
+          "character": 12
+        }
+      ]
+    },
+    "HeaderBar": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "titlebar": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/HeaderBar.tsx",
+          "line": 7,
+          "character": 12
+        }
+      ]
+    },
+    "Heading": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "anchor": {
+            "description": "",
+            "type": "boolean"
+          },
+          "as": {
+            "allOf": [
+              {
+                "title": "JSX.IntrinsicElements",
+                "description": "External Type from '@types/react'.",
+                "type": "any"
+              }
+            ]
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "weight": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "number",
+                "enum": [
+                  100
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  300
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  400
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  700
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  900
+                ]
+              }
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Heading.tsx",
+          "line": 6,
+          "character": 12
+        }
+      ]
+    },
+    "InfoBar": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "activatable": {
+            "description": "",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "closable": {
+            "description": "",
+            "type": "boolean"
+          },
+          "close": {
+            "description": "",
+            "type": "boolean"
+          },
+          "danger": {
+            "description": "",
+            "type": "boolean"
+          },
+          "info": {
+            "description": "",
+            "type": "boolean"
+          },
+          "success": {
+            "description": "",
+            "type": "boolean"
+          },
+          "warning": {
+            "description": "",
+            "type": "boolean"
+          },
+          "onClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/InfoBar.tsx",
+          "line": 9,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/InfoBar.tsx",
+          "line": 24,
+          "character": 16
+        }
+      ]
+    },
+    "Input": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "allowClear": {
+            "description": "Show a button to clear the input value",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "defaultValue": {
+            "description": "",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Disable the input",
+            "type": "boolean"
+          },
+          "error": {
+            "description": "Error style input",
+            "type": "boolean"
+          },
+          "flat": {
+            "description": "Flat style input",
+            "type": "boolean"
+          },
+          "icon": {
+            "allOf": [
+              {
+                "title": "React.ComponentType",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Component, can be a class or function.",
+                "oneOf": [
+                  {
+                    "title": "Function",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "returns": {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "returns"
+                    ]
+                  },
+                  {
+                    "title": "Class",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "methods": {
+                        "type": "object",
+                        "properties": {
+                          "render": {
+                            "title": "Function",
+                            "type": "object",
+                            "properties": {
+                              "arguments": {
+                                "type": "object",
+                                "additionalProperties": false
+                              },
+                              "returns": {
+                                "title": "React Element",
+                                "type": "object"
+                              }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                              "arguments",
+                              "returns"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "methods"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "iconAfter": {
+            "allOf": [
+              {
+                "title": "React.ComponentType",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Component, can be a class or function.",
+                "oneOf": [
+                  {
+                    "title": "Function",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "returns": {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "returns"
+                    ]
+                  },
+                  {
+                    "title": "Class",
+                    "type": "object",
+                    "properties": {
+                      "arguments": {
+                        "type": "object",
+                        "properties": {
+                          "0": {
+                            "title": "props",
+                            "type": "object"
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      "methods": {
+                        "type": "object",
+                        "properties": {
+                          "render": {
+                            "title": "Function",
+                            "type": "object",
+                            "properties": {
+                              "arguments": {
+                                "type": "object",
+                                "additionalProperties": false
+                              },
+                              "returns": {
+                                "title": "React Element",
+                                "type": "object"
+                              }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                              "arguments",
+                              "returns"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "arguments",
+                      "methods"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "loading": {
+            "description": "Shows a loading indicator",
+            "type": "boolean"
+          },
+          "placeholder": {
+            "description": "",
+            "type": "string"
+          },
+          "progress": {
+            "description": "Show a progress bar of `progress` percent size if it's a number, or an\nundeterminate (loading) bar if `true`",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "size": {
+            "description": "Size of the input",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "type": {
+            "description": "The HTML input type",
+            "type": "string"
+          },
+          "value": {
+            "description": "",
+            "type": "string"
+          },
+          "warning": {
+            "description": "Warning style input",
+            "type": "boolean"
+          },
+          "onAccept": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "string"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "string"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onClickIconAfter": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Input.tsx",
+          "line": 14,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Input.tsx",
+          "line": 55,
+          "character": 13
+        }
+      ]
+    },
+    "InputNumber": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "defaultValue": {
+            "description": "",
+            "type": "number"
+          },
+          "disabled": {
+            "description": "",
+            "type": "boolean"
+          },
+          "max": {
+            "description": "",
+            "type": "number"
+          },
+          "min": {
+            "description": "",
+            "type": "number"
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "step": {
+            "description": "",
+            "type": "number"
+          },
+          "value": {
+            "description": "",
+            "type": "number"
+          },
+          "vertical": {
+            "description": "",
+            "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "number"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/InputNumber.tsx",
+          "line": 13,
+          "character": 12
+        }
+      ]
+    },
+    "Label": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "align": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "center"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              }
+            ]
+          },
+          "bold": {
+            "description": "",
+            "type": "boolean"
+          },
+          "danger": {
+            "description": "",
+            "type": "boolean"
+          },
+          "disabled": {
+            "description": "",
+            "type": "boolean"
+          },
+          "ellipsis": {
+            "description": "",
+            "type": "boolean"
+          },
+          "fill": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "width"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "height"
+                ]
+              }
+            ]
+          },
+          "info": {
+            "description": "",
+            "type": "boolean"
+          },
+          "italic": {
+            "description": "",
+            "type": "boolean"
+          },
+          "muted": {
+            "description": "",
+            "type": "boolean"
+          },
+          "noSelect": {
+            "description": "",
+            "type": "boolean"
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "success": {
+            "description": "",
+            "type": "boolean"
+          },
+          "title": {
+            "description": "",
+            "type": "string"
+          },
+          "warning": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Label.tsx",
+          "line": 5,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Label.tsx",
+          "line": 25,
+          "character": 16
+        }
+      ]
+    },
+    "LevelBar": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "level": {
+            "description": "The coloration of the active segments",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "empty"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "danger"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "warning"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "info"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "success"
+                ]
+              }
+            ]
+          },
+          "segments": {
+            "description": "The number of segments",
+            "type": "number"
+          },
+          "value": {
+            "description": "The number active of segments",
+            "type": "number"
+          },
+          "vertical": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "segments",
+          "value"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/LevelBar.tsx",
+          "line": 5,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/LevelBar.tsx",
+          "line": 16,
+          "character": 13
+        }
+      ]
+    },
+    "List": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "border": {
+            "description": "",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "fill": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "width"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "height"
+                ]
+              }
+            ]
+          },
+          "horizontal": {
+            "description": "",
+            "type": "boolean"
+          },
+          "rich": {
+            "description": "",
+            "type": "boolean"
+          },
+          "rounded": {
+            "description": "",
+            "type": "boolean"
+          },
+          "separators": {
+            "description": "",
+            "type": "boolean"
+          },
+          "sidebar": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "stack"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "navigation"
+                ]
+              }
+            ]
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              }
+            ]
+          },
+          "sublist": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/List.tsx",
+          "line": 7,
+          "character": 12
+        }
+      ]
+    },
+    "Menu": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "icons": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Menu.tsx",
+          "line": 13,
+          "character": 12
+        }
+      ]
+    },
+    "MenuBar": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {},
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/MenuBar.tsx",
+          "line": 9,
+          "character": 12
+        }
+      ]
+    },
+    "Notebook": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "action": {
+            "allOf": [
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
+          },
+          "arrows": {
+            "description": "",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "pages": {
+            "description": "",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "",
+              "properties": {
+                "closable": {
+                  "description": "",
+                  "type": "boolean"
+                },
+                "content": {
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "key": {
+                  "description": "",
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "label": {
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "content",
+                "key"
+              ]
+            }
+          },
+          "position": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "top"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "bottom"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              }
+            ]
+          },
+          "transition": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "horizontal"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "vertical"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "opacity"
+                ]
+              },
+              {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              }
+            ]
+          },
+          "value": {
+            "description": "",
+            "type": "number"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "number"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "pageIndex",
+                  "type": "number"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": [
+          "pages",
+          "onChange",
+          "onClose"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Notebook.tsx",
+          "line": 19,
+          "character": 12
+        }
+      ]
+    },
+    "PageSwitcher": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "activePage": {
+            "description": "",
+            "type": "number"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "expand": {
+            "description": "",
+            "type": "boolean"
+          },
+          "mainPage": {
+            "description": "",
+            "type": "number"
+          },
+          "padded": {
+            "description": "",
+            "type": "boolean"
+          },
+          "pages": {
+            "description": "",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "",
+              "properties": {
+                "closable": {
+                  "description": "",
+                  "type": "boolean"
+                },
+                "content": {
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "key": {
+                  "description": "",
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "label": {
+                  "allOf": [
+                    {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element",
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "content",
+                "key"
+              ]
+            }
+          },
+          "style": {
+            "allOf": [
+              {
+                "title": "React.CSSProperties",
+                "description": "External Type from '@types/react'.",
+                "type": "any"
+              }
+            ]
+          },
+          "transition": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "horizontal"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "vertical"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "opacity"
+                ]
+              },
+              {
+                "type": "boolean",
+                "enum": [
+                  false
+                ]
+              }
+            ]
+          },
+          "useMainPageDimensions": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "width"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "height"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "pages"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/PageSwitcher.tsx",
+          "line": 11,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/PageSwitcher.tsx",
+          "line": 23,
+          "character": 13
+        }
+      ]
+    },
+    "Paned": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "border": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "handle"
+                ]
+              }
+            ]
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "defaultSize": {
+            "description": "",
+            "type": "number"
+          },
+          "fill": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "width"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "height"
+                ]
+              }
+            ]
+          },
+          "orientation": {
+            "type": "object",
+            "description": "",
+            "properties": {
+              "horizontal": {
+                "type": "object",
+                "description": "",
+                "properties": {
+                  "event": {
+                    "description": "",
+                    "type": "string",
+                    "enum": [
+                      "x"
+                    ]
+                  },
+                  "position": {
+                    "description": "",
+                    "type": "string",
+                    "enum": [
+                      "left"
+                    ]
+                  },
+                  "size": {
+                    "description": "",
+                    "type": "string",
+                    "enum": [
+                      "width"
+                    ]
+                  }
+                },
+                "required": [
+                  "event",
+                  "position",
+                  "size"
+                ]
+              },
+              "vertical": {
+                "type": "object",
+                "description": "",
+                "properties": {
+                  "event": {
+                    "description": "",
+                    "type": "string",
+                    "enum": [
+                      "y"
+                    ]
+                  },
+                  "position": {
+                    "description": "",
+                    "type": "string",
+                    "enum": [
+                      "top"
+                    ]
+                  },
+                  "size": {
+                    "description": "",
+                    "type": "string",
+                    "enum": [
+                      "height"
+                    ]
+                  }
+                },
+                "required": [
+                  "event",
+                  "position",
+                  "size"
+                ]
+              }
+            },
+            "required": [
+              "horizontal",
+              "vertical"
+            ]
+          },
+          "size": {
+            "description": "",
+            "type": "number"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Paned.tsx",
+          "line": 21,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Paned.tsx",
+          "line": 30,
+          "character": 13
+        }
+      ]
+    },
+    "Popover": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "align": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              }
+            ]
+          },
+          "arrow": {
+            "description": "",
+            "type": "boolean"
+          },
+          "children": {
+            "allOf": [
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "content": {
+            "description": "",
+            "oneOf": [
+              {
+                "allOf": [
+                  {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react}'."
+                  },
+                  {
+                    "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "object",
+                "description": "",
+                "properties": {},
+                "required": []
+              }
+            ]
+          },
+          "delay": {
+            "description": "",
+            "type": "number"
+          },
+          "method": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mouseover"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "click"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "click-controlled"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "none"
+                ]
+              }
+            ]
+          },
+          "open": {
+            "description": "",
+            "type": "boolean"
+          },
+          "placement": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "top"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "top-start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "top-end"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "bottom"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "bottom-start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "bottom-end"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right-start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right-end"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left-start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left-end"
+                ]
+              }
+            ]
+          },
+          "shouldAttachEarly": {
+            "description": "",
+            "type": "boolean"
+          },
+          "shouldUpdatePlacement": {
+            "description": "",
+            "type": "boolean"
+          },
+          "width": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "trigger"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "trigger-min"
+                ]
+              }
+            ]
+          },
+          "onClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onDidClose": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onDidOpen": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onOpen": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {},
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": [
+          "children",
+          "content"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Popover.tsx",
+          "line": 18,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Popover.tsx",
+          "line": 55,
+          "character": 13
+        }
+      ]
+    },
+    "PopoverMenu": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "align": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              }
+            ]
+          },
+          "arrow": {
+            "description": "",
+            "type": "boolean"
+          },
+          "children": {
+            "allOf": [
+              {
+                "title": "React.ReactNode",
+                "description": "External Type from '@types/react}'."
+              },
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element",
+                    "type": "object"
+                  }
+                ]
+              }
+            ]
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "delay": {
+            "description": "",
+            "type": "number"
+          },
+          "method": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mouseover"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "click"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "click-controlled"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "none"
+                ]
+              }
+            ]
+          },
+          "open": {
+            "description": "",
+            "type": "boolean"
+          },
+          "placement": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "top"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "top-start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "top-end"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "bottom"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "bottom-start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "bottom-end"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right-start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right-end"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left-start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left-end"
+                ]
+              }
+            ]
+          },
+          "shouldAttachEarly": {
+            "description": "",
+            "type": "boolean"
+          },
+          "shouldUpdatePlacement": {
+            "description": "",
+            "type": "boolean"
+          },
+          "width": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "trigger"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "trigger-min"
+                ]
+              }
+            ]
+          },
+          "onChangeOpen": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "open",
+                  "type": "boolean"
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "pages": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "params",
+                  "type": "object",
+                  "description": "",
+                  "properties": {
+                    "back": {
+                      "title": "Function",
+                      "type": "object",
+                      "description": "",
+                      "properties": {
+                        "arguments": {},
+                        "returns": {
+                          "type": "void"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "arguments",
+                        "returns"
+                      ]
+                    },
+                    "change": {
+                      "title": "Function",
+                      "type": "object",
+                      "description": "",
+                      "properties": {
+                        "arguments": {
+                          "0": {
+                            "title": "key",
+                            "type": "string"
+                          }
+                        },
+                        "returns": {
+                          "type": "void"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "arguments",
+                        "returns"
+                      ]
+                    },
+                    "close": {
+                      "title": "Function",
+                      "type": "object",
+                      "description": "",
+                      "properties": {
+                        "arguments": {},
+                        "returns": {
+                          "type": "void"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "arguments",
+                        "returns"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "back",
+                    "change",
+                    "close"
+                  ]
+                }
+              },
+              "returns": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "",
+                  "properties": {
+                    "closable": {
+                      "description": "",
+                      "type": "boolean"
+                    },
+                    "content": {
+                      "allOf": [
+                        {
+                          "title": "React.ReactNode",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "title": "React Element",
+                              "type": "object"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "key": {
+                      "description": "",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "label": {
+                      "allOf": [
+                        {
+                          "title": "React.ReactNode",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "title": "React Element",
+                              "type": "object"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "content",
+                    "key"
+                  ]
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": [
+          "children",
+          "pages"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/PopoverMenu.tsx",
+          "line": 15,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/PopoverMenu.tsx",
+          "line": 47,
+          "character": 16
+        }
+      ]
+    },
+    "Progress": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "aria-label": {
+            "description": "The label of the slider.",
+            "type": "string"
+          },
+          "aria-labelledby": {
+            "description": "The id of the element containing a label for the slider.",
+            "type": "string"
+          },
+          "aria-valuetext": {
+            "description": "A string value that provides a user-friendly name for the current value of the slider.",
+            "type": "string"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "label": {
+            "description": "If a label should be shown",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "allOf": [
+                  {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react}'."
+                  },
+                  {
+                    "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "title": "React Element",
+                        "type": "object"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "orientation": {
+            "description": "The slider orientation.",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "horizontal"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "vertical"
+                ]
+              }
+            ]
+          },
+          "value": {
+            "description": "The value of the slider. For indeterminate pass undefined.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "aria-label",
+          "aria-labelledby",
+          "aria-valuetext",
+          "className",
+          "label",
+          "orientation",
+          "value"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Progress.tsx",
+          "line": 10,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Progress.tsx",
+          "line": 26,
+          "character": 16
+        }
+      ]
+    },
+    "Radio": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "checked": {
+            "description": "",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "defaultChecked": {
+            "description": "",
+            "type": "boolean"
+          },
+          "disabled": {
+            "description": "",
+            "type": "boolean"
+          },
+          "id": {
+            "description": "",
+            "type": "string"
+          },
+          "label": {
+            "description": "",
+            "type": "string"
+          },
+          "name": {
+            "description": "",
+            "type": "string"
+          },
+          "showLabel": {
+            "description": "",
+            "type": "boolean"
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "value": {
+            "description": "",
+            "type": "string"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "checked",
+                  "type": "boolean"
+                },
+                "1": {
+                  "title": "event",
+                  "allOf": [
+                    {
+                      "title": "ChangeEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "ChangeEvent",
+                      "type": "object",
+                      "description": "A synthetic or real ChangeEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Radio.tsx",
+          "line": 11,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Radio.tsx",
+          "line": 25,
+          "character": 13
+        }
+      ]
+    },
+    "Range": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "ThumbComponent": {
+            "allOf": [
+              {
+                "description": "The component used to display the value label."
+              },
+              {
+                "title": "React.ElementType",
+                "description": "External Type from '@types/react'.",
+                "type": "any"
+              }
+            ]
+          },
+          "aria-label": {
+            "description": "The label of the slider.",
+            "type": "string"
+          },
+          "aria-labelledby": {
+            "description": "The id of the element containing a label for the slider.",
+            "type": "string"
+          },
+          "aria-valuetext": {
+            "description": "A string value that provides a user-friendly name for the current value of the slider.",
+            "type": "string"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "defaultValue": {
+            "description": "The default element value. Use when the component is not controlled.",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            ]
+          },
+          "disabled": {
+            "description": "If `true`, the slider will be disabled.",
+            "type": "boolean"
+          },
+          "marks": {
+            "description": "Marks indicate predetermined values to which the user can move the slider. If\n`true` the marks will be spaced according the value of the `step` prop. If an\narray, it should contain objects with `value` and an optional `label` keys.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "",
+                  "properties": {
+                    "label": {
+                      "description": "",
+                      "type": "string"
+                    },
+                    "value": {
+                      "description": "",
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            ]
+          },
+          "max": {
+            "description": "The maximum allowed value of the slider. Should not be equal to min.",
+            "type": "number"
+          },
+          "min": {
+            "description": "The minimum allowed value of the slider. Should not be equal to max.",
+            "type": "number"
+          },
+          "name": {
+            "description": "Name attribute of the hidden `input` element.",
+            "type": "string"
+          },
+          "scale": {
+            "allOf": [
+              {
+                "description": "A transformation function, to change the scale of the slider."
+              },
+              {
+                "title": "identity",
+                "description": "External Type from 'rambda'.",
+                "type": "any"
+              }
+            ]
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "step": {
+            "description": "The granularity with which the slider can step through values. (A \"discrete\"\nslider.) The `min` prop serves as the origin for the valid values. We recommend\n(max - min) to be evenly divisible by the step.\nWhen step is `null`, the thumb can only be slid onto marks provided with the `marks` prop.\n",
+            "type": "number"
+          },
+          "track": {
+            "description": "The track presentation:\n- `normal` the track will render a bar representing the slider value.\n- `inverted` the track will render a bar representing the remaining slider value.\n- `false` the track will render without a bar.\n",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "normal"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "inverted"
+                ]
+              }
+            ]
+          },
+          "value": {
+            "description": "The value of the slider. For ranged sliders, provide an array with two values.",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            ]
+          },
+          "valueLabelDisplay": {
+            "description": "Controls when the value label is displayed:\n- `auto` the value label will display when the thumb is hovered or focused.\n- `on` will display persistently.\n- `off` will never display.\n",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "off"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "auto"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "on"
+                ]
+              }
+            ]
+          },
+          "valueLabelFormat": {
+            "description": "The format function the value label's value.\nWhen a function is provided, it should have the following signature:\n\n- {number} value The value label's value to format\n- {number} index The value label's index to format\n",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "description": "",
+                "properties": {},
+                "required": []
+              }
+            ]
+          },
+          "vertical": {
+            "description": "If the slider is vertical.",
+            "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  ]
+                },
+                "1": {
+                  "title": "ev",
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "title": "MouseEvent",
+                          "description": "External Type from 'typescript}'."
+                        },
+                        {
+                          "title": "MouseEvent",
+                          "type": "object",
+                          "description": "A synthetic or real MouseEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "TouchEvent",
+                          "description": "External Type from 'typescript}'."
+                        },
+                        {
+                          "title": "TouchEvent",
+                          "type": "object",
+                          "description": "A synthetic or real TouchEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "MouseEvent",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "title": "MouseEvent",
+                          "type": "object",
+                          "description": "A synthetic or real MouseEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "ChangeEvent",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "title": "ChangeEvent",
+                          "type": "object",
+                          "description": "A synthetic or real ChangeEvent event."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onChangeCommitted": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "ev",
+                  "oneOf": [
+                    {
+                      "allOf": [
+                        {
+                          "title": "MouseEvent",
+                          "description": "External Type from 'typescript}'."
+                        },
+                        {
+                          "title": "MouseEvent",
+                          "type": "object",
+                          "description": "A synthetic or real MouseEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "TouchEvent",
+                          "description": "External Type from 'typescript}'."
+                        },
+                        {
+                          "title": "TouchEvent",
+                          "type": "object",
+                          "description": "A synthetic or real TouchEvent event."
+                        }
+                      ]
+                    },
+                    {
+                      "allOf": [
+                        {
+                          "title": "ChangeEvent",
+                          "description": "External Type from '@types/react}'."
+                        },
+                        {
+                          "title": "ChangeEvent",
+                          "type": "object",
+                          "description": "A synthetic or real ChangeEvent event."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "1": {
+                  "title": "value",
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          },
+          "onMouseDown": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "event",
+                  "allOf": [
+                    {
+                      "title": "MouseEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "MouseEvent",
+                      "type": "object",
+                      "description": "A synthetic or real MouseEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Range.tsx",
+          "line": 32,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Range.tsx",
+          "line": 111,
+          "character": 13
+        }
+      ]
+    },
+    "Separator": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {},
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Separator.tsx",
+          "line": 3,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Separator.tsx",
+          "line": 5,
+          "character": 16
+        }
+      ]
+    },
+    "Spinner": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "disabled": {
+            "description": "",
+            "type": "boolean"
+          },
+          "hidden": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Spinner.tsx",
+          "line": 5,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Spinner.tsx",
+          "line": 10,
+          "character": 16
+        }
+      ]
+    },
+    "Switch": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "defaultValue": {
+            "description": "",
+            "type": "boolean"
+          },
+          "disabled": {
+            "description": "",
+            "type": "boolean"
+          },
+          "id": {
+            "description": "",
+            "type": "string"
+          },
+          "label": {
+            "description": "Not shown. For screen-readers only",
+            "type": "string"
+          },
+          "labels": {
+            "description": "On/Off if `true`, or provide your own 2 labels",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "value": {
+            "description": "",
+            "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "boolean"
+                },
+                "1": {
+                  "title": "event",
+                  "allOf": [
+                    {
+                      "title": "ChangeEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "ChangeEvent",
+                      "type": "object",
+                      "description": "A synthetic or real ChangeEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/Switch.tsx",
+          "line": 10,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/Switch.tsx",
+          "line": 24,
+          "character": 13
+        }
+      ]
+    },
+    "Table": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "columns": {
+            "description": "",
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "title": "Column",
+                  "description": "External Type from '@types/react-table'.",
+                  "type": "any"
+                }
+              ]
+            }
+          },
+          "data": {
+            "description": "",
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "title": "Record",
+                  "description": "External Type from 'typescript'.",
+                  "type": "any"
+                }
+              ]
+            }
+          },
+          "filterable": {
+            "description": "",
+            "type": "boolean"
+          },
+          "sortable": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "columns",
+          "data"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Table.tsx",
+          "line": 24,
+          "character": 12
+        }
+      ]
+    },
+    "Text": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "align": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "center"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              }
+            ]
+          },
+          "as": {
+            "allOf": [
+              {
+                "title": "JSX.IntrinsicElements",
+                "description": "External Type from '@types/react'.",
+                "type": "any"
+              }
+            ]
+          },
+          "bold": {
+            "description": "",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "danger": {
+            "description": "",
+            "type": "boolean"
+          },
+          "fill": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              }
+            ]
+          },
+          "hero": {
+            "description": "",
+            "type": "boolean"
+          },
+          "info": {
+            "description": "",
+            "type": "boolean"
+          },
+          "italic": {
+            "description": "",
+            "type": "boolean"
+          },
+          "muted": {
+            "description": "",
+            "type": "boolean"
+          },
+          "noSelect": {
+            "description": "",
+            "type": "boolean"
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "success": {
+            "description": "",
+            "type": "boolean"
+          },
+          "warning": {
+            "description": "",
+            "type": "boolean"
+          },
+          "weight": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "number",
+                "enum": [
+                  100
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  300
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  400
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  700
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  900
+                ]
+              }
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Text.tsx",
+          "line": 5,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Text.tsx",
+          "line": 27,
+          "character": 16
+        }
+      ]
+    },
+    "TextArea": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "",
+            "type": "boolean"
+          },
+          "error": {
+            "description": "",
+            "type": "boolean"
+          },
+          "flat": {
+            "description": "",
+            "type": "boolean"
+          },
+          "placeholder": {
+            "description": "",
+            "type": "string"
+          },
+          "progress": {
+            "description": "",
+            "type": "number"
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "value": {
+            "description": "",
+            "type": "string"
+          },
+          "warning": {
+            "description": "",
+            "type": "boolean"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "0": {
+                  "title": "value",
+                  "type": "string"
+                },
+                "1": {
+                  "title": "ev",
+                  "allOf": [
+                    {
+                      "title": "ChangeEvent",
+                      "description": "External Type from '@types/react}'."
+                    },
+                    {
+                      "title": "ChangeEvent",
+                      "type": "object",
+                      "description": "A synthetic or real ChangeEvent event."
+                    }
+                  ]
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/TextArea.tsx",
+          "line": 6,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/TextArea.tsx",
+          "line": 22,
+          "character": 13
+        }
+      ]
+    },
+    "Toolbar": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "horizontal": {
+            "description": "",
+            "type": "boolean"
+          },
+          "vertical": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/Toolbar.tsx",
+          "line": 4,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Toolbar.tsx",
+          "line": 10,
+          "character": 16
+        }
+      ]
+    }
+  }
+}

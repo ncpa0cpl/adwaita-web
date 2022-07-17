@@ -36,8 +36,13 @@ export type ButtonProps = ExtendElementProps<
   }
 >;
 
+/**
+ * A simple button.
+ *
+ * @Group Components
+ */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  function Button(
+  (
     {
       children,
       className,
@@ -56,9 +61,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       primary,
       danger,
       ...rest
-    },
-    ref
-  ) {
+    }: ButtonProps,
+    ref: React.ForwardedRef<HTMLButtonElement>
+  ) => {
     const isImageButton = image !== undefined ? image : Boolean(!children);
     return (
       // @ts-ignore

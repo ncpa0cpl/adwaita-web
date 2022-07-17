@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { hasKey } from "../utils/hasKey";
 
 import useControlled from "../utils/useControlled";
-import type { PageSwitcherPage } from "./PageSwitcher";
 import { PageSwitcher } from "./PageSwitcher";
-import type { PopoverProps } from "./Popover";
 import { Popover } from "./Popover";
+
+export type PageSwitcherPage = {
+  key: string | number;
+  label?: React.ReactNode;
+  content: React.ReactNode;
+  closable?: boolean;
+};
 
 export type PopoverMenuProps = {
   pages: (params: {
@@ -15,7 +20,29 @@ export type PopoverMenuProps = {
   }) => PageSwitcherPage[];
   open?: boolean;
   onChangeOpen?: (open: boolean) => void;
-} & Omit<PopoverProps, "open" | "content" | "onOpen" | "onClose" | "onDidClose">;
+  className?: string;
+  arrow?: boolean;
+  children: React.ReactNode;
+  placement?:
+    | "top"
+    | "top-start"
+    | "top-end"
+    | "bottom"
+    | "bottom-start"
+    | "bottom-end"
+    | "right"
+    | "right-start"
+    | "right-end"
+    | "left"
+    | "left-start"
+    | "left-end";
+  align?: "right" | "left";
+  method?: "mouseover" | "click" | "click-controlled" | "none";
+  width?: "trigger" | "trigger-min";
+  delay?: number;
+  shouldUpdatePlacement?: boolean;
+  shouldAttachEarly?: boolean;
+};
 
 export function PopoverMenu({
   children,

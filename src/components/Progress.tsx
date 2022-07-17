@@ -1,7 +1,7 @@
 import cx from "clsx";
 import React from "react";
 
-const axisProps = {
+export const axisProps = {
   horizontal: (percent: number) => ({ width: `${percent}%` }),
   "horizontal-reverse": (percent: number) => ({ width: `${percent}%` }),
   vertical: (percent: number) => ({ height: `${percent}%` }),

@@ -30,7 +30,7 @@ export function DatePicker({
   onChange,
   ...rest
 }: DatePickerProps) {
-  const calendarRef = useRef<Calendar | null>(null);
+  const calendarRef = useRef<React.ReactInstance | null>(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useControlled<Date | null>(
     valueProp,
@@ -71,6 +71,7 @@ export function DatePicker({
     setOpen(false);
   };
 
+  // @ts-ignore
   const popover = <Calendar onChange={onCalendarChange} ref={calendarRef} />;
 
   return (

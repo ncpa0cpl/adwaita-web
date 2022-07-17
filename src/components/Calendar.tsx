@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { GoNext, GoPrevious } from "../icons";
 import { Box } from "./Box";
 import { Button } from "./Button";
-import { Input } from "./Input";
+import { Input, InputGroup } from "./Input";
 import { Label } from "./Label";
 
 const weekDayLetters = ["S", "M", "T", "W", "T", "F", "S"];
@@ -247,7 +247,7 @@ function YearPicker({ value, onChange, onAccept }: YearPickerProps) {
       ))}
       <form className="YearPicker__input" onSubmit={onSubmit}>
         <Box horizontal>
-          <Input.Group>
+          <InputGroup>
             <Button
               flat
               size="huge"
@@ -267,7 +267,7 @@ function YearPicker({ value, onChange, onAccept }: YearPickerProps) {
               icon={GoNext}
               onClick={() => onChange(value + 1)}
             />
-          </Input.Group>
+          </InputGroup>
         </Box>
       </form>
       {yearButtons.map((diff) => (

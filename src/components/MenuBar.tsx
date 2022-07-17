@@ -1,7 +1,3 @@
-/*
- * MenuBar.js
- */
-
 import cx from "clsx";
 import React, { useState } from "react";
 
