@@ -13,7 +13,7 @@ the API is subject to change until the 1.0.0 release.
 <p align="center">
   <a href="#installation">Installation</a> •
   <a href="https://romgrk.github.io/web-toolkit/demo">Demo</a> •
-  <a href="https://romgrk.github.io/web-toolkit/docs">📖 Docs</a> •
+  <a href="https://ncpa0cpl.github.io/adwaita-web-docs-app/home">📖 Docs</a> •
   <a href="#help-wanted">Help Wanted</a> •
   <a href="#license">License</a>
 </p>
@@ -27,10 +27,10 @@ want something that looks stunning by default, while being functional.
 
 ## Showcase
 
-![demo-1](static/demo-1.png)
-![demo-2](static/demo-2.png)
-![demo-3](static/demo-3.png)
-![demo-4](static/demo-4.png)
+![demo-1](/static/demo-1.png)
+![demo-2](/static/demo-2.png)
+![demo-3](/static/demo-3.png)
+![demo-4](/static/demo-4.png)
 
 ```javascript
 function App() {
@@ -52,7 +52,7 @@ function App() {
 export default App;
 ```
 
-Some [documentation](https://romgrk.github.io/web-toolkit/docs) is also available
+Some [documentation](https://ncpa0cpl.github.io/adwaita-web-docs-app/home) is also available
 but is a work in progress and not complete yet.
 
 ## License
