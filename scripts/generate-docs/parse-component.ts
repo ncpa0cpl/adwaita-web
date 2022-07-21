@@ -64,20 +64,24 @@ function parseMethod(
       type: "object",
       description,
       properties: {
-        arguments: Object.fromEntries(
-          callSignature.parameters?.map((p, i) => [
-            i.toString(),
-            p.type
-              ? {
-                  title: p.name,
-                  ...parseTypeKindToSchema(
-                    p.type as JSONOutput.SomeType,
-                    allChildren
-                  ),
-                }
-              : { title: p.name, type: "any" },
-          ]) ?? []
-        ),
+        arguments: {
+          type: "object",
+          additionalProperties: false,
+          properties: Object.fromEntries(
+            callSignature.parameters?.map((p, i) => [
+              i.toString(),
+              p.type
+                ? {
+                    title: p.name,
+                    ...parseTypeKindToSchema(
+                      p.type as JSONOutput.SomeType,
+                      allChildren
+                    ),
+                  }
+                : { title: p.name, type: "any" },
+            ]) ?? []
+          ),
+        },
         returns: callSignature.type
           ? parseTypeKindToSchema(callSignature.type, allChildren)
           : { type: "null" },
@@ -200,18 +204,18 @@ function parseTypeKindToSchema(
       } else if (typeKind.package) {
         if (TYPE_MAP.has(typeKind.name)) {
           const schema = {
-            allOf: [
-              {
-                title: typeKind.name,
-                description: `External Type from '${typeKind.package}}'.`,
-                default: defaultValue,
-              },
-              TYPE_MAP.get(typeKind.name)!,
-            ],
+            ...TYPE_MAP.get(typeKind.name)!,
+            default: defaultValue,
+            metadata: {
+              title: typeKind.name,
+              description: `External Type from '${typeKind.package}'.`,
+            },
           };
 
-          if (description) {
-            schema.allOf.unshift({ description });
+          if (schema.description) {
+            schema.description = `${schema.description}\n\n${description}`;
+          } else {
+            schema.description = description;
           }
 
           return schema;

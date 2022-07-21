@@ -85,7 +85,11 @@
             "type": "object",
             "description": "",
             "properties": {
-              "arguments": {},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+              },
               "returns": {
                 "type": "void"
               }
@@ -152,30 +156,25 @@
               "description": "",
               "properties": {
                 "label": {
-                  "allOf": [
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "oneOf": [
                     {
-                      "title": "React.ReactNode",
-                      "description": "External Type from '@types/react}'."
+                      "type": "string"
                     },
                     {
-                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "boolean"
-                        },
-                        {
-                          "title": "React Element",
-                          "type": "object"
-                        }
-                      ]
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "title": "React Element"
                     }
-                  ]
+                  ],
+                  "metadata": {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react'."
+                  }
                 },
                 "value": {
                   "description": "",
@@ -212,16 +211,20 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  }
                 }
               },
               "returns": {
@@ -240,9 +243,13 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "string"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "type": "string"
+                  }
                 }
               },
               "returns": {
@@ -440,87 +447,40 @@
             "type": "boolean"
           },
           "icon": {
-            "allOf": [
+            "description": "A React Component, can be a class or function.\n\n",
+            "oneOf": [
               {
-                "title": "React.ComponentType",
-                "description": "External Type from '@types/react}'."
-              },
-              {
-                "description": "A React Component, can be a class or function.",
-                "oneOf": [
-                  {
-                    "title": "Function",
+                "title": "Function",
+                "type": "object",
+                "properties": {
+                  "arguments": {
                     "type": "object",
                     "properties": {
-                      "arguments": {
-                        "type": "object",
-                        "properties": {
-                          "0": {
-                            "title": "props",
-                            "type": "object"
-                          }
-                        },
-                        "additionalProperties": false
-                      },
-                      "returns": {
-                        "title": "React Element",
+                      "0": {
+                        "title": "props",
                         "type": "object"
                       }
                     },
-                    "additionalProperties": false,
-                    "required": [
-                      "arguments",
-                      "returns"
-                    ]
+                    "additionalProperties": false
                   },
-                  {
-                    "title": "Class",
-                    "type": "object",
-                    "properties": {
-                      "arguments": {
-                        "type": "object",
-                        "properties": {
-                          "0": {
-                            "title": "props",
-                            "type": "object"
-                          }
-                        },
-                        "additionalProperties": false
-                      },
-                      "methods": {
-                        "type": "object",
-                        "properties": {
-                          "render": {
-                            "title": "Function",
-                            "type": "object",
-                            "properties": {
-                              "arguments": {
-                                "type": "object",
-                                "additionalProperties": false
-                              },
-                              "returns": {
-                                "title": "React Element",
-                                "type": "object"
-                              }
-                            },
-                            "additionalProperties": false,
-                            "required": [
-                              "arguments",
-                              "returns"
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                      "arguments",
-                      "methods"
-                    ]
+                  "returns": {
+                    "title": "React Element"
                   }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
                 ]
+              },
+              {
+                "title": "Class Component"
               }
-            ]
+            ],
+            "metadata": {
+              "title": "React.ComponentType",
+              "description": "External Type from '@types/react'."
+            }
           },
           "image": {
             "description": "Button containing an image only",
@@ -632,17 +592,12 @@
         "description": "",
         "properties": {
           "value": {
-            "allOf": [
-              {
-                "title": "Date",
-                "description": "External Type from 'typescript}'."
-              },
-              {
-                "title": "Date",
-                "type": "object",
-                "description": "A JavaScript builtin Date object."
-              }
-            ]
+            "title": "Date",
+            "description": "A JavaScript builtin Date object.\n\n",
+            "metadata": {
+              "title": "Date",
+              "description": "External Type from 'typescript'."
+            }
           },
           "onChange": {
             "title": "Function",
@@ -650,19 +605,17 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "date",
-                  "allOf": [
-                    {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "Date",
+                    "description": "A JavaScript builtin Date object.\n\nundefined",
+                    "metadata": {
                       "title": "Date",
-                      "description": "External Type from 'typescript}'."
-                    },
-                    {
-                      "title": "Date",
-                      "type": "object",
-                      "description": "A JavaScript builtin Date object."
+                      "description": "External Type from 'typescript'."
                     }
-                  ]
+                  }
                 }
               },
               "returns": {
@@ -767,23 +720,21 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "boolean"
-                },
-                "1": {
-                  "title": "ev",
-                  "allOf": [
-                    {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "type": "boolean"
+                  },
+                  "1": {
+                    "title": "ChangeEvent",
+                    "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                    "metadata": {
                       "title": "ChangeEvent",
-                      "description": "External Type from '@types/react}'."
-                    },
-                    {
-                      "title": "ChangeEvent",
-                      "type": "object",
-                      "description": "A synthetic or real ChangeEvent event."
+                      "description": "External Type from '@types/react'."
                     }
-                  ]
+                  }
                 }
               },
               "returns": {
@@ -825,40 +776,24 @@
             "description": "",
             "properties": {
               "defaultValue": {
-                "allOf": [
-                  {
-                    "description": "A date object"
-                  },
-                  {
-                    "title": "Date",
-                    "description": "External Type from 'typescript}'."
-                  },
-                  {
-                    "title": "Date",
-                    "type": "object",
-                    "description": "A JavaScript builtin Date object."
-                  }
-                ]
+                "title": "Date",
+                "description": "A JavaScript builtin Date object.\n\nA date object",
+                "metadata": {
+                  "title": "Date",
+                  "description": "External Type from 'typescript'."
+                }
               },
               "format": {
                 "description": "A string that represents the date format",
                 "type": "string"
               },
               "value": {
-                "allOf": [
-                  {
-                    "description": "A date object"
-                  },
-                  {
-                    "title": "Date",
-                    "description": "External Type from 'typescript}'."
-                  },
-                  {
-                    "title": "Date",
-                    "type": "object",
-                    "description": "A JavaScript builtin Date object."
-                  }
-                ]
+                "title": "Date",
+                "description": "A JavaScript builtin Date object.\n\nA date object",
+                "metadata": {
+                  "title": "Date",
+                  "description": "External Type from 'typescript'."
+                }
               },
               "onChange": {
                 "title": "Function",
@@ -866,29 +801,28 @@
                 "description": "",
                 "properties": {
                   "arguments": {
-                    "0": {
-                      "title": "value",
-                      "oneOf": [
-                        {
-                          "type": "null",
-                          "enum": [
-                            null
-                          ]
-                        },
-                        {
-                          "allOf": [
-                            {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "0": {
+                        "title": "value",
+                        "oneOf": [
+                          {
+                            "type": "null",
+                            "enum": [
+                              null
+                            ]
+                          },
+                          {
+                            "title": "Date",
+                            "description": "A JavaScript builtin Date object.\n\nundefined",
+                            "metadata": {
                               "title": "Date",
-                              "description": "External Type from 'typescript}'."
-                            },
-                            {
-                              "title": "Date",
-                              "type": "object",
-                              "description": "A JavaScript builtin Date object."
+                              "description": "External Type from 'typescript'."
                             }
-                          ]
-                        }
-                      ]
+                          }
+                        ]
+                      }
                     }
                   },
                   "returns": {
@@ -983,30 +917,25 @@
             "type": "boolean"
           },
           "label": {
-            "allOf": [
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+            "oneOf": [
               {
-                "title": "React.ReactNode",
-                "description": "External Type from '@types/react}'."
+                "type": "string"
               },
               {
-                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  },
-                  {
-                    "title": "React Element",
-                    "type": "object"
-                  }
-                ]
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "title": "React Element"
               }
-            ]
+            ],
+            "metadata": {
+              "title": "React.ReactNode",
+              "description": "External Type from '@types/react'."
+            }
           },
           "loading": {
             "description": "",
@@ -1028,30 +957,25 @@
                   "type": "any"
                 },
                 "label": {
-                  "allOf": [
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "oneOf": [
                     {
-                      "title": "React.ReactNode",
-                      "description": "External Type from '@types/react}'."
+                      "type": "string"
                     },
                     {
-                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "boolean"
-                        },
-                        {
-                          "title": "React Element",
-                          "type": "object"
-                        }
-                      ]
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "title": "React Element"
                     }
-                  ]
+                  ],
+                  "metadata": {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react'."
+                  }
                 },
                 "value": {
                   "description": "",
@@ -1129,13 +1053,17 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "option",
-                  "type": "any"
-                },
-                "1": {
-                  "title": "filter",
-                  "type": "string"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "option",
+                    "type": "any"
+                  },
+                  "1": {
+                    "title": "filter",
+                    "type": "string"
+                  }
                 }
               },
               "returns": {
@@ -1154,16 +1082,20 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "oneOf": [
-                    {
-                      "type": "undefined"
-                    },
-                    {
-                      "type": "any"
-                    }
-                  ]
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "oneOf": [
+                      {
+                        "type": "undefined"
+                      },
+                      {
+                        "type": "any"
+                      }
+                    ]
+                  }
                 }
               },
               "returns": {
@@ -1181,7 +1113,11 @@
             "type": "object",
             "description": "",
             "properties": {
-              "arguments": {},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+              },
               "returns": {
                 "type": "void"
               }
@@ -1197,7 +1133,11 @@
             "type": "object",
             "description": "",
             "properties": {
-              "arguments": {},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+              },
               "returns": {
                 "type": "void"
               }
@@ -1273,33 +1213,25 @@
             ]
           },
           "label": {
-            "allOf": [
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\nThe label for the default button trigger element (only if `trigger` is not set)",
+            "oneOf": [
               {
-                "description": "The label for the default button trigger element (only if `trigger` is not set)"
+                "type": "string"
               },
               {
-                "title": "React.ReactNode",
-                "description": "External Type from '@types/react}'."
+                "type": "number"
               },
               {
-                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  },
-                  {
-                    "title": "React Element",
-                    "type": "object"
-                  }
-                ]
+                "type": "boolean"
+              },
+              {
+                "title": "React Element"
               }
-            ]
+            ],
+            "metadata": {
+              "title": "React.ReactNode",
+              "description": "External Type from '@types/react'."
+            }
           },
           "open": {
             "description": "Expanded state",
@@ -1330,16 +1262,12 @@
             "description": "The element that triggers toggling the expander. If not set, a default unstyled\nbutton will be displayed. If it's a render function, it received an argument: ({\ntoggle: Fn })",
             "oneOf": [
               {
-                "allOf": [
-                  {
-                    "title": "React.ReactElement",
-                    "description": "External Type from '@types/react}'."
-                  },
-                  {
-                    "title": "React Element",
-                    "type": "object"
-                  }
-                ]
+                "title": "React Element",
+                "type": "object",
+                "metadata": {
+                  "title": "React.ReactElement",
+                  "description": "External Type from '@types/react'."
+                }
               },
               {
                 "type": "object",
@@ -1355,9 +1283,13 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "open",
-                  "type": "boolean"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "open",
+                    "type": "boolean"
+                  }
                 }
               },
               "returns": {
@@ -1437,33 +1369,25 @@
             "type": "boolean"
           },
           "label": {
-            "allOf": [
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\nThe label of the frame (using <fieldset>/<legend>)",
+            "oneOf": [
               {
-                "description": "The label of the frame (using <fieldset>/<legend>)"
+                "type": "string"
               },
               {
-                "title": "React.ReactNode",
-                "description": "External Type from '@types/react}'."
+                "type": "number"
               },
               {
-                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  },
-                  {
-                    "title": "React Element",
-                    "type": "object"
-                  }
-                ]
+                "type": "boolean"
+              },
+              {
+                "title": "React Element"
               }
-            ]
+            ],
+            "metadata": {
+              "title": "React.ReactNode",
+              "description": "External Type from '@types/react'."
+            }
           },
           "padded": {
             "description": "",
@@ -1620,7 +1544,11 @@
             "type": "object",
             "description": "",
             "properties": {
-              "arguments": {},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+              },
               "returns": {
                 "type": "void"
               }
@@ -1681,170 +1609,76 @@
             "type": "boolean"
           },
           "icon": {
-            "allOf": [
+            "description": "A React Component, can be a class or function.\n\n",
+            "oneOf": [
               {
-                "title": "React.ComponentType",
-                "description": "External Type from '@types/react}'."
-              },
-              {
-                "description": "A React Component, can be a class or function.",
-                "oneOf": [
-                  {
-                    "title": "Function",
+                "title": "Function",
+                "type": "object",
+                "properties": {
+                  "arguments": {
                     "type": "object",
                     "properties": {
-                      "arguments": {
-                        "type": "object",
-                        "properties": {
-                          "0": {
-                            "title": "props",
-                            "type": "object"
-                          }
-                        },
-                        "additionalProperties": false
-                      },
-                      "returns": {
-                        "title": "React Element",
+                      "0": {
+                        "title": "props",
                         "type": "object"
                       }
                     },
-                    "additionalProperties": false,
-                    "required": [
-                      "arguments",
-                      "returns"
-                    ]
+                    "additionalProperties": false
                   },
-                  {
-                    "title": "Class",
-                    "type": "object",
-                    "properties": {
-                      "arguments": {
-                        "type": "object",
-                        "properties": {
-                          "0": {
-                            "title": "props",
-                            "type": "object"
-                          }
-                        },
-                        "additionalProperties": false
-                      },
-                      "methods": {
-                        "type": "object",
-                        "properties": {
-                          "render": {
-                            "title": "Function",
-                            "type": "object",
-                            "properties": {
-                              "arguments": {
-                                "type": "object",
-                                "additionalProperties": false
-                              },
-                              "returns": {
-                                "title": "React Element",
-                                "type": "object"
-                              }
-                            },
-                            "additionalProperties": false,
-                            "required": [
-                              "arguments",
-                              "returns"
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                      "arguments",
-                      "methods"
-                    ]
+                  "returns": {
+                    "title": "React Element"
                   }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
                 ]
+              },
+              {
+                "title": "Class Component"
               }
-            ]
+            ],
+            "metadata": {
+              "title": "React.ComponentType",
+              "description": "External Type from '@types/react'."
+            }
           },
           "iconAfter": {
-            "allOf": [
+            "description": "A React Component, can be a class or function.\n\n",
+            "oneOf": [
               {
-                "title": "React.ComponentType",
-                "description": "External Type from '@types/react}'."
-              },
-              {
-                "description": "A React Component, can be a class or function.",
-                "oneOf": [
-                  {
-                    "title": "Function",
+                "title": "Function",
+                "type": "object",
+                "properties": {
+                  "arguments": {
                     "type": "object",
                     "properties": {
-                      "arguments": {
-                        "type": "object",
-                        "properties": {
-                          "0": {
-                            "title": "props",
-                            "type": "object"
-                          }
-                        },
-                        "additionalProperties": false
-                      },
-                      "returns": {
-                        "title": "React Element",
+                      "0": {
+                        "title": "props",
                         "type": "object"
                       }
                     },
-                    "additionalProperties": false,
-                    "required": [
-                      "arguments",
-                      "returns"
-                    ]
+                    "additionalProperties": false
                   },
-                  {
-                    "title": "Class",
-                    "type": "object",
-                    "properties": {
-                      "arguments": {
-                        "type": "object",
-                        "properties": {
-                          "0": {
-                            "title": "props",
-                            "type": "object"
-                          }
-                        },
-                        "additionalProperties": false
-                      },
-                      "methods": {
-                        "type": "object",
-                        "properties": {
-                          "render": {
-                            "title": "Function",
-                            "type": "object",
-                            "properties": {
-                              "arguments": {
-                                "type": "object",
-                                "additionalProperties": false
-                              },
-                              "returns": {
-                                "title": "React Element",
-                                "type": "object"
-                              }
-                            },
-                            "additionalProperties": false,
-                            "required": [
-                              "arguments",
-                              "returns"
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                      "arguments",
-                      "methods"
-                    ]
+                  "returns": {
+                    "title": "React Element"
                   }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
                 ]
+              },
+              {
+                "title": "Class Component"
               }
-            ]
+            ],
+            "metadata": {
+              "title": "React.ComponentType",
+              "description": "External Type from '@types/react'."
+            }
           },
           "loading": {
             "description": "Shows a loading indicator",
@@ -1924,9 +1758,13 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "string"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "type": "string"
+                  }
                 }
               },
               "returns": {
@@ -1945,9 +1783,13 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "string"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "type": "string"
+                  }
                 }
               },
               "returns": {
@@ -1965,7 +1807,11 @@
             "type": "object",
             "description": "",
             "properties": {
-              "arguments": {},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+              },
               "returns": {
                 "type": "void"
               }
@@ -2080,9 +1926,13 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "number"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "type": "number"
+                  }
                 }
               },
               "returns": {
@@ -2492,30 +2342,25 @@
         "description": "",
         "properties": {
           "action": {
-            "allOf": [
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+            "oneOf": [
               {
-                "title": "React.ReactNode",
-                "description": "External Type from '@types/react}'."
+                "type": "string"
               },
               {
-                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  },
-                  {
-                    "title": "React Element",
-                    "type": "object"
-                  }
-                ]
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "title": "React Element"
               }
-            ]
+            ],
+            "metadata": {
+              "title": "React.ReactNode",
+              "description": "External Type from '@types/react'."
+            }
           },
           "arrows": {
             "description": "",
@@ -2537,30 +2382,25 @@
                   "type": "boolean"
                 },
                 "content": {
-                  "allOf": [
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "oneOf": [
                     {
-                      "title": "React.ReactNode",
-                      "description": "External Type from '@types/react}'."
+                      "type": "string"
                     },
                     {
-                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "boolean"
-                        },
-                        {
-                          "title": "React Element",
-                          "type": "object"
-                        }
-                      ]
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "title": "React Element"
                     }
-                  ]
+                  ],
+                  "metadata": {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react'."
+                  }
                 },
                 "key": {
                   "description": "",
@@ -2574,30 +2414,25 @@
                   ]
                 },
                 "label": {
-                  "allOf": [
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "oneOf": [
                     {
-                      "title": "React.ReactNode",
-                      "description": "External Type from '@types/react}'."
+                      "type": "string"
                     },
                     {
-                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "boolean"
-                        },
-                        {
-                          "title": "React Element",
-                          "type": "object"
-                        }
-                      ]
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "title": "React Element"
                     }
-                  ]
+                  ],
+                  "metadata": {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react'."
+                  }
                 }
               },
               "required": [
@@ -2674,9 +2509,13 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "number"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "type": "number"
+                  }
                 }
               },
               "returns": {
@@ -2695,9 +2534,13 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "pageIndex",
-                  "type": "number"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "pageIndex",
+                    "type": "number"
+                  }
                 }
               },
               "returns": {
@@ -2764,30 +2607,25 @@
                   "type": "boolean"
                 },
                 "content": {
-                  "allOf": [
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "oneOf": [
                     {
-                      "title": "React.ReactNode",
-                      "description": "External Type from '@types/react}'."
+                      "type": "string"
                     },
                     {
-                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "boolean"
-                        },
-                        {
-                          "title": "React Element",
-                          "type": "object"
-                        }
-                      ]
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "title": "React Element"
                     }
-                  ]
+                  ],
+                  "metadata": {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react'."
+                  }
                 },
                 "key": {
                   "description": "",
@@ -2801,30 +2639,25 @@
                   ]
                 },
                 "label": {
-                  "allOf": [
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "oneOf": [
                     {
-                      "title": "React.ReactNode",
-                      "description": "External Type from '@types/react}'."
+                      "type": "string"
                     },
                     {
-                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                      "oneOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "boolean"
-                        },
-                        {
-                          "title": "React Element",
-                          "type": "object"
-                        }
-                      ]
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "title": "React Element"
                     }
-                  ]
+                  ],
+                  "metadata": {
+                    "title": "React.ReactNode",
+                    "description": "External Type from '@types/react'."
+                  }
                 }
               },
               "required": [
@@ -3085,13 +2918,35 @@
             "type": "boolean"
           },
           "children": {
-            "allOf": [
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+            "oneOf": [
               {
-                "title": "React.ReactNode",
-                "description": "External Type from '@types/react}'."
+                "type": "string"
               },
               {
-                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "title": "React Element"
+              }
+            ],
+            "metadata": {
+              "title": "React.ReactNode",
+              "description": "External Type from '@types/react'."
+            }
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "content": {
+            "description": "",
+            "oneOf": [
+              {
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\nundefined",
                 "oneOf": [
                   {
                     "type": "string"
@@ -3103,45 +2958,13 @@
                     "type": "boolean"
                   },
                   {
-                    "title": "React Element",
-                    "type": "object"
+                    "title": "React Element"
                   }
-                ]
-              }
-            ]
-          },
-          "className": {
-            "description": "",
-            "type": "string"
-          },
-          "content": {
-            "description": "",
-            "oneOf": [
-              {
-                "allOf": [
-                  {
-                    "title": "React.ReactNode",
-                    "description": "External Type from '@types/react}'."
-                  },
-                  {
-                    "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      },
-                      {
-                        "title": "React Element",
-                        "type": "object"
-                      }
-                    ]
-                  }
-                ]
+                ],
+                "metadata": {
+                  "title": "React.ReactNode",
+                  "description": "External Type from '@types/react'."
+                }
               },
               {
                 "type": "object",
@@ -3295,7 +3118,11 @@
             "type": "object",
             "description": "",
             "properties": {
-              "arguments": {},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+              },
               "returns": {
                 "type": "void"
               }
@@ -3311,7 +3138,11 @@
             "type": "object",
             "description": "",
             "properties": {
-              "arguments": {},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+              },
               "returns": {
                 "type": "void"
               }
@@ -3327,7 +3158,11 @@
             "type": "object",
             "description": "",
             "properties": {
-              "arguments": {},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+              },
               "returns": {
                 "type": "void"
               }
@@ -3343,7 +3178,11 @@
             "type": "object",
             "description": "",
             "properties": {
-              "arguments": {},
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {}
+              },
               "returns": {
                 "type": "void"
               }
@@ -3404,30 +3243,25 @@
             "type": "boolean"
           },
           "children": {
-            "allOf": [
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+            "oneOf": [
               {
-                "title": "React.ReactNode",
-                "description": "External Type from '@types/react}'."
+                "type": "string"
               },
               {
-                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  },
-                  {
-                    "title": "React Element",
-                    "type": "object"
-                  }
-                ]
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "title": "React Element"
               }
-            ]
+            ],
+            "metadata": {
+              "title": "React.ReactNode",
+              "description": "External Type from '@types/react'."
+            }
           },
           "className": {
             "description": "",
@@ -3578,9 +3412,13 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "open",
-                  "type": "boolean"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "open",
+                    "type": "boolean"
+                  }
                 }
               },
               "returns": {
@@ -3599,70 +3437,86 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "params",
-                  "type": "object",
-                  "description": "",
-                  "properties": {
-                    "back": {
-                      "title": "Function",
-                      "type": "object",
-                      "description": "",
-                      "properties": {
-                        "arguments": {},
-                        "returns": {
-                          "type": "void"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "arguments",
-                        "returns"
-                      ]
-                    },
-                    "change": {
-                      "title": "Function",
-                      "type": "object",
-                      "description": "",
-                      "properties": {
-                        "arguments": {
-                          "0": {
-                            "title": "key",
-                            "type": "string"
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "params",
+                    "type": "object",
+                    "description": "",
+                    "properties": {
+                      "back": {
+                        "title": "Function",
+                        "type": "object",
+                        "description": "",
+                        "properties": {
+                          "arguments": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {}
+                          },
+                          "returns": {
+                            "type": "void"
                           }
                         },
-                        "returns": {
-                          "type": "void"
-                        }
+                        "additionalProperties": false,
+                        "required": [
+                          "arguments",
+                          "returns"
+                        ]
                       },
-                      "additionalProperties": false,
-                      "required": [
-                        "arguments",
-                        "returns"
-                      ]
+                      "change": {
+                        "title": "Function",
+                        "type": "object",
+                        "description": "",
+                        "properties": {
+                          "arguments": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "0": {
+                                "title": "key",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "returns": {
+                            "type": "void"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "arguments",
+                          "returns"
+                        ]
+                      },
+                      "close": {
+                        "title": "Function",
+                        "type": "object",
+                        "description": "",
+                        "properties": {
+                          "arguments": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {}
+                          },
+                          "returns": {
+                            "type": "void"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "arguments",
+                          "returns"
+                        ]
+                      }
                     },
-                    "close": {
-                      "title": "Function",
-                      "type": "object",
-                      "description": "",
-                      "properties": {
-                        "arguments": {},
-                        "returns": {
-                          "type": "void"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "arguments",
-                        "returns"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "back",
-                    "change",
-                    "close"
-                  ]
+                    "required": [
+                      "back",
+                      "change",
+                      "close"
+                    ]
+                  }
                 }
               },
               "returns": {
@@ -3676,30 +3530,25 @@
                       "type": "boolean"
                     },
                     "content": {
-                      "allOf": [
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                      "oneOf": [
                         {
-                          "title": "React.ReactNode",
-                          "description": "External Type from '@types/react}'."
+                          "type": "string"
                         },
                         {
-                          "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                          "oneOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "boolean"
-                            },
-                            {
-                              "title": "React Element",
-                              "type": "object"
-                            }
-                          ]
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element"
                         }
-                      ]
+                      ],
+                      "metadata": {
+                        "title": "React.ReactNode",
+                        "description": "External Type from '@types/react'."
+                      }
                     },
                     "key": {
                       "description": "",
@@ -3713,30 +3562,25 @@
                       ]
                     },
                     "label": {
-                      "allOf": [
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                      "oneOf": [
                         {
-                          "title": "React.ReactNode",
-                          "description": "External Type from '@types/react}'."
+                          "type": "string"
                         },
                         {
-                          "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                          "oneOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "boolean"
-                            },
-                            {
-                              "title": "React Element",
-                              "type": "object"
-                            }
-                          ]
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element"
                         }
-                      ]
+                      ],
+                      "metadata": {
+                        "title": "React.ReactNode",
+                        "description": "External Type from '@types/react'."
+                      }
                     }
                   },
                   "required": [
@@ -3803,30 +3647,25 @@
                 "type": "boolean"
               },
               {
-                "allOf": [
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\nundefined",
+                "oneOf": [
                   {
-                    "title": "React.ReactNode",
-                    "description": "External Type from '@types/react}'."
+                    "type": "string"
                   },
                   {
-                    "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      },
-                      {
-                        "title": "React Element",
-                        "type": "object"
-                      }
-                    ]
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "title": "React Element"
                   }
-                ]
+                ],
+                "metadata": {
+                  "title": "React.ReactNode",
+                  "description": "External Type from '@types/react'."
+                }
               }
             ]
           },
@@ -3967,23 +3806,21 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "checked",
-                  "type": "boolean"
-                },
-                "1": {
-                  "title": "event",
-                  "allOf": [
-                    {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "checked",
+                    "type": "boolean"
+                  },
+                  "1": {
+                    "title": "ChangeEvent",
+                    "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                    "metadata": {
                       "title": "ChangeEvent",
-                      "description": "External Type from '@types/react}'."
-                    },
-                    {
-                      "title": "ChangeEvent",
-                      "type": "object",
-                      "description": "A synthetic or real ChangeEvent event."
+                      "description": "External Type from '@types/react'."
                     }
-                  ]
+                  }
                 }
               },
               "returns": {
@@ -4245,76 +4082,60 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "oneOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "oneOf": [
+                      {
                         "type": "number"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
                       }
-                    }
-                  ]
-                },
-                "1": {
-                  "title": "ev",
-                  "oneOf": [
-                    {
-                      "allOf": [
-                        {
+                    ]
+                  },
+                  "1": {
+                    "title": "ev",
+                    "oneOf": [
+                      {
+                        "title": "MouseEvent",
+                        "description": "A synthetic or real MouseEvent event.\n\nundefined",
+                        "metadata": {
                           "title": "MouseEvent",
-                          "description": "External Type from 'typescript}'."
-                        },
-                        {
-                          "title": "MouseEvent",
-                          "type": "object",
-                          "description": "A synthetic or real MouseEvent event."
+                          "description": "External Type from 'typescript'."
                         }
-                      ]
-                    },
-                    {
-                      "allOf": [
-                        {
+                      },
+                      {
+                        "title": "TouchEvent",
+                        "description": "A synthetic or real TouchEvent event.\n\nundefined",
+                        "metadata": {
                           "title": "TouchEvent",
-                          "description": "External Type from 'typescript}'."
-                        },
-                        {
-                          "title": "TouchEvent",
-                          "type": "object",
-                          "description": "A synthetic or real TouchEvent event."
+                          "description": "External Type from 'typescript'."
                         }
-                      ]
-                    },
-                    {
-                      "allOf": [
-                        {
+                      },
+                      {
+                        "title": "MouseEvent",
+                        "description": "A synthetic or real MouseEvent event.\n\nundefined",
+                        "metadata": {
                           "title": "MouseEvent",
-                          "description": "External Type from '@types/react}'."
-                        },
-                        {
-                          "title": "MouseEvent",
-                          "type": "object",
-                          "description": "A synthetic or real MouseEvent event."
+                          "description": "External Type from '@types/react'."
                         }
-                      ]
-                    },
-                    {
-                      "allOf": [
-                        {
+                      },
+                      {
+                        "title": "ChangeEvent",
+                        "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                        "metadata": {
                           "title": "ChangeEvent",
-                          "description": "External Type from '@types/react}'."
-                        },
-                        {
-                          "title": "ChangeEvent",
-                          "type": "object",
-                          "description": "A synthetic or real ChangeEvent event."
+                          "description": "External Type from '@types/react'."
                         }
-                      ]
-                    }
-                  ]
+                      }
+                    ]
+                  }
                 }
               },
               "returns": {
@@ -4333,63 +4154,52 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "ev",
-                  "oneOf": [
-                    {
-                      "allOf": [
-                        {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "ev",
+                    "oneOf": [
+                      {
+                        "title": "MouseEvent",
+                        "description": "A synthetic or real MouseEvent event.\n\nundefined",
+                        "metadata": {
                           "title": "MouseEvent",
-                          "description": "External Type from 'typescript}'."
-                        },
-                        {
-                          "title": "MouseEvent",
-                          "type": "object",
-                          "description": "A synthetic or real MouseEvent event."
+                          "description": "External Type from 'typescript'."
                         }
-                      ]
-                    },
-                    {
-                      "allOf": [
-                        {
+                      },
+                      {
+                        "title": "TouchEvent",
+                        "description": "A synthetic or real TouchEvent event.\n\nundefined",
+                        "metadata": {
                           "title": "TouchEvent",
-                          "description": "External Type from 'typescript}'."
-                        },
-                        {
-                          "title": "TouchEvent",
-                          "type": "object",
-                          "description": "A synthetic or real TouchEvent event."
+                          "description": "External Type from 'typescript'."
                         }
-                      ]
-                    },
-                    {
-                      "allOf": [
-                        {
+                      },
+                      {
+                        "title": "ChangeEvent",
+                        "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                        "metadata": {
                           "title": "ChangeEvent",
-                          "description": "External Type from '@types/react}'."
-                        },
-                        {
-                          "title": "ChangeEvent",
-                          "type": "object",
-                          "description": "A synthetic or real ChangeEvent event."
+                          "description": "External Type from '@types/react'."
                         }
-                      ]
-                    }
-                  ]
-                },
-                "1": {
-                  "title": "value",
-                  "oneOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
                       }
-                    }
-                  ]
+                    ]
+                  },
+                  "1": {
+                    "title": "value",
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    ]
+                  }
                 }
               },
               "returns": {
@@ -4408,19 +4218,17 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "event",
-                  "allOf": [
-                    {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "MouseEvent",
+                    "description": "A synthetic or real MouseEvent event.\n\nundefined",
+                    "metadata": {
                       "title": "MouseEvent",
-                      "description": "External Type from '@types/react}'."
-                    },
-                    {
-                      "title": "MouseEvent",
-                      "type": "object",
-                      "description": "A synthetic or real MouseEvent event."
+                      "description": "External Type from '@types/react'."
                     }
-                  ]
+                  }
                 }
               },
               "returns": {
@@ -4593,23 +4401,21 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "boolean"
-                },
-                "1": {
-                  "title": "event",
-                  "allOf": [
-                    {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "type": "boolean"
+                  },
+                  "1": {
+                    "title": "ChangeEvent",
+                    "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                    "metadata": {
                       "title": "ChangeEvent",
-                      "description": "External Type from '@types/react}'."
-                    },
-                    {
-                      "title": "ChangeEvent",
-                      "type": "object",
-                      "description": "A synthetic or real ChangeEvent event."
+                      "description": "External Type from '@types/react'."
                     }
-                  ]
+                  }
                 }
               },
               "returns": {
@@ -4978,23 +4784,21 @@
             "description": "",
             "properties": {
               "arguments": {
-                "0": {
-                  "title": "value",
-                  "type": "string"
-                },
-                "1": {
-                  "title": "ev",
-                  "allOf": [
-                    {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "type": "string"
+                  },
+                  "1": {
+                    "title": "ChangeEvent",
+                    "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                    "metadata": {
                       "title": "ChangeEvent",
-                      "description": "External Type from '@types/react}'."
-                    },
-                    {
-                      "title": "ChangeEvent",
-                      "type": "object",
-                      "description": "A synthetic or real ChangeEvent event."
+                      "description": "External Type from '@types/react'."
                     }
-                  ]
+                  }
                 }
               },
               "returns": {
