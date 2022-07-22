@@ -78,7 +78,7 @@ export type RangeProps = {
    */
   step?: number;
   /** The component used to display the value label. */
-  ThumbComponent?: React.ElementType;
+  ThumbComponent?: React.ComponentType;
   /**
    * The track presentation:
    *
@@ -621,7 +621,7 @@ export const Range = React.forwardRef<HTMLSpanElement, RangeProps>(
                   disabled: disabled,
                   focus: focusVisible === index,
                 })}
-                tabIndex={disabled ? null : 0}
+                tabIndex={disabled ? undefined : 0}
                 role="slider"
                 style={style}
                 data-index={index}

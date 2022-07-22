@@ -843,13 +843,10 @@
             ]
           },
           {
-            "allOf": [
-              {
-                "title": "Omit",
-                "description": "External Type from 'typescript'.",
-                "type": "any"
-              }
-            ]
+            "metadata": {
+              "title": "Omit",
+              "description": "External Type from 'typescript'."
+            }
           }
         ]
       },
@@ -1270,10 +1267,60 @@
                 }
               },
               {
+                "title": "Function",
                 "type": "object",
                 "description": "",
-                "properties": {},
-                "required": []
+                "properties": {
+                  "arguments": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "0": {
+                        "title": "param",
+                        "type": "object",
+                        "description": "",
+                        "properties": {
+                          "toggle": {
+                            "title": "Function",
+                            "type": "object",
+                            "description": "",
+                            "properties": {
+                              "arguments": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {}
+                              },
+                              "returns": {
+                                "type": "void"
+                              }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                              "arguments",
+                              "returns"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "toggle"
+                        ]
+                      }
+                    }
+                  },
+                  "returns": {
+                    "title": "React Element",
+                    "type": "object",
+                    "metadata": {
+                      "title": "React.ReactElement",
+                      "description": "External Type from '@types/react'."
+                    }
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
+                ]
               }
             ]
           },
@@ -1442,13 +1489,8 @@
             "type": "boolean"
           },
           "as": {
-            "allOf": [
-              {
-                "title": "JSX.IntrinsicElements",
-                "description": "External Type from '@types/react'.",
-                "type": "any"
-              }
-            ]
+            "description": "",
+            "type": "string"
           },
           "className": {
             "description": "",
@@ -2667,13 +2709,11 @@
             }
           },
           "style": {
-            "allOf": [
-              {
-                "title": "React.CSSProperties",
-                "description": "External Type from '@types/react'.",
-                "type": "any"
-              }
-            ]
+            "description": "",
+            "metadata": {
+              "title": "React.CSSProperties",
+              "description": "External Type from '@types/react'."
+            }
           },
           "transition": {
             "description": "",
@@ -2794,75 +2834,9 @@
             ]
           },
           "orientation": {
-            "type": "object",
             "description": "",
-            "properties": {
-              "horizontal": {
-                "type": "object",
-                "description": "",
-                "properties": {
-                  "event": {
-                    "description": "",
-                    "type": "string",
-                    "enum": [
-                      "x"
-                    ]
-                  },
-                  "position": {
-                    "description": "",
-                    "type": "string",
-                    "enum": [
-                      "left"
-                    ]
-                  },
-                  "size": {
-                    "description": "",
-                    "type": "string",
-                    "enum": [
-                      "width"
-                    ]
-                  }
-                },
-                "required": [
-                  "event",
-                  "position",
-                  "size"
-                ]
-              },
-              "vertical": {
-                "type": "object",
-                "description": "",
-                "properties": {
-                  "event": {
-                    "description": "",
-                    "type": "string",
-                    "enum": [
-                      "y"
-                    ]
-                  },
-                  "position": {
-                    "description": "",
-                    "type": "string",
-                    "enum": [
-                      "top"
-                    ]
-                  },
-                  "size": {
-                    "description": "",
-                    "type": "string",
-                    "enum": [
-                      "height"
-                    ]
-                  }
-                },
-                "required": [
-                  "event",
-                  "position",
-                  "size"
-                ]
-              }
-            },
-            "required": [
+            "type": "string",
+            "enum": [
               "horizontal",
               "vertical"
             ]
@@ -2967,10 +2941,42 @@
                 }
               },
               {
+                "title": "Function",
                 "type": "object",
                 "description": "",
-                "properties": {},
-                "required": []
+                "properties": {
+                  "arguments": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {}
+                  },
+                  "returns": {
+                    "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\nundefined",
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "title": "React Element"
+                      }
+                    ],
+                    "metadata": {
+                      "title": "React.ReactNode",
+                      "description": "External Type from '@types/react'."
+                    }
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
+                ]
               }
             ]
           },
@@ -3859,16 +3865,40 @@
         "description": "",
         "properties": {
           "ThumbComponent": {
-            "allOf": [
+            "description": "A React Component, can be a class or function.\n\nThe component used to display the value label.",
+            "oneOf": [
               {
-                "description": "The component used to display the value label."
+                "title": "Function",
+                "type": "object",
+                "properties": {
+                  "arguments": {
+                    "type": "object",
+                    "properties": {
+                      "0": {
+                        "title": "props",
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "returns": {
+                    "title": "React Element"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
+                ]
               },
               {
-                "title": "React.ElementType",
-                "description": "External Type from '@types/react'.",
-                "type": "any"
+                "title": "Class Component"
               }
-            ]
+            ],
+            "metadata": {
+              "title": "React.ComponentType",
+              "description": "External Type from '@types/react'."
+            }
           },
           "aria-label": {
             "description": "The label of the slider.",
@@ -3945,16 +3975,11 @@
             "type": "string"
           },
           "scale": {
-            "allOf": [
-              {
-                "description": "A transformation function, to change the scale of the slider."
-              },
-              {
-                "title": "identity",
-                "description": "External Type from 'rambda'.",
-                "type": "any"
-              }
-            ]
+            "description": "A transformation function, to change the scale of the slider.",
+            "metadata": {
+              "title": "identity",
+              "description": "External Type from 'rambda'."
+            }
           },
           "size": {
             "description": "",
@@ -4065,10 +4090,33 @@
                 "type": "string"
               },
               {
+                "title": "Function",
                 "type": "object",
                 "description": "",
-                "properties": {},
-                "required": []
+                "properties": {
+                  "arguments": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "0": {
+                        "title": "value",
+                        "type": "number"
+                      },
+                      "1": {
+                        "title": "index",
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "returns": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
+                ]
               }
             ]
           },
@@ -4461,26 +4509,20 @@
             "description": "",
             "type": "array",
             "items": {
-              "allOf": [
-                {
-                  "title": "Column",
-                  "description": "External Type from '@types/react-table'.",
-                  "type": "any"
-                }
-              ]
+              "metadata": {
+                "title": "Column",
+                "description": "External Type from '@types/react-table'."
+              }
             }
           },
           "data": {
             "description": "",
             "type": "array",
             "items": {
-              "allOf": [
-                {
-                  "title": "Record",
-                  "description": "External Type from 'typescript'.",
-                  "type": "any"
-                }
-              ]
+              "metadata": {
+                "title": "Record",
+                "description": "External Type from 'typescript'."
+              }
             }
           },
           "filterable": {
@@ -4536,13 +4578,8 @@
             ]
           },
           "as": {
-            "allOf": [
-              {
-                "title": "JSX.IntrinsicElements",
-                "description": "External Type from '@types/react'.",
-                "type": "any"
-              }
-            ]
+            "description": "",
+            "type": "string"
           },
           "bold": {
             "description": "",

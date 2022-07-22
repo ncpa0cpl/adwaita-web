@@ -96,6 +96,33 @@ function parseMethod(
   );
 }
 
+function isFunctionType(typeKind: JSONOutput.SomeType) {
+  return (
+    typeKind.type === "reflection" &&
+    typeKind.declaration?.signatures?.some((s) => s.kindString === "Call signature")
+  );
+}
+
+function extractPropertyNames(schema: JSONSchema4): JSONSchema4 {
+  if (schema.type === "object") {
+    return {
+      type: "string",
+      enum: Object.keys(schema.properties ?? {}),
+    };
+  }
+  if (schema.oneOf) {
+    return {
+      oneOf: schema.oneOf.map(extractPropertyNames),
+    };
+  }
+  if (schema.allOf) {
+    return {
+      allOf: schema.allOf.map(extractPropertyNames),
+    };
+  }
+  return { type: "string" };
+}
+
 function parseTypeKindToSchema(
   typeKind: JSONOutput.SomeType,
   allChildren: JSONOutput.DeclarationReflection[],
@@ -115,6 +142,15 @@ function parseTypeKindToSchema(
       const description = typeKind.declaration?.comment
         ? getComment(typeKind.declaration.comment)
         : "";
+
+      if (isFunctionType(typeKind)) {
+        return parseMethod(
+          typeKind.declaration!,
+          allChildren,
+          description,
+          defaultValue
+        );
+      }
 
       return {
         default: defaultValue,
@@ -202,14 +238,16 @@ function parseTypeKindToSchema(
           defaultValue
         );
       } else if (typeKind.package) {
+        const metadata = {
+          title: typeKind.name,
+          description: `External Type from '${typeKind.package}'.`,
+        };
+
         if (TYPE_MAP.has(typeKind.name)) {
           const schema = {
             ...TYPE_MAP.get(typeKind.name)!,
             default: defaultValue,
-            metadata: {
-              title: typeKind.name,
-              description: `External Type from '${typeKind.package}'.`,
-            },
+            metadata,
           };
 
           if (schema.description) {
@@ -220,19 +258,12 @@ function parseTypeKindToSchema(
 
           return schema;
         }
+
         const schema = {
-          allOf: [
-            {
-              title: typeKind.name,
-              description: `External Type from '${typeKind.package}'.`,
-              type: "any",
-              default: defaultValue,
-            },
-          ] as JSONSchema4[],
+          description,
+          default: defaultValue,
+          metadata,
         };
-        if (description) {
-          schema.allOf.unshift({ description });
-        }
 
         return schema;
       } else {
@@ -263,13 +294,24 @@ function parseTypeKindToSchema(
           parseTypeKindToSchema(e, allChildren)
         ) ?? { type: "any" },
       };
-    case "typeOperator":
-      return parseTypeKindToSchema(
+    case "typeOperator": {
+      const targetTypeSchema = parseTypeKindToSchema(
         typeKind.target,
         allChildren,
         description,
         defaultValue
       );
+
+      if (typeKind.operator === "keyof") {
+        return {
+          default: defaultValue,
+          description,
+          ...extractPropertyNames(targetTypeSchema),
+        };
+      }
+
+      return targetTypeSchema;
+    }
     case "query":
       return parseTypeKindToSchema(
         typeKind.queryType,
