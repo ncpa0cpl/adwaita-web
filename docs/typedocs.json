@@ -8,27 +8,59 @@
         "description": "",
         "properties": {
           "className": {
-            "description": "",
+            "description": "Class names that will be added to the alert container.",
             "type": "string"
           },
           "danger": {
-            "description": "",
+            "description": "When set to true the type of the alert will be set to \"Danger Message\", Danger\nAlerts have a warning icon and a red background.",
             "type": "boolean"
           },
           "icon": {
-            "description": "",
-            "type": "string"
+            "description": "A React Component, can be a class or function.",
+            "oneOf": [
+              {
+                "title": "Function",
+                "type": "object",
+                "properties": {
+                  "arguments": {
+                    "type": "object",
+                    "properties": {
+                      "0": {
+                        "title": "props",
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "returns": {
+                    "title": "React Element"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
+                ]
+              },
+              {
+                "title": "Class Component"
+              }
+            ],
+            "metadata": {
+              "title": "React.ComponentType",
+              "description": "External Type from '@types/react'."
+            }
           },
           "info": {
-            "description": "",
+            "description": "When set to true the type of the alert will be set to \"Information Message\",\nInformation Alerts have a bulb icon and a blue background.",
             "type": "boolean"
           },
           "showClose": {
-            "description": "",
+            "description": "Wether to show a close button in the alert.",
             "type": "boolean"
           },
           "size": {
-            "description": "",
+            "description": "Size of the alert.",
             "oneOf": [
               {
                 "type": "string",
@@ -69,15 +101,15 @@
             ]
           },
           "success": {
-            "description": "",
+            "description": "When set to true the type of the alert will be set to \"Success Message\", Success\nAlerts have a checkmark icon and a green background.",
             "type": "boolean"
           },
           "title": {
-            "description": "",
+            "description": "The title/header of the alert.",
             "type": "string"
           },
           "warning": {
-            "description": "",
+            "description": "When set to true the type of the alert will be set to \"Warning Message\", Warning\nAlerts have a warning icon and a yellow background.",
             "type": "boolean"
           },
           "onClose": {
@@ -117,24 +149,24 @@
       "propsSources": [
         {
           "fileName": "components/Alert.tsx",
-          "line": 8,
+          "line": 9,
           "character": 12
         }
       ]
     },
     "Autocomplete": {
-      "description": "An autocomplete input that allows the user to select from a list of options.",
+      "description": "Autocomplete is a normal input element enhanced with a list of options that are\nshown when the user starts typing.",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
         "description": "",
         "properties": {
           "className": {
-            "description": "",
+            "description": "Class names that will be added to the input element.",
             "type": "string"
           },
           "defaultValue": {
-            "description": "",
+            "description": "The default value that the input will be set to upon mount.",
             "oneOf": [
               {
                 "type": "string"
@@ -149,14 +181,14 @@
             "type": "boolean"
           },
           "options": {
-            "description": "The options shown in the list",
+            "description": "A list of options shown to the user.",
             "type": "array",
             "items": {
               "type": "object",
               "description": "",
               "properties": {
                 "label": {
-                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\nLabel of this option as will be show in the autocomplete's list of all options.",
                   "oneOf": [
                     {
                       "type": "string"
@@ -177,7 +209,7 @@
                   }
                 },
                 "value": {
-                  "description": "",
+                  "description": "The value associated with this option that will be given to the `onChange` and\n`onSearch` callback's.",
                   "oneOf": [
                     {
                       "type": "string"
@@ -195,7 +227,7 @@
             }
           },
           "value": {
-            "description": "",
+            "description": "Current value shown in the Autocomplete Input.",
             "oneOf": [
               {
                 "type": "string"
@@ -270,14 +302,14 @@
       "propsSources": [
         {
           "fileName": "components/Autocomplete.tsx",
-          "line": 15,
+          "line": 23,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Autocomplete.tsx",
-          "line": 40,
+          "line": 50,
           "character": 13
         }
       ]
@@ -290,12 +322,18 @@
         "description": "",
         "properties": {
           "align": {
-            "description": "",
+            "description": "Define how the items inside the Box should be aligned in relation to the Box.",
             "oneOf": [
               {
                 "type": "boolean",
                 "enum": [
                   true
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "center"
                 ]
               },
               {
@@ -313,11 +351,11 @@
             ]
           },
           "border": {
-            "description": "",
+            "description": "Adds border to the Box.",
             "type": "boolean"
           },
           "className": {
-            "description": "",
+            "description": "Class names that will be added to the Box's div element.",
             "type": "string"
           },
           "compact": {
@@ -325,11 +363,11 @@
             "type": "boolean"
           },
           "expandChildren": {
-            "description": "",
+            "description": "Makes all of the direct children of the box to grow to fill as much space as possible.",
             "type": "boolean"
           },
           "fill": {
-            "description": "",
+            "description": "Makes the Box grow to fill the available space, vertically, horizontally, or both.",
             "oneOf": [
               {
                 "type": "boolean"
@@ -349,20 +387,26 @@
             ]
           },
           "horizontal": {
-            "description": "",
+            "description": "Set the layout of the box to be horizontal. (children are placed one next to the other)",
             "type": "boolean"
           },
           "inline": {
-            "description": "",
+            "description": "When set to true Box will be displayed as a `inline-flex`.",
             "type": "boolean"
           },
           "justify": {
-            "description": "",
+            "description": "Define how the items inside the Box should be justified inside the Box.",
             "oneOf": [
               {
                 "type": "boolean",
                 "enum": [
                   true
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "center"
                 ]
               },
               {
@@ -380,7 +424,7 @@
             ]
           },
           "padded": {
-            "description": "",
+            "description": "Adds padding inside the Box.",
             "type": "boolean"
           },
           "space": {
@@ -401,7 +445,7 @@
             ]
           },
           "vertical": {
-            "description": "",
+            "description": "Set the layout of the box to be vertical. (children are placed one below the other)",
             "type": "boolean"
           }
         },
@@ -416,34 +460,34 @@
       ]
     },
     "Button": {
-      "description": "A simple button.",
+      "description": "A simple button that allows user to take actions and interact with the app.",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
         "description": "",
         "properties": {
           "active": {
-            "description": "Active state",
+            "description": "Active state.",
             "type": "boolean"
           },
           "circular": {
-            "description": "Round style button",
+            "description": "Round style button.",
             "type": "boolean"
           },
           "className": {
-            "description": "",
+            "description": "Class names that will be added to the button's element.",
             "type": "string"
           },
           "danger": {
-            "description": "Danger style button",
+            "description": "Danger style button.",
             "type": "boolean"
           },
           "flat": {
-            "description": "Flat style button",
+            "description": "Flat style button.",
             "type": "boolean"
           },
           "hover": {
-            "description": "Hover state",
+            "description": "Hover state.",
             "type": "boolean"
           },
           "icon": {
@@ -483,23 +527,23 @@
             }
           },
           "image": {
-            "description": "Button containing an image only",
+            "description": "Button containing an image only.",
             "type": "boolean"
           },
           "link": {
-            "description": "Link style button",
+            "description": "Link style button.",
             "type": "boolean"
           },
           "loading": {
-            "description": "Shows a spinner and disables the button",
+            "description": "Shows a spinner and disables the button.",
             "type": "boolean"
           },
           "primary": {
-            "description": "Primary style button",
+            "description": "Primary style button.",
             "type": "boolean"
           },
           "size": {
-            "description": "",
+            "description": "Size of the button.",
             "oneOf": [
               {
                 "type": "string",
@@ -540,11 +584,11 @@
             ]
           },
           "text": {
-            "description": "Button containing text",
+            "description": "Button containing text.",
             "type": "boolean"
           },
           "type": {
-            "description": "HTML button type",
+            "description": "HTML button type.",
             "oneOf": [
               {
                 "type": "string",
@@ -579,7 +623,7 @@
       "componentSources": [
         {
           "fileName": "components/Button.tsx",
-          "line": 44,
+          "line": 42,
           "character": 13
         }
       ]
@@ -647,7 +691,7 @@
       ]
     },
     "Checkbox": {
-      "description": "",
+      "description": "A input element that allows the user to select multiple options.",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
@@ -760,7 +804,7 @@
       "componentSources": [
         {
           "fileName": "src/components/Checkbox.tsx",
-          "line": 29,
+          "line": 30,
           "character": 13
         }
       ]
@@ -866,7 +910,7 @@
       ]
     },
     "Dropdown": {
-      "description": "",
+      "description": "A input element that allows the user to select one of the multiple pre-defined options.",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
@@ -1158,7 +1202,7 @@
       "componentSources": [
         {
           "fileName": "src/components/Dropdown.tsx",
-          "line": 44,
+          "line": 45,
           "character": 13
         }
       ]
