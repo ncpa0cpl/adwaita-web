@@ -5,16 +5,12 @@ import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import { Button } from "./Button";
 import { Label } from "./Label";
-import { PageSwitcher } from "./PageSwitcher";
+import { PageSwitcher, PageSwitcherPage } from "./PageSwitcher";
 
 const noop = () => {};
 
-export type PageSwitcherPage = {
-  key: string | number;
-  label?: React.ReactNode;
-  content: React.ReactNode;
-  closable?: boolean;
-};
+// Required for proper typedoc generation
+export { PageSwitcherPage };
 
 export type NotebookProps = ExtendElementProps<
   "div",

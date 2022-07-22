@@ -309,20 +309,20 @@
       "propsSources": [
         {
           "fileName": "components/Autocomplete.tsx",
-          "line": 23,
+          "line": 24,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Autocomplete.tsx",
-          "line": 50,
+          "line": 51,
           "character": 13
         }
       ]
     },
     "Box": {
-      "description": "",
+      "description": "A simple flexbox container.",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
@@ -463,6 +463,13 @@
           "fileName": "components/Box.tsx",
           "line": 5,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Box.tsx",
+          "line": 34,
+          "character": 16
         }
       ]
     },
@@ -685,14 +692,14 @@
       "propsSources": [
         {
           "fileName": "src/components/Calendar.tsx",
-          "line": 29,
+          "line": 30,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Calendar.tsx",
-          "line": 34,
+          "line": 35,
           "character": 13
         }
       ]
@@ -1202,14 +1209,14 @@
       "propsSources": [
         {
           "fileName": "src/components/Dropdown.tsx",
-          "line": 22,
+          "line": 23,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Dropdown.tsx",
-          "line": 45,
+          "line": 46,
           "character": 13
         }
       ]
@@ -1529,9 +1536,77 @@
       },
       "propsSources": [
         {
-          "fileName": "src/components/HeaderBar.tsx",
+          "fileName": "components/HeaderBar.tsx",
           "line": 7,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/HeaderBar.tsx",
+          "line": 14,
+          "character": 16
+        }
+      ]
+    },
+    "HeaderBarControls": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {},
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/HeaderBarControls.tsx",
+          "line": 6,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/HeaderBarControls.tsx",
+          "line": 8,
+          "character": 16
+        }
+      ]
+    },
+    "HeaderBarTitle": {
+      "description": "A component that can be used inside the HeaderBar component to display the header's title.",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "Class names to be added to the HeaderBarTitle container.",
+            "type": "string"
+          },
+          "fill": {
+            "description": "When set to true, will expand to fill all the available space within a HeaderBar.",
+            "type": "boolean"
+          },
+          "subtitle": {
+            "description": "A text to be displayed below the Title.",
+            "type": "string"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/HeaderBarTitle.tsx",
+          "line": 5,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/HeaderBarTitle.tsx",
+          "line": 15,
+          "character": 16
         }
       ]
     },
@@ -1934,15 +2009,44 @@
       },
       "propsSources": [
         {
-          "fileName": "src/components/Input.tsx",
+          "fileName": "components/Input.tsx",
           "line": 14,
           "character": 12
         }
       ],
       "componentSources": [
         {
-          "fileName": "src/components/Input.tsx",
+          "fileName": "components/Input.tsx",
           "line": 55,
+          "character": 13
+        }
+      ]
+    },
+    "InputGroup": {
+      "description": "A container dedicated for input elements. Contained inputs will get joined\ntogether to look like a single element.",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "src/components/InputGroup.tsx",
+          "line": 4,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "src/components/InputGroup.tsx",
+          "line": 12,
           "character": 13
         }
       ]
@@ -2400,8 +2504,68 @@
       "propsSources": [
         {
           "fileName": "components/List.tsx",
-          "line": 7,
+          "line": 5,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/List.tsx",
+          "line": 21,
+          "character": 16
+        }
+      ]
+    },
+    "ListItem": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "activatable": {
+            "description": "",
+            "type": "boolean"
+          },
+          "as": {
+            "description": "",
+            "type": "string"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "expandable": {
+            "description": "",
+            "type": "boolean"
+          },
+          "needsAttention": {
+            "description": "",
+            "type": "boolean"
+          },
+          "selected": {
+            "description": "",
+            "type": "boolean"
+          },
+          "title": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/ListItem.tsx",
+          "line": 6,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/ListItem.tsx",
+          "line": 19,
+          "character": 16
         }
       ]
     },
@@ -2426,8 +2590,44 @@
       "propsSources": [
         {
           "fileName": "components/Menu.tsx",
-          "line": 13,
+          "line": 5,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Menu.tsx",
+          "line": 13,
+          "character": 16
+        }
+      ]
+    },
+    "MenuBackButton": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/MenuBackButton.tsx",
+          "line": 6,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/MenuBackButton.tsx",
+          "line": 13,
+          "character": 16
         }
       ]
     },
@@ -2443,8 +2643,718 @@
       "propsSources": [
         {
           "fileName": "components/MenuBar.tsx",
+          "line": 10,
+          "character": 12
+        }
+      ]
+    },
+    "MenuButton": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "accelerator": {
+            "description": "",
+            "type": "string"
+          },
+          "checkbox": {
+            "description": "",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "icon": {
+            "description": "A React Component, can be a class or function.",
+            "oneOf": [
+              {
+                "title": "Function",
+                "type": "object",
+                "properties": {
+                  "arguments": {
+                    "type": "object",
+                    "properties": {
+                      "0": {
+                        "title": "props",
+                        "type": "object"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "returns": {
+                    "title": "React Element"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
+                ]
+              },
+              {
+                "title": "Class Component"
+              }
+            ],
+            "metadata": {
+              "title": "React.ComponentType",
+              "description": "External Type from '@types/react'."
+            }
+          },
+          "menu": {
+            "description": "",
+            "type": "boolean"
+          },
+          "radio": {
+            "description": "",
+            "type": "boolean"
+          },
+          "selected": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/MenuButton.tsx",
+          "line": 7,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/MenuButton.tsx",
+          "line": 20,
+          "character": 16
+        }
+      ]
+    },
+    "MenuCircularButton": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "align": {
+            "description": "Define how the items inside the Box should be aligned in relation to the Box.",
+            "oneOf": [
+              {
+                "type": "boolean",
+                "enum": [
+                  true
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "center"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "end"
+                ]
+              }
+            ]
+          },
+          "border": {
+            "description": "Adds border to the Box.",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "Class names that will be added to the Box's div element.",
+            "type": "string"
+          },
+          "compact": {
+            "description": "",
+            "type": "boolean"
+          },
+          "expandChildren": {
+            "description": "Makes all of the direct children of the box to grow to fill as much space as possible.",
+            "type": "boolean"
+          },
+          "fill": {
+            "description": "Makes the Box grow to fill the available space, vertically, horizontally, or both.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "horizontal"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "vertical"
+                ]
+              }
+            ]
+          },
+          "horizontal": {
+            "description": "Set the layout of the box to be horizontal. (children are placed one next to the other)",
+            "type": "boolean"
+          },
+          "inline": {
+            "description": "When set to true Box will be displayed as a `inline-flex`.",
+            "type": "boolean"
+          },
+          "justify": {
+            "description": "Define how the items inside the Box should be justified inside the Box.",
+            "oneOf": [
+              {
+                "type": "boolean",
+                "enum": [
+                  true
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "center"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "end"
+                ]
+              }
+            ]
+          },
+          "padded": {
+            "description": "Adds padding inside the Box.",
+            "type": "boolean"
+          },
+          "space": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "around"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "between"
+                ]
+              }
+            ]
+          },
+          "vertical": {
+            "description": "Set the layout of the box to be vertical. (children are placed one below the other)",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/MenuCircularButton.tsx",
           "line": 9,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/MenuCircularButton.tsx",
+          "line": 11,
+          "character": 16
+        }
+      ]
+    },
+    "MenuInlineButton": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "allOf": [
+          {
+            "type": "object",
+            "description": "",
+            "properties": {
+              "align": {
+                "description": "Define how the items inside the Box should be aligned in relation to the Box.",
+                "oneOf": [
+                  {
+                    "type": "boolean",
+                    "enum": [
+                      true
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "center"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "start"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "end"
+                    ]
+                  }
+                ]
+              },
+              "border": {
+                "description": "Adds border to the Box.",
+                "type": "boolean"
+              },
+              "className": {
+                "description": "Class names that will be added to the Box's div element.",
+                "type": "string"
+              },
+              "compact": {
+                "description": "",
+                "type": "boolean"
+              },
+              "expandChildren": {
+                "description": "Makes all of the direct children of the box to grow to fill as much space as possible.",
+                "type": "boolean"
+              },
+              "fill": {
+                "description": "Makes the Box grow to fill the available space, vertically, horizontally, or both.",
+                "oneOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "horizontal"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "vertical"
+                    ]
+                  }
+                ]
+              },
+              "horizontal": {
+                "description": "Set the layout of the box to be horizontal. (children are placed one next to the other)",
+                "type": "boolean"
+              },
+              "inline": {
+                "description": "When set to true Box will be displayed as a `inline-flex`.",
+                "type": "boolean"
+              },
+              "justify": {
+                "description": "Define how the items inside the Box should be justified inside the Box.",
+                "oneOf": [
+                  {
+                    "type": "boolean",
+                    "enum": [
+                      true
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "center"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "start"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "end"
+                    ]
+                  }
+                ]
+              },
+              "padded": {
+                "description": "Adds padding inside the Box.",
+                "type": "boolean"
+              },
+              "space": {
+                "description": "",
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "around"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "between"
+                    ]
+                  }
+                ]
+              },
+              "vertical": {
+                "description": "Set the layout of the box to be vertical. (children are placed one below the other)",
+                "type": "boolean"
+              }
+            },
+            "required": []
+          },
+          {
+            "type": "object",
+            "description": "",
+            "properties": {
+              "label": {
+                "description": "",
+                "type": "string"
+              }
+            },
+            "required": []
+          }
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/MenuInlineButton.tsx",
+          "line": 10,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/MenuInlineButton.tsx",
+          "line": 14,
+          "character": 16
+        }
+      ]
+    },
+    "MenuItem": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "align": {
+            "description": "Define how the items inside the Box should be aligned in relation to the Box.",
+            "oneOf": [
+              {
+                "type": "boolean",
+                "enum": [
+                  true
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "center"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "end"
+                ]
+              }
+            ]
+          },
+          "border": {
+            "description": "Adds border to the Box.",
+            "type": "boolean"
+          },
+          "className": {
+            "description": "Class names that will be added to the Box's div element.",
+            "type": "string"
+          },
+          "compact": {
+            "description": "",
+            "type": "boolean"
+          },
+          "expandChildren": {
+            "description": "Makes all of the direct children of the box to grow to fill as much space as possible.",
+            "type": "boolean"
+          },
+          "fill": {
+            "description": "Makes the Box grow to fill the available space, vertically, horizontally, or both.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "horizontal"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "vertical"
+                ]
+              }
+            ]
+          },
+          "horizontal": {
+            "description": "Set the layout of the box to be horizontal. (children are placed one next to the other)",
+            "type": "boolean"
+          },
+          "inline": {
+            "description": "When set to true Box will be displayed as a `inline-flex`.",
+            "type": "boolean"
+          },
+          "justify": {
+            "description": "Define how the items inside the Box should be justified inside the Box.",
+            "oneOf": [
+              {
+                "type": "boolean",
+                "enum": [
+                  true
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "center"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "start"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "end"
+                ]
+              }
+            ]
+          },
+          "padded": {
+            "description": "Adds padding inside the Box.",
+            "type": "boolean"
+          },
+          "space": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "around"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "between"
+                ]
+              }
+            ]
+          },
+          "vertical": {
+            "description": "Set the layout of the box to be vertical. (children are placed one below the other)",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/MenuItem.tsx",
+          "line": 9,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/MenuItem.tsx",
+          "line": 11,
+          "character": 16
+        }
+      ]
+    },
+    "MenuTitle": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "align": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "left"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "center"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "right"
+                ]
+              }
+            ]
+          },
+          "bold": {
+            "description": "",
+            "type": "boolean"
+          },
+          "danger": {
+            "description": "",
+            "type": "boolean"
+          },
+          "disabled": {
+            "description": "",
+            "type": "boolean"
+          },
+          "ellipsis": {
+            "description": "",
+            "type": "boolean"
+          },
+          "fill": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "width"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "height"
+                ]
+              }
+            ]
+          },
+          "info": {
+            "description": "",
+            "type": "boolean"
+          },
+          "italic": {
+            "description": "",
+            "type": "boolean"
+          },
+          "muted": {
+            "description": "",
+            "type": "boolean"
+          },
+          "noSelect": {
+            "description": "",
+            "type": "boolean"
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "success": {
+            "description": "",
+            "type": "boolean"
+          },
+          "title": {
+            "description": "",
+            "type": "string"
+          },
+          "warning": {
+            "description": "",
+            "type": "boolean"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/MenuTitle.tsx",
+          "line": 9,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/MenuTitle.tsx",
+          "line": 11,
+          "character": 16
         }
       ]
     },
@@ -2677,14 +3587,14 @@
       "propsSources": [
         {
           "fileName": "components/Notebook.tsx",
-          "line": 19,
+          "line": 15,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Notebook.tsx",
-          "line": 34,
+          "line": 30,
           "character": 16
         }
       ]
@@ -3690,14 +4600,14 @@
       "propsSources": [
         {
           "fileName": "components/PopoverMenu.tsx",
-          "line": 15,
+          "line": 11,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/PopoverMenu.tsx",
-          "line": 47,
+          "line": 43,
           "character": 16
         }
       ]
@@ -3924,15 +4834,158 @@
       "propsSources": [
         {
           "fileName": "src/components/Radio.tsx",
-          "line": 11,
+          "line": 8,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Radio.tsx",
-          "line": 25,
+          "line": 22,
           "character": 13
+        }
+      ]
+    },
+    "RadioGroup": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "className": {
+            "description": "",
+            "type": "string"
+          },
+          "compact": {
+            "description": "",
+            "type": "boolean"
+          },
+          "defaultValue": {
+            "description": "",
+            "type": "string"
+          },
+          "horizontal": {
+            "description": "",
+            "type": "boolean"
+          },
+          "name": {
+            "description": "",
+            "type": "string"
+          },
+          "options": {
+            "description": "",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "",
+              "properties": {
+                "data": {
+                  "description": "",
+                  "type": "any"
+                },
+                "label": {
+                  "description": "",
+                  "type": "string"
+                },
+                "value": {
+                  "description": "",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label",
+                "value"
+              ]
+            }
+          },
+          "size": {
+            "description": "",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "mini"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "small"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "medium"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "large"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "huge"
+                ]
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "mega"
+                ]
+              }
+            ]
+          },
+          "value": {
+            "description": "",
+            "type": "string"
+          },
+          "onChange": {
+            "title": "Function",
+            "type": "object",
+            "description": "",
+            "properties": {
+              "arguments": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "0": {
+                    "title": "value",
+                    "type": "string"
+                  }
+                }
+              },
+              "returns": {
+                "type": "void"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "arguments",
+              "returns"
+            ]
+          }
+        },
+        "required": [
+          "options"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/RadioGroup.tsx",
+          "line": 6,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/RadioGroup.tsx",
+          "line": 22,
+          "character": 16
         }
       ]
     },
@@ -4621,8 +5674,192 @@
       "propsSources": [
         {
           "fileName": "components/Table.tsx",
-          "line": 24,
+          "line": 20,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Table.tsx",
+          "line": 28,
+          "character": 16
+        }
+      ]
+    },
+    "TableDropdownFilter": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "column": {
+            "type": "object",
+            "description": "",
+            "properties": {
+              "filterValue": {
+                "description": "",
+                "type": "any"
+              },
+              "id": {
+                "description": "",
+                "type": "string"
+              },
+              "options": {
+                "description": "",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "",
+                  "properties": {
+                    "data": {
+                      "description": "",
+                      "type": "any"
+                    },
+                    "label": {
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "title": "React Element"
+                        }
+                      ],
+                      "metadata": {
+                        "title": "React.ReactNode",
+                        "description": "External Type from '@types/react'."
+                      }
+                    },
+                    "value": {
+                      "description": "",
+                      "type": "any"
+                    }
+                  },
+                  "required": [
+                    "label",
+                    "value"
+                  ]
+                }
+              },
+              "setFilter": {
+                "title": "Function",
+                "type": "object",
+                "description": "",
+                "properties": {
+                  "arguments": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "0": {
+                        "title": "filterValue",
+                        "type": "any"
+                      }
+                    }
+                  },
+                  "returns": {
+                    "type": "void"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
+                ]
+              }
+            },
+            "required": []
+          }
+        },
+        "required": [
+          "column"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/TableDropdownFilter.tsx",
+          "line": 11,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/TableDropdownFilter.tsx",
+          "line": 20,
+          "character": 16
+        }
+      ]
+    },
+    "TableTextFilter": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "column": {
+            "type": "object",
+            "description": "",
+            "properties": {
+              "filterValue": {
+                "description": "",
+                "type": "string"
+              },
+              "id": {
+                "description": "",
+                "type": "string"
+              },
+              "setFilter": {
+                "title": "Function",
+                "type": "object",
+                "description": "",
+                "properties": {
+                  "arguments": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "0": {
+                        "title": "filterValue",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "returns": {
+                    "type": "void"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "arguments",
+                  "returns"
+                ]
+              }
+            },
+            "required": []
+          }
+        },
+        "required": [
+          "column"
+        ]
+      },
+      "propsSources": [
+        {
+          "fileName": "components/TableTextFilter.tsx",
+          "line": 4,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/TableTextFilter.tsx",
+          "line": 12,
+          "character": 16
         }
       ]
     },

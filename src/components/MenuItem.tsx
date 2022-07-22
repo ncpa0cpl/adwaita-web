@@ -3,6 +3,9 @@ import React from "react";
 import type { BoxProps } from "./Box";
 import { Box } from "./Box";
 
+// Required for proper typedoc generation
+export { BoxProps };
+
 export type MenuItemProps = BoxProps;
 
 export function MenuItem({ children, className, ...rest }: MenuItemProps) {

@@ -4,6 +4,9 @@ import type { BoxProps } from "./Box";
 import { Box } from "./Box";
 import { Label } from "./Label";
 
+// Required for proper typedoc generation
+export { BoxProps };
+
 export type MenuInlineButtonProps = BoxProps & {
   label?: string;
 };

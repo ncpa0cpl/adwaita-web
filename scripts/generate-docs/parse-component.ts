@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import fs from "fs/promises";
 import type { JSONSchema4, JSONSchema4Type, JSONSchema4TypeName } from "json-schema";
 import path from "path";
@@ -427,6 +428,25 @@ function mapReflection(
   ];
 }
 
+function generateChecksumFromString(str: string): string {
+  return crypto.createHash("sha256").update(str, "utf8").digest("hex");
+}
+
+async function getFileChecksum(filePath: string): Promise<string> {
+  const file = await fs.readFile(filePath, "utf-8");
+  return generateChecksumFromString(file);
+}
+
+async function getCachedFileChecksum(filePath: string): Promise<string> {
+  try {
+    const fileContent = await fs.readFile(filePath, "utf-8");
+    const obj = JSON.parse(fileContent);
+    return obj.checksum ?? "";
+  } catch (e) {
+    return "";
+  }
+}
+
 export async function getComponentTypeDocs(
   rootAbs: string,
   entryPoint: string,
@@ -434,6 +454,10 @@ export async function getComponentTypeDocs(
 ) {
   try {
     const componentFile = path.parse(entryPoint);
+    const jsonFilePath = path.resolve(
+      rootAbs,
+      `./docs/tmp/${componentFile.name}.json`
+    );
 
     console.log(
       `Parsing "${componentFile.name}", at: "${path.relative(
@@ -442,34 +466,40 @@ export async function getComponentTypeDocs(
       )}"`
     );
 
-    const parser = new Application();
+    const checksum = await getFileChecksum(entryPoint);
+    const cachedChecksum = await getCachedFileChecksum(jsonFilePath);
 
-    parser.options.addReader(new TSConfigReader());
+    if (checksum !== cachedChecksum) {
+      const parser = new Application();
 
-    parser.bootstrap({
-      entryPoints: [entryPoint, path.resolve(rootAbs, "./src/icons.ts")],
-      tsconfig: tsConfigPath,
-      excludeExternals: false,
-      excludeInternal: false,
-      excludeNotDocumented: false,
-      excludePrivate: false,
-      excludeProtected: false,
-      entryPointStrategy: "Resolve",
-    });
+      parser.options.addReader(new TSConfigReader());
 
-    const component = parser.convert();
+      parser.bootstrap({
+        entryPoints: [entryPoint, path.resolve(rootAbs, "./src/icons.ts")],
+        tsconfig: tsConfigPath,
+        excludeExternals: false,
+        excludeInternal: false,
+        excludeNotDocumented: false,
+        excludePrivate: false,
+        excludeProtected: false,
+        entryPointStrategy: "Resolve",
+      });
 
-    if (!component) {
-      console.error(new Error(`Failed to parse component ${entryPoint}`));
-      process.exit(1);
+      const component = parser.convert();
+
+      if (!component) {
+        console.error(new Error(`Failed to parse component ${entryPoint}`));
+        process.exit(1);
+      }
+
+      await parser.generateJson(component, jsonFilePath);
+
+      // add checksum to the file
+      const generatedJson = await fs.readFile(jsonFilePath, "utf-8");
+      const obj = JSON.parse(generatedJson);
+      obj.checksum = checksum;
+      await fs.writeFile(jsonFilePath, JSON.stringify(obj, null, 2));
     }
-
-    const jsonFilePath = path.resolve(
-      rootAbs,
-      `./docs/tmp/${componentFile.name}.json`
-    );
-
-    await parser.generateJson(component, jsonFilePath);
 
     const containerReflection: JSONOutput.ContainerReflection = JSON.parse(
       await fs.readFile(jsonFilePath, "utf8")

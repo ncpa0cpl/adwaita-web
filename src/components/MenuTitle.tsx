@@ -3,6 +3,9 @@ import React from "react";
 import type { LabelProps } from "./Label";
 import { Label } from "./Label";
 
+// Required for proper typedoc generation
+export { LabelProps };
+
 export type MenuTitleProps = LabelProps;
 
 export function MenuTitle({ children, className, ...rest }: MenuTitleProps) {
