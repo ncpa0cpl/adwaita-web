@@ -1,7 +1,7 @@
 {
   "components": {
     "Alert": {
-      "description": "",
+      "description": "Alert component for displaying messages to the user in a way that attracts attention.",
       "propsSchema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
@@ -115,7 +115,7 @@
           "onClose": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "A callback that will be invoked when a close button is clicked.",
             "properties": {
               "arguments": {
                 "type": "object",
@@ -151,6 +151,13 @@
           "fileName": "components/Alert.tsx",
           "line": 9,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Alert.tsx",
+          "line": 48,
+          "character": 16
         }
       ]
     },
@@ -240,7 +247,7 @@
           "onChange": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "Called when the value changes, event if the change was not directly triggered by\nthe user interaction with the input.",
             "properties": {
               "arguments": {
                 "type": "object",
@@ -272,7 +279,7 @@
           "onSearch": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "Called when the value changes due to the user input.",
             "properties": {
               "arguments": {
                 "type": "object",
@@ -761,7 +768,7 @@
           "onChange": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "A callback function that is called when the checkbox is changed.",
             "properties": {
               "arguments": {
                 "type": "object",
@@ -842,7 +849,7 @@
               "onChange": {
                 "title": "Function",
                 "type": "object",
-                "description": "",
+                "description": "A function that receives a date object",
                 "properties": {
                   "arguments": {
                     "type": "object",
@@ -1371,7 +1378,7 @@
           "onChange": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "Called when the open state changes",
             "properties": {
               "arguments": {
                 "type": "object",
@@ -1497,6 +1504,13 @@
           "line": 5,
           "character": 12
         }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Frame.tsx",
+          "line": 23,
+          "character": 16
+        }
       ]
     },
     "HeaderBar": {
@@ -1583,6 +1597,13 @@
           "fileName": "components/Heading.tsx",
           "line": 6,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Heading.tsx",
+          "line": 16,
+          "character": 16
         }
       ]
     },
@@ -1841,7 +1862,7 @@
           "onAccept": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "Called when Enter is pressed (prevents default behavior)",
             "properties": {
               "arguments": {
                 "type": "object",
@@ -1866,7 +1887,7 @@
           "onChange": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "Called when the input value changes, with the new value",
             "properties": {
               "arguments": {
                 "type": "object",
@@ -1891,7 +1912,7 @@
           "onClickIconAfter": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "Called when the `iconAfter` is clicked",
             "properties": {
               "arguments": {
                 "type": "object",
@@ -2039,6 +2060,13 @@
           "fileName": "components/InputNumber.tsx",
           "line": 13,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/InputNumber.tsx",
+          "line": 29,
+          "character": 16
         }
       ]
     },
@@ -2651,6 +2679,13 @@
           "fileName": "components/Notebook.tsx",
           "line": 19,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/Notebook.tsx",
+          "line": 34,
+          "character": 16
         }
       ]
     },
@@ -4171,7 +4206,7 @@
           "onChange": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "Callback function that is fired when the slider's value changed.",
             "properties": {
               "arguments": {
                 "type": "object",
@@ -4243,7 +4278,7 @@
           "onChangeCommitted": {
             "title": "Function",
             "type": "object",
-            "description": "",
+            "description": "Callback function that is fired when the `mouseup` is triggered.",
             "properties": {
               "arguments": {
                 "type": "object",

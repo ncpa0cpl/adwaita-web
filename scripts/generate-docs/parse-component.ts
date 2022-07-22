@@ -4,7 +4,27 @@ import path from "path";
 import { Application, JSONOutput, TSConfigReader } from "typedoc";
 import { TYPE_MAP } from "./external-packages-type-map";
 
-function getComment(commentSection?: JSONOutput.Comment) {
+function extract(obj: object, path: string) {
+  const parts = path.split(".");
+  let current = obj;
+  for (const part of parts) {
+    if (typeof current === "object" && current !== null && part in current) {
+      current = (current as Record<string, any>)[part];
+    } else {
+      return undefined;
+    }
+  }
+  return current;
+}
+
+function getComment(
+  schema: JSONSchema4 | JSONOutput.SomeType | JSONOutput.DeclarationReflection
+) {
+  const commentSection: JSONOutput.Comment | undefined =
+    extract(schema, "comment") ??
+    extract(schema, "declaration.comment") ??
+    extract(schema, "signatures.0.comment");
+
   if (!commentSection) return "";
 
   let text = [];
@@ -139,9 +159,7 @@ function parseTypeKindToSchema(
         items: parseTypeKindToSchema(typeKind.elementType, allChildren),
       };
     case "reflection": {
-      const description = typeKind.declaration?.comment
-        ? getComment(typeKind.declaration.comment)
-        : "";
+      const description = typeKind.declaration?.comment ? getComment(typeKind) : "";
 
       if (isFunctionType(typeKind)) {
         return parseMethod(
@@ -163,17 +181,12 @@ function parseTypeKindToSchema(
               ? parseTypeKindToSchema(
                   c.type as JSONOutput.SomeType,
                   allChildren,
-                  getComment(c.comment),
+                  getComment(c),
                   undefined,
                   c
                 )
               : c.kindString === "Method"
-              ? parseMethod(
-                  c,
-                  allChildren,
-                  c.comment ? getComment(c.comment) : "",
-                  c.defaultValue
-                )
+              ? parseMethod(c, allChildren, getComment(c), c.defaultValue)
               : ({
                   type: "any",
                   description,
@@ -217,7 +230,7 @@ function parseTypeKindToSchema(
         return parseTypeKindToSchema(
           referencedChild.type as JSONOutput.SomeType,
           allChildren,
-          getComment(referencedChild.comment),
+          getComment(referencedChild),
           defaultValue,
           referencedChild
         );
@@ -333,7 +346,7 @@ function parseTypeKindToSchema(
 
 function parseImplementation(implementation: JSONOutput.DeclarationReflection) {
   return {
-    comment: implementation.comment ? getComment(implementation.comment) : "",
+    comment: getComment(implementation),
     sources: implementation.sources,
   };
 }
