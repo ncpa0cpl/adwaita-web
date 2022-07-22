@@ -85,10 +85,10 @@ export function Alert({
           <IconElement />
         </Box>
       )}
-      <Box.Fill className="Alert__content">
+      <Box className="Alert__content Box__fill">
         {title && <div className="Alert__title">{title}</div>}
         <div className="Alert__message">{children}</div>
-      </Box.Fill>
+      </Box>
       {showClose && (
         <Button className="Alert__close" icon={WindowClose} onClick={onClose} />
       )}

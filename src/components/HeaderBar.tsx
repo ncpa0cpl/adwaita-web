@@ -25,35 +25,3 @@ export function HeaderBar({
     </div>
   );
 }
-
-export type HeaderBarTitleProps = React.PropsWithChildren<{
-  subtitle?: string;
-  className?: string;
-  fill?: boolean;
-}>;
-
-export function Title({ children, subtitle, className, fill }: HeaderBarTitleProps) {
-  return (
-    <Box
-      vertical
-      fill
-      align
-      justify
-      className={cx("HeaderBar__title", className, { Box__fill: fill })}
-    >
-      <div className="title">{children}</div>
-      {subtitle && <div className="subtitle">{subtitle}</div>}
-    </Box>
-  );
-}
-
-export function Controls({ children }: React.PropsWithChildren) {
-  return (
-    <Box horizontal align className="HeaderBar__controls control-buttons">
-      {children}
-    </Box>
-  );
-}
-
-HeaderBar.Title = Title;
-HeaderBar.Controls = Controls;

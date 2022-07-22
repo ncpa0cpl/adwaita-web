@@ -11,15 +11,11 @@ import {
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeList } from "react-window";
 import getScrollbarWidth from "scrollbar-size";
-import { PanDown, WindowClose } from "../icons";
+import { PanDown } from "../icons";
 import { getPropAndCastOr } from "../utils/getPropAndCastOr";
 import { hasKey } from "../utils/hasKey";
 
 import { Box } from "./Box";
-import { Button } from "./Button";
-import type { DropdownOption } from "./Dropdown";
-import { Dropdown } from "./Dropdown";
-import { Input } from "./Input";
 
 export type TableProps = {
   className?: string;
@@ -134,7 +130,7 @@ export function Table({
                         (column.getSortByToggleProps as any)()
                       : undefined)}
                   >
-                    <Box.Fill>{column.render("Header")}</Box.Fill>
+                    <Box className="Box__fill">{column.render("Header")}</Box>
                     {hasKey(column, "canSort") && column.canSort && (
                       <PanDown
                         containerProps={{
@@ -183,68 +179,14 @@ export function Table({
   );
 }
 
-export type InputFilterProps = {
-  column: {
-    id?: string;
-    filterValue?: string;
-    setFilter?: (filterValue: string) => void;
-  };
-};
-
-function InputFilter({ column: { filterValue, setFilter, id } }: InputFilterProps) {
-  return (
-    <Input
-      allowClear
-      size="small"
-      id={id}
-      value={filterValue || ""}
-      onChange={setFilter}
-    />
-  );
-}
-
-export type DropdownFilterProps<T> = {
-  column: {
-    id?: string;
-    filterValue?: T;
-    setFilter?: (filterValue?: T) => void;
-    options?: Array<DropdownOption<T>>;
-  };
-};
-
-function DropdownFilter<T extends string | number | boolean>({
-  column: { filterValue, setFilter, id, options },
-}: DropdownFilterProps<T>) {
-  return (
-    <Box horizontal compact className="DropdownFilter">
-      <Dropdown<T>
-        allowClear
-        className="Box__fill"
-        size="small"
-        id={id}
-        value={filterValue}
-        onChange={setFilter}
-        options={options}
-      />
-      <Button
-        flat
-        size="small"
-        icon={WindowClose}
-        onClick={() => setFilter && setFilter(undefined)}
-      />
-    </Box>
-  );
-}
-
-Table.InputFilter = InputFilter;
-Table.DropdownFilter = DropdownFilter;
-
 function transformColumns<T extends Record<string, any>>(cs: Array<T>): Array<T> {
   return cs.map((c) => {
     const nc = { ...c };
 
     if (hasKey(nc, "columns") && Array.isArray(nc.columns)) {
-      nc.columns = transformColumns(nc.columns);
+      Object.assign(nc, {
+        columns: transformColumns(nc.columns),
+      });
     } else {
       if (hasKey(nc, "filter") || hasKey(nc, "Filter"))
         Object.assign(nc, { disableFilters: false });

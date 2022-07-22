@@ -73,29 +73,6 @@ export function Box({
   );
 }
 
-export type FillProps = ExtendElementProps<
-  "div",
-  React.PropsWithChildren<{
-    className?: string;
-    expandChildren?: boolean;
-  }>
->;
-
-function Fill({ children, className, expandChildren, ...rest }: FillProps) {
-  return (
-    <div
-      className={cx("Box__fill", {
-        "expand-children": expandChildren,
-      })}
-      {...rest}
-    >
-      {children}
-    </div>
-  );
-}
-
-Box.Fill = Fill;
-
 // Helpers
 
 function alignClass(align: true | "center" | "start" | "end" | undefined) {

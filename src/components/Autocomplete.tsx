@@ -7,6 +7,7 @@ import { Expander } from "./Expander";
 import { Input } from "./Input";
 import { Label } from "./Label";
 import { List } from "./List";
+import { ListItem } from "./ListItem";
 import { Popover } from "./Popover";
 
 export type AutocompleteOption = {
@@ -108,23 +109,23 @@ export const Autocomplete = React.forwardRef(
       <Expander open={open} fitContent>
         <List border={false} separators={false}>
           {filteredOptions.map((o) => (
-            <List.Item
+            <ListItem
               key={o.value}
               activatable
               onClick={() => select(o)}
               data-value={o.value}
             >
               {o.label || o.value}
-            </List.Item>
+            </ListItem>
           ))}
           {filteredOptions.length === 0 && (
-            <List.Item key="empty">
+            <ListItem key="empty">
               <Box justify="center">
                 <Label muted italic>
                   (No results found)
                 </Label>
               </Box>
-            </List.Item>
+            </ListItem>
           )}
         </List>
       </Expander>

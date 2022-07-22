@@ -10,8 +10,9 @@ import { Button } from "./Button";
 import { Input } from "./Input";
 import { Label } from "./Label";
 import { Menu } from "./Menu";
+import { MenuButton } from "./MenuButton";
+import { MenuItem } from "./MenuItem";
 import { Popover } from "./Popover";
-import { Separator } from "./Separator";
 
 export type DropdownOption<T> = {
   value: T;
@@ -45,10 +46,6 @@ export type DropdownProps<T> = {
 export class Dropdown<T extends string | number | boolean> extends React.Component<
   DropdownProps<T>
 > {
-  static Item = Menu.Item;
-  static Button = Menu.Button;
-  static Separator = Separator;
-
   static defaultProps = {
     size: "medium",
     align: "right",
@@ -297,31 +294,31 @@ export class Dropdown<T extends string | number | boolean> extends React.Compone
 
     const options = this.getRenderedOptions();
     const actualChildren = options.map((o) => (
-      <Menu.Button
+      <MenuButton
         key={o.value.toString()}
         selected={String(o.value) === String(value)}
         onClick={() => this.select(o)}
       >
         {o.label}
-      </Menu.Button>
+      </MenuButton>
     ));
 
     if (actualChildren.length === 0)
       actualChildren.push(
-        <Menu.Item key="empty_item">
+        <MenuItem key="empty_item">
           <Label muted italic>
             No option found
           </Label>
-        </Menu.Item>
+        </MenuItem>
       );
 
     if (allowClear) {
       actualChildren.unshift(
-        <Menu.Button key="null_item" onClick={() => this.select(null)}>
+        <MenuButton key="null_item" onClick={() => this.select(null)}>
           <Label muted italic>
             None
           </Label>
-        </Menu.Button>
+        </MenuButton>
       );
     }
 

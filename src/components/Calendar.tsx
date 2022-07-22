@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { GoNext, GoPrevious } from "../icons";
 import { Box } from "./Box";
 import { Button } from "./Button";
-import { Input, InputGroup } from "./Input";
+import { Input } from "./Input";
+import { InputGroup } from "./InputGroup";
 import { Label } from "./Label";
 
 const weekDayLetters = ["S", "M", "T", "W", "T", "F", "S"];

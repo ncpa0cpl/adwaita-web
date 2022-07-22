@@ -178,17 +178,3 @@ export const Input = React.forwardRef<HTMLDivElement, InputProps>(function Input
     </div>
   );
 });
-
-export type InputGroupProps = React.PropsWithChildren<{
-  className?: string;
-}>;
-
-export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
-  function Group({ children, className }: InputGroupProps, ref) {
-    return (
-      <div className={cx("InputGroup linked", className)} ref={ref}>
-        {children}
-      </div>
-    );
-  }
-);

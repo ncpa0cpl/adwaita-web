@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 import { Label } from "./Label";
 import { Menu } from "./Menu";
+import { MenuItem } from "./MenuItem";
 import { Popover } from "./Popover";
 
 export type MenuBarProps = ExtendElementProps<"div", {}>;
@@ -58,11 +59,11 @@ MenuBar.Button = Button;
 function EmptyMenu() {
   return (
     <Menu>
-      <Menu.Item>
+      <MenuItem>
         <Label muted italic noSelect>
           (Empty menu)
         </Label>
-      </Menu.Item>
+      </MenuItem>
     </Menu>
   );
 }
