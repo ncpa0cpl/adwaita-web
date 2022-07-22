@@ -20,17 +20,13 @@ export type FrameProps = ExtendElementProps<
   }
 >;
 
-const defaultProps = {
-  border: true,
-};
-
 export function Frame({
   children,
   className,
   inline,
   background,
   scrollable,
-  border,
+  border = true,
   label,
   padded,
   ...rest
@@ -58,5 +54,3 @@ export function Frame({
     </Component>
   );
 }
-
-Frame.defaultProps = defaultProps;

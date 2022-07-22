@@ -28,12 +28,12 @@ export type InputNumberProps = ExtendElementProps<
 
 export function InputNumber({
   className,
-  size,
+  size = "medium",
   vertical,
   disabled,
   value: valueProp,
   defaultValue,
-  onChange,
+  onChange = noop,
   ...rest
 }: InputNumberProps) {
   const [valueState, setValueState] = useState(defaultValue ?? "");
@@ -86,8 +86,3 @@ export function InputNumber({
     </div>
   );
 }
-
-InputNumber.defaultProps = {
-  size: "medium",
-  onChange: noop,
-};

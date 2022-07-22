@@ -51,8 +51,8 @@ export function Alert({
   className,
   size,
   icon: iconProp,
-  showClose,
-  onClose,
+  showClose = false,
+  onClose = () => {},
   info,
   success,
   warning,
@@ -95,8 +95,3 @@ export function Alert({
     </Box>
   );
 }
-
-Alert.defaultProps = {
-  showClose: false,
-  onClose: () => {},
-};

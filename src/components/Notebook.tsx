@@ -33,14 +33,14 @@ export type NotebookProps = ExtendElementProps<
 
 export function Notebook({
   className,
-  position,
+  position = "top",
   transition,
   value: activePageValue,
-  arrows,
+  arrows = false,
   pages,
   action,
-  onChange,
-  onClose,
+  onChange = noop,
+  onClose = noop,
   ...rest
 }: NotebookProps) {
   const orientation =
@@ -118,10 +118,3 @@ export function Notebook({
     </div>
   );
 }
-
-Notebook.defaultProps = {
-  position: "top",
-  arrows: false,
-  onChange: noop,
-  onClose: noop,
-};

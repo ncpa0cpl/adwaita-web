@@ -13,17 +13,12 @@ export type HeadingProps<A extends keyof JSX.IntrinsicElements> = ExtendElementP
   }
 >;
 
-const defaultProps = {
-  as: "h1",
-  anchor: true,
-};
-
-export function Heading<A extends keyof JSX.IntrinsicElements>({
-  as,
+export function Heading<A extends keyof JSX.IntrinsicElements = "h1">({
+  as = "h1" as A,
   children,
   className,
   weight,
-  anchor,
+  anchor = true,
   ...rest
 }: HeadingProps<A>) {
   const Component = as as string;
@@ -43,8 +38,6 @@ export function Heading<A extends keyof JSX.IntrinsicElements>({
     </Component>
   );
 }
-
-Heading.defaultProps = defaultProps;
 
 function toID(string: string) {
   return string.toLowerCase().replace(/\W+/g, "-");

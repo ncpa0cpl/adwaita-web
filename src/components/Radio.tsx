@@ -99,8 +99,8 @@ export type RadioGroupProps = {
 
 export function RadioGroup({
   size,
-  compact,
-  horizontal,
+  compact = false,
+  horizontal = true,
   value: valueProp,
   defaultValue,
   onChange,
@@ -129,8 +129,3 @@ export function RadioGroup({
     </Box>
   );
 }
-
-RadioGroup.defaultProps = {
-  compact: false,
-  horizontal: true,
-};
