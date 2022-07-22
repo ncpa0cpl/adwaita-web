@@ -9,14 +9,25 @@ import { Label } from "./Label";
 import { List } from "./List";
 import { Popover } from "./Popover";
 
-export type AutocompleteOption = { value: string | number; label: React.ReactNode };
+export type AutocompleteOption = {
+  /**
+   * The value associated with this option that will be given to the `onChange` and
+   * `onSearch` callback's.
+   */
+  value: string | number;
+  /** Label of this option as will be show in the autocomplete's list of all options. */
+  label: React.ReactNode;
+};
 
 /** Props for the Autocomplete component. */
 export type AutocompleteProps = {
+  /** Class names that will be added to the input element. */
   className?: string;
+  /** Current value shown in the Autocomplete Input. */
   value?: string | number;
+  /** The default value that the input will be set to upon mount. */
   defaultValue?: string | number;
-  /** The options shown in the list */
+  /** A list of options shown to the user. */
   options: Array<AutocompleteOption>;
   /**
    * Enables basic filtering of options. Set to `false` if you want to implement your
@@ -24,18 +35,17 @@ export type AutocompleteProps = {
    */
   enableFilter?: boolean;
   /**
-   * Called when the value changes (may prevent the value from updating, in
-   * conjuction with `value`)
+   * Called when the value changes, event if the change was not directly triggered by
+   * the user interaction with the input.
    */
   onChange?: (value: string | number) => void;
-  /** Called when the value changes (passive) */
+  /** Called when the value changes due to the user input. */
   onSearch?: (value: string) => void;
 };
 
 /**
- * An autocomplete input that allows the user to select from a list of options.
- *
- * @Group Components
+ * Autocomplete is a normal input element enhanced with a list of options that are
+ * shown when the user starts typing.
  */
 export const Autocomplete = React.forwardRef(
   (
@@ -109,7 +119,7 @@ export const Autocomplete = React.forwardRef(
           ))}
           {filteredOptions.length === 0 && (
             <List.Item key="empty">
-              <Box justify>
+              <Box justify="center">
                 <Label muted italic>
                   (No results found)
                 </Label>

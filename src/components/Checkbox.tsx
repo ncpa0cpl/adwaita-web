@@ -26,6 +26,7 @@ export type CheckboxProps = ExtendElementProps<
   }
 >;
 
+/** A input element that allows the user to select multiple options. */
 export class Checkbox extends React.Component<CheckboxProps> {
   static defaultProps = {
     showLabel: true,

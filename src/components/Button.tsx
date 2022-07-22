@@ -7,40 +7,38 @@ import { Spinner } from "./Spinner";
 export type ButtonProps = ExtendElementProps<
   "button",
   {
+    /** Class names that will be added to the button's element. */
     className?: string;
+    /** Size of the button. */
     size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
-    /** An icon name */
+    /** Icon that will be displayed to the left of the button label. */
     icon?: AdwaitaIcon;
-    /** HTML button type */
+    /** HTML button type. */
     type?: "button" | "submit" | "reset";
-    /** Shows a spinner and disables the button */
+    /** Shows a spinner and disables the button. */
     loading?: boolean;
-    /** Round style button */
+    /** Round style button. */
     circular?: boolean;
-    /** Flat style button */
+    /** Flat style button. */
     flat?: boolean;
-    /** Link style button */
+    /** Link style button. */
     link?: boolean;
-    /** Primary style button */
+    /** Primary style button. */
     primary?: boolean;
-    /** Danger style button */
+    /** Danger style button. */
     danger?: boolean;
-    /** Active state */
+    /** Active state. */
     active?: boolean;
-    /** Hover state */
+    /** Hover state. */
     hover?: boolean;
-    /** Button containing text */
+    /** Button containing text. */
     text?: boolean;
-    /** Button containing an image only */
+    /** Button containing an image only. */
     image?: boolean;
   }
 >;
 
-/**
- * A simple button.
- *
- * @Group Components
- */
+/** A simple button that allows user to take actions and interact with the app. */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {

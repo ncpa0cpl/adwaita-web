@@ -41,6 +41,7 @@ export type DropdownProps<T> = {
   onChange?: (value: T | undefined) => void;
 };
 
+/** A input element that allows the user to select one of the multiple pre-defined options. */
 export class Dropdown<T extends string | number | boolean> extends React.Component<
   DropdownProps<T>
 > {
