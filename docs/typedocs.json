@@ -156,7 +156,7 @@
               "description": "",
               "properties": {
                 "label": {
-                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                   "oneOf": [
                     {
                       "type": "string"
@@ -447,7 +447,7 @@
             "type": "boolean"
           },
           "icon": {
-            "description": "A React Component, can be a class or function.\n\n",
+            "description": "A React Component, can be a class or function.",
             "oneOf": [
               {
                 "title": "Function",
@@ -593,7 +593,7 @@
         "properties": {
           "value": {
             "title": "Date",
-            "description": "A JavaScript builtin Date object.\n\n",
+            "description": "A JavaScript builtin Date object.",
             "metadata": {
               "title": "Date",
               "description": "External Type from 'typescript'."
@@ -610,7 +610,7 @@
                 "properties": {
                   "0": {
                     "title": "Date",
-                    "description": "A JavaScript builtin Date object.\n\nundefined",
+                    "description": "A JavaScript builtin Date object.",
                     "metadata": {
                       "title": "Date",
                       "description": "External Type from 'typescript'."
@@ -729,7 +729,7 @@
                   },
                   "1": {
                     "title": "ChangeEvent",
-                    "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                    "description": "A synthetic or real ChangeEvent event.",
                     "metadata": {
                       "title": "ChangeEvent",
                       "description": "External Type from '@types/react'."
@@ -815,7 +815,7 @@
                           },
                           {
                             "title": "Date",
-                            "description": "A JavaScript builtin Date object.\n\nundefined",
+                            "description": "A JavaScript builtin Date object.",
                             "metadata": {
                               "title": "Date",
                               "description": "External Type from 'typescript'."
@@ -914,7 +914,7 @@
             "type": "boolean"
           },
           "label": {
-            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
             "oneOf": [
               {
                 "type": "string"
@@ -954,7 +954,7 @@
                   "type": "any"
                 },
                 "label": {
-                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                   "oneOf": [
                     {
                       "type": "string"
@@ -1651,7 +1651,7 @@
             "type": "boolean"
           },
           "icon": {
-            "description": "A React Component, can be a class or function.\n\n",
+            "description": "A React Component, can be a class or function.",
             "oneOf": [
               {
                 "title": "Function",
@@ -1687,7 +1687,7 @@
             }
           },
           "iconAfter": {
-            "description": "A React Component, can be a class or function.\n\n",
+            "description": "A React Component, can be a class or function.",
             "oneOf": [
               {
                 "title": "Function",
@@ -2384,7 +2384,7 @@
         "description": "",
         "properties": {
           "action": {
-            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
             "oneOf": [
               {
                 "type": "string"
@@ -2424,7 +2424,7 @@
                   "type": "boolean"
                 },
                 "content": {
-                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                   "oneOf": [
                     {
                       "type": "string"
@@ -2456,7 +2456,7 @@
                   ]
                 },
                 "label": {
-                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                   "oneOf": [
                     {
                       "type": "string"
@@ -2649,7 +2649,7 @@
                   "type": "boolean"
                 },
                 "content": {
-                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                   "oneOf": [
                     {
                       "type": "string"
@@ -2681,7 +2681,7 @@
                   ]
                 },
                 "label": {
-                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                  "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                   "oneOf": [
                     {
                       "type": "string"
@@ -2892,7 +2892,7 @@
             "type": "boolean"
           },
           "children": {
-            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
             "oneOf": [
               {
                 "type": "string"
@@ -2920,7 +2920,7 @@
             "description": "",
             "oneOf": [
               {
-                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\nundefined",
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                 "oneOf": [
                   {
                     "type": "string"
@@ -2951,7 +2951,7 @@
                     "properties": {}
                   },
                   "returns": {
-                    "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\nundefined",
+                    "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                     "oneOf": [
                       {
                         "type": "string"
@@ -3249,7 +3249,7 @@
             "type": "boolean"
           },
           "children": {
-            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+            "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
             "oneOf": [
               {
                 "type": "string"
@@ -3536,7 +3536,7 @@
                       "type": "boolean"
                     },
                     "content": {
-                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                       "oneOf": [
                         {
                           "type": "string"
@@ -3568,7 +3568,7 @@
                       ]
                     },
                     "label": {
-                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\n",
+                      "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                       "oneOf": [
                         {
                           "type": "string"
@@ -3653,7 +3653,7 @@
                 "type": "boolean"
               },
               {
-                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.\n\nundefined",
+                "description": "A React Node, can be a primitive type like string, number, boolean or a React Element.",
                 "oneOf": [
                   {
                     "type": "string"
@@ -3821,7 +3821,7 @@
                   },
                   "1": {
                     "title": "ChangeEvent",
-                    "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                    "description": "A synthetic or real ChangeEvent event.",
                     "metadata": {
                       "title": "ChangeEvent",
                       "description": "External Type from '@types/react'."
@@ -4152,7 +4152,7 @@
                     "oneOf": [
                       {
                         "title": "MouseEvent",
-                        "description": "A synthetic or real MouseEvent event.\n\nundefined",
+                        "description": "A synthetic or real MouseEvent event.",
                         "metadata": {
                           "title": "MouseEvent",
                           "description": "External Type from 'typescript'."
@@ -4160,7 +4160,7 @@
                       },
                       {
                         "title": "TouchEvent",
-                        "description": "A synthetic or real TouchEvent event.\n\nundefined",
+                        "description": "A synthetic or real TouchEvent event.",
                         "metadata": {
                           "title": "TouchEvent",
                           "description": "External Type from 'typescript'."
@@ -4168,7 +4168,7 @@
                       },
                       {
                         "title": "MouseEvent",
-                        "description": "A synthetic or real MouseEvent event.\n\nundefined",
+                        "description": "A synthetic or real MouseEvent event.",
                         "metadata": {
                           "title": "MouseEvent",
                           "description": "External Type from '@types/react'."
@@ -4176,7 +4176,7 @@
                       },
                       {
                         "title": "ChangeEvent",
-                        "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                        "description": "A synthetic or real ChangeEvent event.",
                         "metadata": {
                           "title": "ChangeEvent",
                           "description": "External Type from '@types/react'."
@@ -4210,7 +4210,7 @@
                     "oneOf": [
                       {
                         "title": "MouseEvent",
-                        "description": "A synthetic or real MouseEvent event.\n\nundefined",
+                        "description": "A synthetic or real MouseEvent event.",
                         "metadata": {
                           "title": "MouseEvent",
                           "description": "External Type from 'typescript'."
@@ -4218,7 +4218,7 @@
                       },
                       {
                         "title": "TouchEvent",
-                        "description": "A synthetic or real TouchEvent event.\n\nundefined",
+                        "description": "A synthetic or real TouchEvent event.",
                         "metadata": {
                           "title": "TouchEvent",
                           "description": "External Type from 'typescript'."
@@ -4226,7 +4226,7 @@
                       },
                       {
                         "title": "ChangeEvent",
-                        "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                        "description": "A synthetic or real ChangeEvent event.",
                         "metadata": {
                           "title": "ChangeEvent",
                           "description": "External Type from '@types/react'."
@@ -4271,7 +4271,7 @@
                 "properties": {
                   "0": {
                     "title": "MouseEvent",
-                    "description": "A synthetic or real MouseEvent event.\n\nundefined",
+                    "description": "A synthetic or real MouseEvent event.",
                     "metadata": {
                       "title": "MouseEvent",
                       "description": "External Type from '@types/react'."
@@ -4458,7 +4458,7 @@
                   },
                   "1": {
                     "title": "ChangeEvent",
-                    "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                    "description": "A synthetic or real ChangeEvent event.",
                     "metadata": {
                       "title": "ChangeEvent",
                       "description": "External Type from '@types/react'."
@@ -4830,7 +4830,7 @@
                   },
                   "1": {
                     "title": "ChangeEvent",
-                    "description": "A synthetic or real ChangeEvent event.\n\nundefined",
+                    "description": "A synthetic or real ChangeEvent event.",
                     "metadata": {
                       "title": "ChangeEvent",
                       "description": "External Type from '@types/react'."

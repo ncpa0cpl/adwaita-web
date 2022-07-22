@@ -250,11 +250,12 @@ function parseTypeKindToSchema(
             metadata,
           };
 
-          if (schema.description) {
-            schema.description = `${schema.description}\n\n${description}`;
-          } else {
-            schema.description = description;
-          }
+          if (description)
+            if (schema.description) {
+              schema.description = `${schema.description}\n\n${description}`;
+            } else {
+              schema.description = description;
+            }
 
           return schema;
         }
