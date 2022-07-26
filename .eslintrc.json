@@ -26,6 +26,7 @@
     "semi": ["error", "always"],
     "react/prop-types": 0,
     "@typescript-eslint/consistent-type-imports": 2,
+    "@typescript-eslint/consistent-type-exports": 2,
     "@typescript-eslint/member-delimiter-style": 2,
     "@typescript-eslint/no-confusing-non-null-assertion": 2,
     "@typescript-eslint/no-misused-new": 2,

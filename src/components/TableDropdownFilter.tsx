@@ -6,7 +6,7 @@ import type { DropdownOption } from "./Dropdown";
 import { Dropdown } from "./Dropdown";
 
 // Required for proper typedoc generation
-export { DropdownOption };
+export type { DropdownOption };
 
 export type TableDropdownFilterProps<T> = {
   column: {

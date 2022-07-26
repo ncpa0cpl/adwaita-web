@@ -4,7 +4,7 @@ import type { BoxProps } from "./Box";
 import { Box } from "./Box";
 
 // Required for proper typedoc generation
-export { BoxProps };
+export type { BoxProps };
 
 export type MenuCircularButtonProps = BoxProps;
 

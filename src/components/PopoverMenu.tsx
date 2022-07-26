@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { hasKey } from "../utils/hasKey";
 
 import useControlled from "../utils/useControlled";
-import { PageSwitcher, PageSwitcherPage } from "./PageSwitcher";
+import type { PageSwitcherPage } from "./PageSwitcher";
+import { PageSwitcher } from "./PageSwitcher";
 import { Popover } from "./Popover";
 
 // Required for proper typedoc generation
-export { PageSwitcherPage };
+export type { PageSwitcherPage };
 
 export type PopoverMenuProps = {
   pages: (params: {
