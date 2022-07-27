@@ -2,7 +2,7 @@
 
 ```jsx
 import React from "react";
-import { List, ListItem } from "adwaita-web";
+import { List, ListItem, Label } from "adwaita-web";
 
 const sections = [
   {

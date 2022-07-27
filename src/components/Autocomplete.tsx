@@ -143,7 +143,7 @@ export const Autocomplete = React.forwardRef(
       >
         <Input
           className={elementClassName}
-          value={value ? value.toString() : undefined}
+          value={value ? value.toString() : ""}
           onBlur={onBlur}
           onFocus={onFocus}
           onChange={onChange}

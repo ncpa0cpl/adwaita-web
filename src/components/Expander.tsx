@@ -156,7 +156,9 @@ export class Expander extends React.Component<ExpanderProps> {
           <PanEnd containerProps={{ className: "arrow-before" }} />
         )}
         <Label>{label}</Label>
-        {iconPosition === "after" && <PanStart className="arrow-after" />}
+        {iconPosition === "after" && (
+          <PanStart containerProps={{ className: "arrow-after" }} />
+        )}
       </button>
     );
 

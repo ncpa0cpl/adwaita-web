@@ -1,22 +1,21 @@
 # Example
 
 ```jsx
-import { Box, Autocomplete, Icon } from "adwaita-web";
+import React from "react";
+import { Box, Autocomplete, Icon, Label } from "adwaita-web";
 
 export default () => {
-  const [value, setValue] = useState("");
-  const [users, setUsers] = useState([
-    { name: "Fredrick" },
-    { name: "Edgar" },
-    { name: "Raphael" },
-    { name: "Darren" },
-    { name: "Amber" },
-    { name: "Sylvia" },
-    { name: "Lisa" },
-    { name: "Jessie" },
+  const [value, setValue] = React.useState("");
+  const [users, setUsers] = React.useState([
+    { name: "Fredrick", phone: "586-754-3873" },
+    { name: "Edgar", phone: "682-294-2103" },
+    { name: "Raphael", phone: "208-459-3186" },
+    { name: "Darren", phone: "316-218-4768" },
+    { name: "Amber", phone: "507-385-7601" },
+    { name: "Sylvia", phone: "610-694-7044" },
+    { name: "Lisa", phone: "412-654-0339" },
+    { name: "Jessie", phone: "541-691-2470" },
   ]);
-
-  const onChange = setValue;
 
   const filteredUsers = users.filter((u) =>
     u.name.toLowerCase().includes(value.toLowerCase())
@@ -40,7 +39,7 @@ export default () => {
         icon={Icon.SystemSearch}
         placeholder="Autocomplete..."
         options={options}
-        onChange={onChange}
+        onChange={setValue}
       />
     </Box>
   );

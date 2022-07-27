@@ -5,7 +5,6 @@ import { WindowClose } from "../icons";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
 import useControlled from "../utils/useControlled";
-import { useForceUpdate } from "../utils/useForceUpdates";
 import { Button } from "./Button";
 import { Spinner } from "./Spinner";
 
@@ -81,9 +80,7 @@ export const Input = React.forwardRef<HTMLDivElement, InputProps>(function Input
   const spinner = loading ? <Spinner /> : <></>;
   const disabled = disabledValue || loading;
 
-  const forceUpdate = useForceUpdate();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const isControlled = typeof valueProp === "string";
   const [value, setValue] = useControlled(valueProp, defaultValue, onChange);
 
   const inputClassName =
@@ -98,7 +95,6 @@ export const Input = React.forwardRef<HTMLDivElement, InputProps>(function Input
     cx(className);
 
   const onInputChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isControlled) forceUpdate();
     setValue(ev.currentTarget.value);
   };
 

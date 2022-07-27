@@ -1,7 +1,7 @@
 # Example
 
 ```jsx
-import { Box, Notebook, Icon } from "adwaita-web";
+import { Box, Notebook, Icon, Button } from "adwaita-web";
 
 export default () => {
   const pages = [
@@ -51,7 +51,7 @@ export default () => {
 
   return (
     <Box vertical>
-      <Box horizontal style={{ height: 200 }}>
+      <Box horizontal style={{ height: 220 }}>
         <div className="Box__fill expand-children">
           <Notebook arrows action={action} position="top" pages={pages} />
         </div>
