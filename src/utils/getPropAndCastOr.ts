@@ -13,8 +13,14 @@ export const getPropAndCastOr = <T>(
   prop: string,
   defaultValue: T
 ): Widen<T> => {
+  let widened = defaultValue as Widen<T>;
+
   if (hasKey(obj, prop)) {
-    return obj[prop] as Widen<T>;
+    widened = obj[prop] as Widen<T>;
+    if (typeof widened === "function") {
+      widened = widened.bind(obj);
+    }
   }
-  return defaultValue as Widen<T>;
+
+  return widened;
 };
