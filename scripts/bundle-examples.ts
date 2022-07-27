@@ -8,7 +8,7 @@ function getFirstCommandLineArgument() {
   if (arg && validate(arg)) {
     return arg;
   }
-  return null;
+  return "latest";
 }
 
 async function main() {
@@ -27,7 +27,10 @@ async function main() {
     let file = await fs.readFile(filepath, "utf8");
 
     if (version) {
-      file = file.replace(/```tsx\n/g, `\`\`\`tsx\n// adwaita-web@${version}\n`);
+      file = file.replace(
+        /```(tsx|jsx|js|ts)\n/g,
+        `\`\`\`$1\n// adwaita-web@${version}\n`
+      );
     }
 
     bundle[filename] = file;
