@@ -7,7 +7,14 @@ import { Button } from "adwaita-web";
 
 export default () => {
   return (
-    <div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "30% 30% 30%",
+        columnGap: "12px",
+        rowGap: "12px",
+      }}
+    >
       <Button>Regular Button</Button>
       <Button primary>Primary Button</Button>
       <Button danger>Danger Button</Button>
@@ -28,7 +35,14 @@ import { Button } from "adwaita-web";
 
 export default () => {
   return (
-    <div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "30% 30% 30%",
+        columnGap: "12px",
+        rowGap: "12px",
+      }}
+    >
       <Button loading>Loading Button</Button>
       <Button active>Activated Button</Button>
       <Button hover>Hovered Button</Button>

@@ -7,7 +7,14 @@ import { Alert } from "adwaita-web";
 
 export default () => {
   return (
-    <div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "90%",
+        columnGap: "12px",
+        rowGap: "12px",
+      }}
+    >
       <Alert title="Neutral message">
         This is a simple neutral alert with no content specific styles applied.
       </Alert>
