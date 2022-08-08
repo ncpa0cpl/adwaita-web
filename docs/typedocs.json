@@ -133,18 +133,7 @@
             ]
           }
         },
-        "required": [
-          "className",
-          "danger",
-          "icon",
-          "info",
-          "showClose",
-          "size",
-          "success",
-          "title",
-          "warning",
-          "onClose"
-        ]
+        "required": []
       },
       "propsSources": [
         {
@@ -2010,14 +1999,14 @@
       "propsSources": [
         {
           "fileName": "components/Input.tsx",
-          "line": 14,
+          "line": 13,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Input.tsx",
-          "line": 55,
+          "line": 54,
           "character": 13
         }
       ]
@@ -2643,8 +2632,44 @@
       "propsSources": [
         {
           "fileName": "components/MenuBar.tsx",
-          "line": 10,
+          "line": 6,
           "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/MenuBar.tsx",
+          "line": 8,
+          "character": 16
+        }
+      ]
+    },
+    "MenuBarButton": {
+      "description": "",
+      "propsSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "label": {
+            "description": "",
+            "type": "string"
+          }
+        },
+        "required": []
+      },
+      "propsSources": [
+        {
+          "fileName": "components/MenuBarButton.tsx",
+          "line": 9,
+          "character": 12
+        }
+      ],
+      "componentSources": [
+        {
+          "fileName": "components/MenuBarButton.tsx",
+          "line": 16,
+          "character": 16
         }
       ]
     },
@@ -3587,14 +3612,14 @@
       "propsSources": [
         {
           "fileName": "components/Notebook.tsx",
-          "line": 15,
+          "line": 16,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/Notebook.tsx",
-          "line": 30,
+          "line": 31,
           "character": 16
         }
       ]
@@ -4600,14 +4625,14 @@
       "propsSources": [
         {
           "fileName": "components/PopoverMenu.tsx",
-          "line": 11,
+          "line": 12,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "components/PopoverMenu.tsx",
-          "line": 43,
+          "line": 44,
           "character": 16
         }
       ]
