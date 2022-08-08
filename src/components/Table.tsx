@@ -19,8 +19,8 @@ import { Box } from "./Box";
 
 export type TableProps = {
   className?: string;
-  columns: Array<Column<Record<string, string>>>;
-  data: Array<Record<string, string>>;
+  columns: Array<Column<Record<string, any>>>;
+  data: Array<Record<string, any>>;
   sortable?: boolean;
   filterable?: boolean;
 };
@@ -35,7 +35,7 @@ export function Table({
 }: TableProps) {
   const bodyRef = useRef<HTMLDivElement | null>(null);
   const defaultColumn = useMemo(() => ({ width: 150 }), []);
-  const columns: ReadonlyArray<Column<Record<string, string>>> = useMemo(
+  const columns: ReadonlyArray<Column<Record<string, any>>> = useMemo(
     () => transformColumns(columnsValue),
     [columnsValue]
   );
@@ -73,7 +73,7 @@ export function Table({
           {row.cells.map((cell) => {
             return (
               <div {...cell.getCellProps()} className="td">
-                {cell.render("Cell")}
+                {hasKey(cell, "Cell") && cell.render("Cell")}
               </div>
             );
           })}
@@ -85,7 +85,7 @@ export function Table({
 
   const onScrollBody = (event: Event) => {
     const headers = document.getElementsByClassName("table__header");
-    for (const index in headers) {
+    for (const index of Array.from(headers).keys()) {
       const header = headers[index];
       if (header && event.target && hasKey(event.target, "scrollLeft"))
         header.scrollLeft = event.target.scrollLeft as number;
@@ -130,7 +130,9 @@ export function Table({
                         (column.getSortByToggleProps as any)()
                       : undefined)}
                   >
-                    <Box className="Box__fill">{column.render("Header")}</Box>
+                    <Box className="Box__fill">
+                      {hasKey(column, "Header") && column.render("Header")}
+                    </Box>
                     {hasKey(column, "canSort") && column.canSort && (
                       <PanDown
                         containerProps={{
@@ -151,9 +153,11 @@ export function Table({
                       })}
                     />
                   )}
-                  {filterable && getPropAndCastOr(column, "canFilter", false) && (
-                    <div className="table__filter">{column.render("Filter")}</div>
-                  )}
+                  {filterable &&
+                    getPropAndCastOr(column, "canFilter", false) &&
+                    hasKey(column, "Filter") && (
+                      <div className="table__filter">{column.render("Filter")}</div>
+                    )}
                 </div>
               ))}
             </div>

@@ -346,7 +346,7 @@ export class Popover extends React.PureComponent<PopoverProps> {
   close = () => {
     if (this.isControlled()) {
       if (this.props.open === true) {
-        if (this.props.onOpen) return this.props.onOpen();
+        if (this.props.onClose) return this.props.onClose();
         return;
       }
     }

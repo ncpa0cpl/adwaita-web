@@ -4,8 +4,8 @@ export function trackFinger(
 ) {
   if ("touches" in event) {
     if (touchId.current !== undefined && event.changedTouches) {
-      for (const i in event.changedTouches) {
-        const touch = event.changedTouches[i];
+      for (const index of Array.from(event.changedTouches).keys()) {
+        const touch = event.changedTouches[index];
         if (touch?.identifier === touchId.current) {
           return {
             x: touch.clientX,
