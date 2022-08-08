@@ -14,6 +14,7 @@
   },
   "main": "dist/index.js",
   "scripts": {
+    "current-version": "node -e \"console.log(require('./package.json').version);\"",
     "clear": "bash ./scripts/clear-build-dir.sh",
     "test:tsc": "tsc -p tsconfig.build.json --noEmit",
     "build:raw": "node -r @swc-node/register ./scripts/build.ts && yarn generate-declarations",
