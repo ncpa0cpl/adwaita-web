@@ -7,6 +7,7 @@ import {
   Frame,
   Menu,
   MenuBar,
+  MenuBarButton,
   MenuButton,
   Separator,
   Toolbar,
