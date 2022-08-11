@@ -11,6 +11,11 @@ function getFirstCommandLineArgument() {
   return "latest";
 }
 
+function getExampleWrapper(projectRoot: string) {
+  const wrapperPath = path.resolve(projectRoot, "docs/example-wrapper.jsx");
+  return fs.readFile(wrapperPath, "utf8");
+}
+
 async function main() {
   const projectRoot = path.resolve(__dirname, "..");
   const examplesDir = path.resolve(projectRoot, "docs/examples");
@@ -38,7 +43,14 @@ async function main() {
 
   await fs.writeFile(
     bundleLocation,
-    JSON.stringify({ components: bundle }, null, 2)
+    JSON.stringify(
+      {
+        wrapper: await getExampleWrapper(projectRoot),
+        components: bundle,
+      },
+      null,
+      2
+    )
   );
 }
 
