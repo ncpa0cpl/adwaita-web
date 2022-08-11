@@ -1,6 +1,5 @@
 import { Box, Button, HeaderBar, InputGroup, ThemeProvider } from "adwaita-web";
 import React from "react";
-import "./index.css";
 
 const ThemeToggler = ({ children }) => {
   const [theme, setTheme] = React.useState("light");
