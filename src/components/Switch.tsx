@@ -16,7 +16,7 @@ export type SwitchProps = {
   /** Not shown. For screen-readers only */
   label?: string;
   /** On/Off if `true`, or provide your own 2 labels */
-  labels?: string[];
+  labels?: boolean | string[];
   size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
   onChange?: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
 };

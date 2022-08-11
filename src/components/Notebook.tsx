@@ -23,8 +23,8 @@ export type NotebookProps = ExtendElementProps<
     value?: number;
     pages: PageSwitcherPage[];
     action?: React.ReactNode;
-    onChange: (value: number) => void;
-    onClose: (pageIndex: number) => void;
+    onChange?: (value: number) => void;
+    onClose?: (pageIndex: number) => void;
   }
 >;
 

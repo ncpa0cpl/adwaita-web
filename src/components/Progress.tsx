@@ -9,18 +9,18 @@ export const axisProps = {
 
 export type ProgressProps = {
   /** The label of the slider. */
-  "aria-label": string;
+  "aria-label"?: string;
   /** The id of the element containing a label for the slider. */
-  "aria-labelledby": string;
+  "aria-labelledby"?: string;
   /** A string value that provides a user-friendly name for the current value of the slider. */
-  "aria-valuetext": string;
-  className: string;
+  "aria-valuetext"?: string;
+  className?: string;
   /** The slider orientation. */
-  orientation: "horizontal" | "vertical";
+  orientation?: "horizontal" | "vertical";
   /** The value of the slider. For indeterminate pass undefined. */
-  value: number;
+  value?: number;
   /** If a label should be shown */
-  label: boolean | React.ReactNode;
+  label?: boolean | React.ReactNode;
 };
 
 export function Progress(props: ProgressProps) {
@@ -28,7 +28,7 @@ export function Progress(props: ProgressProps) {
     className,
     orientation = "horizontal",
     label = false,
-    value,
+    value = 0,
     ...rest
   } = props;
 

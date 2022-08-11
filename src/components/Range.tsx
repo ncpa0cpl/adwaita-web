@@ -6,6 +6,7 @@
 import cx from "clsx";
 import { identity } from "rambda";
 import React from "react";
+import type { ExtendElementProps } from "../utils/extendElementProp";
 import { getPropAndCastOr } from "../utils/getPropAndCastOr";
 
 import ownerDocument from "../utils/ownerDocument";
@@ -29,84 +30,87 @@ const axisProps = {
   },
 };
 
-export type RangeProps = {
-  /** The label of the slider. */
-  "aria-label"?: string;
-  /** The id of the element containing a label for the slider. */
-  "aria-labelledby"?: string;
-  /** A string value that provides a user-friendly name for the current value of the slider. */
-  "aria-valuetext"?: string;
-  className?: string;
-  size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
-  /** The default element value. Use when the component is not controlled. */
-  defaultValue?: number | number[];
-  /** If `true`, the slider will be disabled. */
-  disabled?: boolean;
-  /**
-   * Marks indicate predetermined values to which the user can move the slider. If
-   * `true` the marks will be spaced according the value of the `step` prop. If an
-   * array, it should contain objects with `value` and an optional `label` keys.
-   */
-  marks?: boolean | Array<{ value: number; label?: string }>;
-  /** The maximum allowed value of the slider. Should not be equal to min. */
-  max?: number;
-  /** The minimum allowed value of the slider. Should not be equal to max. */
-  min?: number;
-  /** Name attribute of the hidden `input` element. */
-  name?: string;
-  /** Callback function that is fired when the slider's value changed. */
-  onChange?: (
-    value: number | number[],
-    ev: React.ChangeEvent | React.MouseEvent | MouseEvent | TouchEvent
-  ) => void;
-  /** Callback function that is fired when the `mouseup` is triggered. */
-  onChangeCommitted?: (
-    ev: React.ChangeEvent | MouseEvent | TouchEvent,
-    value: number | number[]
-  ) => void;
-  onMouseDown?: (event: React.MouseEvent) => void;
-  /** If the slider is vertical. */
-  vertical?: boolean;
-  /** A transformation function, to change the scale of the slider. */
-  scale?: typeof identity;
-  /**
-   * The granularity with which the slider can step through values. (A "discrete"
-   * slider.) The `min` prop serves as the origin for the valid values. We recommend
-   * (max - min) to be evenly divisible by the step.
-   *
-   * When step is `null`, the thumb can only be slid onto marks provided with the `marks` prop.
-   */
-  step?: number;
-  /** The component used to display the value label. */
-  ThumbComponent?: React.ComponentType;
-  /**
-   * The track presentation:
-   *
-   * - `normal` the track will render a bar representing the slider value.
-   * - `inverted` the track will render a bar representing the remaining slider value.
-   * - `false` the track will render without a bar.
-   */
-  track?: boolean | "normal" | "inverted";
-  /** The value of the slider. For ranged sliders, provide an array with two values. */
-  value?: number | number[];
-  /**
-   * Controls when the value label is displayed:
-   *
-   * - `auto` the value label will display when the thumb is hovered or focused.
-   * - `on` will display persistently.
-   * - `off` will never display.
-   */
-  valueLabelDisplay?: "off" | "auto" | "on";
-  /**
-   * The format function the value label's value.
-   *
-   * When a function is provided, it should have the following signature:
-   *
-   * - {number} value The value label's value to format
-   * - {number} index The value label's index to format
-   */
-  valueLabelFormat?: string | ((value: number, index: number) => string);
-};
+export type RangeProps = ExtendElementProps<
+  "span",
+  {
+    /** The label of the slider. */
+    "aria-label"?: string;
+    /** The id of the element containing a label for the slider. */
+    "aria-labelledby"?: string;
+    /** A string value that provides a user-friendly name for the current value of the slider. */
+    "aria-valuetext"?: string;
+    className?: string;
+    size?: "mini" | "small" | "medium" | "large" | "huge" | "mega";
+    /** The default element value. Use when the component is not controlled. */
+    defaultValue?: number | number[];
+    /** If `true`, the slider will be disabled. */
+    disabled?: boolean;
+    /**
+     * Marks indicate predetermined values to which the user can move the slider. If
+     * `true` the marks will be spaced according the value of the `step` prop. If an
+     * array, it should contain objects with `value` and an optional `label` keys.
+     */
+    marks?: boolean | Array<{ value: number; label?: string }>;
+    /** The maximum allowed value of the slider. Should not be equal to min. */
+    max?: number;
+    /** The minimum allowed value of the slider. Should not be equal to max. */
+    min?: number;
+    /** Name attribute of the hidden `input` element. */
+    name?: string;
+    /** Callback function that is fired when the slider's value changed. */
+    onChange?: (
+      value: number | number[],
+      ev: React.ChangeEvent | React.MouseEvent | MouseEvent | TouchEvent
+    ) => void;
+    /** Callback function that is fired when the `mouseup` is triggered. */
+    onChangeCommitted?: (
+      ev: React.ChangeEvent | MouseEvent | TouchEvent,
+      value: number | number[]
+    ) => void;
+    onMouseDown?: (event: React.MouseEvent) => void;
+    /** If the slider is vertical. */
+    vertical?: boolean;
+    /** A transformation function, to change the scale of the slider. */
+    scale?: typeof identity;
+    /**
+     * The granularity with which the slider can step through values. (A "discrete"
+     * slider.) The `min` prop serves as the origin for the valid values. We recommend
+     * (max - min) to be evenly divisible by the step.
+     *
+     * When step is `null`, the thumb can only be slid onto marks provided with the `marks` prop.
+     */
+    step?: number;
+    /** The component used to display the value label. */
+    ThumbComponent?: React.ComponentType;
+    /**
+     * The track presentation:
+     *
+     * - `normal` the track will render a bar representing the slider value.
+     * - `inverted` the track will render a bar representing the remaining slider value.
+     * - `false` the track will render without a bar.
+     */
+    track?: boolean | "normal" | "inverted";
+    /** The value of the slider. For ranged sliders, provide an array with two values. */
+    value?: number | number[];
+    /**
+     * Controls when the value label is displayed:
+     *
+     * - `auto` the value label will display when the thumb is hovered or focused.
+     * - `on` will display persistently.
+     * - `off` will never display.
+     */
+    valueLabelDisplay?: "off" | "auto" | "on";
+    /**
+     * The format function the value label's value.
+     *
+     * When a function is provided, it should have the following signature:
+     *
+     * - {number} value The value label's value to format
+     * - {number} index The value label's index to format
+     */
+    valueLabelFormat?: string | ((value: number, index: number) => string);
+  }
+>;
 
 export const Range = React.forwardRef<HTMLSpanElement, RangeProps>(
   (props: RangeProps, ref: React.ForwardedRef<HTMLSpanElement>) => {

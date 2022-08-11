@@ -6,9 +6,9 @@ export type LevelBarProps = {
   className?: string;
   vertical?: boolean;
   /** The number active of segments */
-  value: number;
+  value?: number;
   /** The number of segments */
-  segments: number;
+  segments?: number;
   /** The coloration of the active segments */
   level?: "empty" | "danger" | "warning" | "info" | "success";
 };

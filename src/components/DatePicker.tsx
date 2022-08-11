@@ -11,11 +11,11 @@ import { Popover } from "./Popover";
 
 export type DatePickerProps = {
   /** A date object */
-  value: Date;
+  value?: Date;
   /** A date object */
-  defaultValue: Date;
+  defaultValue?: Date;
   /** A function that receives a date object */
-  onChange: (value: Date | null) => void;
+  onChange?: (value: Date | null) => void;
   /** A string that represents the date format */
   format?: string;
 } & Omit<

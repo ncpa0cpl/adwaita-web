@@ -2,6 +2,8 @@ import cx from "clsx";
 import React from "react";
 import type { ExtendElementProps } from "../utils/extendElementProp";
 
+export type Borders = "right" | "left" | "bottom" | "top" | "handle";
+
 export type ListProps = ExtendElementProps<
   "div",
   React.PropsWithChildren<{
@@ -10,7 +12,7 @@ export type ListProps = ExtendElementProps<
     separators?: boolean;
     horizontal?: boolean;
     rich?: boolean;
-    border?: boolean;
+    border?: boolean | Borders | Borders[];
     rounded?: boolean;
     fill?: boolean | "width" | "height";
     sidebar?: boolean | "stack" | "navigation";
