@@ -19,7 +19,7 @@ const ThemeToggler = ({ children }) => {
             </InputGroup>
           </Box>
         </HeaderBar>
-        <Box fill vertical style={{ marginTop: 20 }}>
+        <Box fill vertical justify align style={{ marginTop: 10 }}>
           {children}
         </Box>
       </Box>
