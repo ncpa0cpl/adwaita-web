@@ -18,7 +18,7 @@ export default function () {
     <Box
       style={{
         width: 300,
-        border: "1px solid #d8d4d0",
+        border: "1px solid var(--borders-color)",
         borderRadius: 5,
         paddingBottom: 5,
       }}

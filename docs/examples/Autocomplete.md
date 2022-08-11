@@ -34,7 +34,7 @@ export default () => {
   }));
 
   return (
-    <Box>
+    <Box vertical padded>
       <Autocomplete
         icon={Icon.SystemSearch}
         placeholder="Autocomplete..."

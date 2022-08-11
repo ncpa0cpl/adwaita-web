@@ -5,7 +5,7 @@ import { Box, Expander } from "adwaita-web";
 
 export default () => {
   return (
-    <Box horizontal expandChildren style={{ height: 200 }}>
+    <Box horizontal expandChildren style={{ height: 200, width: 400 }}>
       <Box vertical>
         Before
         <Expander label="View the paragraph">

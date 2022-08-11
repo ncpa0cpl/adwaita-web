@@ -116,7 +116,7 @@ export default () => {
   );
 
   return (
-    <Box horizontal>
+    <Box fill padded horizontal>
       {smallPopover}
       <div className="Box__fill" />
       <DemoPopoverMenu />

@@ -51,13 +51,11 @@ export default () => {
 
   return (
     <Box vertical>
-      <Box horizontal style={{ height: 220 }}>
-        <div className="Box__fill expand-children">
-          <Notebook arrows action={action} position="top" pages={pages} />
-        </div>
-        <div className="Box__fill expand-children">
-          <Notebook arrows action={action} position="left" pages={pages} />
-        </div>
+      <Box vertical expandChildren style={{ width: 400, height: 200 }}>
+        <Notebook arrows action={action} position="top" pages={pages} />
+      </Box>
+      <Box vertical expandChildren style={{ width: 400, height: 200 }}>
+        <Notebook arrows action={action} position="left" pages={pages} />
       </Box>
     </Box>
   );

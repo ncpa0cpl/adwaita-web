@@ -10,7 +10,7 @@ export default function () {
   const onCheckboxChange = (value: boolean) => setIsSelected(value);
 
   return (
-    <Box>
+    <Box vertical padded>
       <Label>Is checkbox selected: {isSelected ? "YES" : "NO"}</Label>
       <Checkbox onChange={onCheckboxChange} label="Checkbox" size="large" />
       <Checkbox disabled label="Disabled Checkbox" size="large" />

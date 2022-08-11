@@ -13,6 +13,7 @@ export default () => {
         gridTemplateColumns: "30% 30% 30%",
         columnGap: "12px",
         rowGap: "12px",
+        padding: "16px",
       }}
     >
       <Button>Regular Button</Button>
@@ -41,6 +42,7 @@ export default () => {
         gridTemplateColumns: "30% 30% 30%",
         columnGap: "12px",
         rowGap: "12px",
+        padding: "16px",
       }}
     >
       <Button loading>Loading Button</Button>

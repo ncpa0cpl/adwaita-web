@@ -1,11 +1,11 @@
 # Example
 
 ```tsx
-import { InfoBar } from "adwaita-web";
+import { Box, InfoBar } from "adwaita-web";
 
 export default function () {
   return (
-    <>
+    <Box vertical style={{ width: 400 }}>
       <InfoBar closable activatable info>
         This is an infobar
       </InfoBar>
@@ -18,7 +18,7 @@ export default function () {
       <InfoBar closable activatable danger>
         This is an infobar
       </InfoBar>
-    </>
+    </Box>
   );
 }
 ```

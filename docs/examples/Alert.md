@@ -13,6 +13,7 @@ export default () => {
         gridTemplateColumns: "90%",
         columnGap: "12px",
         rowGap: "12px",
+        padding: "16px",
       }}
     >
       <Alert title="Neutral message">

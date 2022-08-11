@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function () {
   const [value, setValue] = useState(new Date());
   return (
-    <Box horizontal>
+    <Box horizontal padded>
       <Calendar value={value} onChange={setValue} />
     </Box>
   );

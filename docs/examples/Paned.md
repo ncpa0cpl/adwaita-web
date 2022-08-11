@@ -5,7 +5,7 @@ import { Paned, Box } from "adwaita-web";
 
 export default () => {
   return (
-    <div>
+    <Box fill vertical padded>
       <Box style={{ marginBottom: "20px", height: 200 }}>
         <h2 style={{ marginBottom: "10px" }}>Horizontal:</h2>
         <Paned defaultSize={300} fill>
@@ -36,7 +36,7 @@ export default () => {
           </Box>
         </Paned>
       </Box>
-    </div>
+    </Box>
   );
 };
 ```
