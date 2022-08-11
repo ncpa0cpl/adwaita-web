@@ -89,7 +89,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading && <Spinner />}
         {IconElement && (
-          <IconElement colored containerProps={{ className: "Button__icon" }} />
+          <IconElement containerProps={{ className: "Button__icon" }} />
         )}
         {children}
       </button>

@@ -43,7 +43,7 @@ export function ListItem({
       {...rest}
     >
       {children}
-      {expandable && <GoNext className="arrow" colored={false} />}
+      {expandable && <GoNext className="arrow" />}
     </Element>
   );
 }

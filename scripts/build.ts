@@ -6,14 +6,14 @@ import { replaceImports } from "./esbuild-import-replace";
 import { svgReactTemplate } from "./svgr-icon-template";
 
 async function buildScss() {
-  const files = await glob("./src/adwaita/adwaita*.{scss}");
+  const files = await glob("./src/adwaita/[!_]*.{scss}");
 
   await build({
     entryPoints: files,
     plugins: [
       sassPlugin({
         type: "css-text",
-        style: "compressed",
+        style: "expanded",
       }),
     ],
     outdir: "./dist/adwaita",

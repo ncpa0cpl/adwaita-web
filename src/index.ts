@@ -98,6 +98,8 @@ export { Text } from "./components/Text";
 export type { TextProps } from "./components/Text";
 export { TextArea } from "./components/TextArea";
 export type { TextAreaProps } from "./components/TextArea";
+export { ThemeProvider, useTheme } from "./components/ThemeProvider";
+export type { ThemeProviderProps } from "./components/ThemeProvider";
 export { Toolbar } from "./components/Toolbar";
 export type { ToolbarProps } from "./components/Toolbar";
 export * as Icon from "./icons";

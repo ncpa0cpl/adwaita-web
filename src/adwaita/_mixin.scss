@@ -76,3 +76,24 @@
     }
   }
 }
+
+@mixin colorMix($property, $a, $b, $proportions) {
+  $animation-name: unique-id() !global;
+  @keyframes #{$animation-name} {
+    0% {
+      #{$property}: $a;
+    }
+    100% {
+      #{$property}: $b;
+    }
+  }
+
+  @if $proportions < 0.5 {
+    #{$property}: $b;
+  } @else {
+    #{$property}: $a;
+  }
+
+  animation: #{$animation-name} 1s linear forwards paused;
+  animation-delay: -1s * (1-$proportions);
+}

@@ -4,9 +4,10 @@ declare module "*.scss" {
 }
 
 declare module "*.svg" {
+  import type { ColorDefinition } from "./icons";
   const SVG: React.ComponentType<
     React.SVGProps<SVGSVGElement> & {
-      colored?: boolean;
+      colored?: boolean | ColorDefinition;
       containerProps?: JSX.IntrinsicElements["span"];
     }
   >;

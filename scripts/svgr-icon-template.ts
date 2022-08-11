@@ -10,6 +10,15 @@ export const svgReactTemplate: Template = (variables, { tpl }) => {
   const ${variables.componentName} = (passedProps, ...restArgs) => {
       const { colored, containerProps = {}, ...rest } = passedProps;
 
+      if(colored && typeof colored === "string") {
+        if(!containerProps.style) {
+          containerProps.style = {};
+        }
+        Object.assign(containerProps.style, {
+          "--custom-icon-color": colored,
+        });
+      }
+
       const render = (${variables.props}) => /* @__PURE__ */ React.createElement(
         "span",
         {

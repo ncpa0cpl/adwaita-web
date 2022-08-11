@@ -1,0 +1,266 @@
+@use "sass:string";
+@use "sass:math";
+
+@function extractVarName($var) {
+    $content: str-slice(#{$var}, 5, -2);
+    $varName: "";
+
+    $i: 1;
+    $stop: 0;
+    @while $stop != 1 {
+        $char: str-slice($content, $i, $i);
+
+        @if $char == "," or $char == "" {
+            $stop: 1;
+        } @else {
+            $varName: $varName + $char;
+            $i: $i + 1;
+        }
+    }
+
+    @return $varName;
+}
+
+@function parseAmount($amount) {
+    @if str-slice(#{$amount}, -1, -1) == "%" {
+        @return str-slice(#{$amount}, 0, -2);
+    } @else {
+        @return $amount;
+    }
+}
+
+@function roundTo5Unit($amount) {
+    $lastDigit: str-slice(#{$amount}, -1, -1);
+    $roundup: $lastDigit == "3" or $lastDigit == "4" or $lastDigit == "8" or $lastDigit == "9";
+    @while $amount % 5 != 0 {
+        @if $roundup {
+            $amount: $amount + 1;
+        } @else {
+            $amount: $amount - 1;
+        }
+    }
+    @return $amount;
+}
+
+@function roundTo10Unit($amount) {
+    @return round(math.div(toNumber($amount), 10)) * 10;
+}
+
+@function getTrailingValue($value) {
+    $stop: 0;
+    $tmp: $value;
+    @while $stop != 1 {
+        $index: str-index($tmp, "-");
+        @if $index == null {
+            $stop: 1;
+        } @else {
+            $tmp: str-slice($tmp, $index + 1, -1);
+        }
+    }
+    @return $tmp;
+}
+
+@function toNumber($value) {
+    @if type-of($value) == "number" {
+        @return $value;
+    } @else if type-of($value) != "string" {
+        @error 'Value for `to-number` should be a number or a string.';
+    }
+
+    $result: 0;
+    $digits: 0;
+    $minus: str-slice($value, 1, 1) == "-";
+    $numbers: (
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7,
+        "8": 8,
+        "9": 9,
+    );
+
+    @for $i from if($minus, 2, 1) through str-length($value) {
+        $character: str-slice($value, $i, $i);
+
+        @if (index(map-keys($numbers), $character) or $character == ".") {
+            @if $character == "." {
+                $digits: 1;
+            } @else if $digits == 0 {
+                $result: $result * 10 + map-get($numbers, $character);
+            } @else {
+                $digits: $digits * 10;
+                $result: $result + map-get($numbers, $character) / $digits;
+            }
+        }
+    }
+
+    @return if($minus, -$result, $result);
+}
+
+/**
+* Darkens the specified css variable by the specified amount.
+* The specified amount must be a multiple of 5%, up to 50%.
+* Not all css variables support this function.
+*
+* @param {`var(${string})`} $colorVariable - The css variable to darken.
+* @param {`${number}%`} $amount - The amount to darken the css variable by.
+*/
+@function darkenVar($colorVariable, $amount) {
+    $parsedAmount: roundTo5Unit(toNumber(parseAmount($amount)));
+
+    @if str-slice(#{$colorVariable}, 1, 3) == "var" {
+        @if $parsedAmount == 0 {
+            @return $colorVariable;
+        }
+
+        $varName: extractVarName($colorVariable);
+
+        @if str-index($varName, "-darken-") {
+            $varNameBase: str-slice($varName, 1, str-index($varName, "-darken-") - 1);
+            $currentValue: toNumber(getTrailingValue($varName));
+            $sum: $currentValue + $parsedAmount;
+            $finalValue: min(95, $sum);
+
+            @return var(#{$varNameBase}-darken-#{$finalValue}, #{$colorVariable});
+        } @else if str-index($varName, "-lighten-") {
+            $varNameBase: str-slice($varName, 1, str-index($varName, "-lighten-") - 1);
+            $currentValue: toNumber(getTrailingValue($varName));
+            $diff: $currentValue - $parsedAmount;
+
+            @if $diff == 0 {
+                @return var(#{$varNameBase});
+            }
+
+            @if $diff < 0 {
+                $finalValue: min(95, abs($diff));
+                @return var(#{$varNameBase}-darken-#{$finalValue}, #{$colorVariable});
+            } @else {
+                $finalValue: min(95, $diff);
+                @return var(#{$varNameBase}-lighten-#{$finalValue}, #{$colorVariable});
+            }
+        }
+
+        @return var(#{$varName}-darken-#{min(95, $parsedAmount)}, #{$colorVariable});
+    } @else {
+        @return darken($colorVariable, $amount);
+    }
+}
+
+/**
+* Lightens the specified css variable by the specified amount.
+* The specified amount must be a multiple of 5%, up to 50%.
+* Not all css variables support this function.
+*
+* @param {`var(${string})`} $colorVariable - The css variable to darken.
+* @param {`${number}%`} $amount - The amount to lighten the css variable by.
+*/
+@function lightenVar($colorVariable, $amount) {
+    $parsedAmount: roundTo5Unit(toNumber(parseAmount($amount)));
+
+    @if str-slice(#{$colorVariable}, 1, 3) == "var" {
+        @if $parsedAmount == 0 {
+            @return $colorVariable;
+        }
+
+        $varName: extractVarName($colorVariable);
+
+        @if str-index($varName, "-lighten-") {
+            $varNameBase: str-slice($varName, 1, str-index($varName, "-lighten-") - 1);
+            $currentValue: toNumber(getTrailingValue($varName));
+            $sum: $currentValue + $parsedAmount;
+            $finalValue: min(95, $sum);
+
+            @return var(#{$varNameBase}-lighten-#{$finalValue}, #{$colorVariable});
+        } @else if str-index($varName, "-darken-") {
+            $varNameBase: str-slice($varName, 1, str-index($varName, "-darken-") - 1);
+            $currentValue: toNumber(getTrailingValue($varName));
+            $diff: $currentValue - $parsedAmount;
+
+            @if $diff == 0 {
+                @return var(#{$varNameBase});
+            }
+
+            @if $diff < 0 {
+                $finalValue: min(95, abs($diff));
+                @return var(#{$varNameBase}-lighten-#{$finalValue}, #{$colorVariable});
+            } @else {
+                $finalValue: min(95, $diff);
+                @return var(#{$varNameBase}-darken-#{$finalValue}, #{$colorVariable});
+            }
+        }
+
+        @return var(#{$varName}-lighten-#{min(95, $parsedAmount)}, #{$colorVariable});
+    } @else {
+        @return lighten($colorVariable, $amount);
+    }
+}
+
+/**
+* Desaturates the specified css variable by the specified amount.
+* The specified amount must be a multiple of 5%, up to 50%.
+* Not all css variables support this function.
+*
+* @param {`var(${string})`} $colorVariable - The css variable to darken.
+* @param {`${number}%`} $amount - The amount to desature the css variable by.
+*/
+@function desaturateVar($colorVariable, $amount) {
+    $parsedAmount: roundTo5Unit(toNumber(parseAmount($amount)));
+
+    @if str-slice(#{$colorVariable}, 1, 3) == "var" {
+        @if $parsedAmount == 0 {
+            @return $colorVariable;
+        }
+
+        $varName: extractVarName($colorVariable);
+
+        @if str-index($varName, "-desaturate-") {
+            $varNameBase: str-slice($varName, 1, str-index($varName, "-desaturate-") - 1);
+            $currentValue: toNumber(getTrailingValue($varName));
+            $sum: $currentValue + $parsedAmount;
+            $finalValue: min(95, $sum);
+
+            @return var(#{$varNameBase}-desaturate-#{$finalValue}, #{$colorVariable});
+        }
+
+        @return var(#{$varName}-desaturate-#{min(95, $parsedAmount)}, #{$colorVariable});
+    } @else {
+        @return desaturate($colorVariable, $amount);
+    }
+}
+
+/**
+* Transparentizes the specified css variable by the specified amount.
+* The specified amount must be a multiple of 0.1, up to 1.
+* Not all css variables support this function.
+*
+* @param {`var(${string})`} $colorVariable - The css variable to darken.
+* @param {number} $amount - The amount to transparentizes the css variable by.
+*/
+@function transparentizeVar($colorVariable, $amount) {
+    $parsedAmount: roundTo10Unit(toNumber(parseAmount($amount)) * 100);
+
+    @if str-slice(#{$colorVariable}, 1, 3) == "var" {
+        @if $parsedAmount == 0 {
+            @return $colorVariable;
+        }
+
+        $varName: extractVarName($colorVariable);
+
+        @if str-index($varName, "-transparentize-") {
+            $varNameBase: str-slice($varName, 1, str-index($varName, "-transparentize-") - 1);
+            $currentValue: toNumber(getTrailingValue($varName));
+            $sum: $currentValue + $parsedAmount;
+            $finalValue: min(100, $sum);
+
+            @return var(#{$varNameBase}-transparentize-#{$finalValue}, #{$colorVariable});
+        }
+
+        @return var(#{$varName}-transparentize-#{min(100, $parsedAmount)}, #{$colorVariable});
+    } @else {
+        @return transparentize($colorVariable, $amount);
+    }
+}

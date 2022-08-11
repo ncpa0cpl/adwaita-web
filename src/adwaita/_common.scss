@@ -3,7 +3,6 @@
  ***************/
 
 $ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-$asset_suffix: if($variant== "dark", "-dark", "");
 $backdrop_transition: 200ms ease-out;
 $button_transition: all 150ms $ease-out-quad;
 $link_transition: color 150ms $ease-out-quad;
@@ -136,9 +135,8 @@ $popover_radius: $button_radius + 4;
 
 // vbox and hbox separators
 .separator {
-  // background-color: lighten($borders_color, 5%);
-  border-bottom: 1px solid lighten($borders_color, 5%);
-  border-right: 1px solid lighten($borders_color, 5%);
+  border-bottom: 1px solid $lighten_borders_color;
+  border-right: 1px solid $lighten_borders_color;
   min-width: 1px;
   min-height: 1px;
 }
@@ -313,8 +311,8 @@ $popover_radius: $button_radius + 4;
 }
 
 .SelectionArea {
-  border: 1px solid darken($selected_bg_color, 10%);
-  background-color: transparentize(darken($selected_bg_color, 10%), 0.8);
+  border: 1px solid $dimmed_selected_bg_color;
+  background-color: $dimmed_transparent_selected_bg_color;
 }
 
 /*********
@@ -336,16 +334,15 @@ $popover_radius: $button_radius + 4;
       color: $link_visited_color;
 
       *.selected & {
-        color: mix($selected_fg_color, $link_visited_color, 60%);
+        color: $link_selected_visited_color;
       }
     }
 
     &:hover {
-      $_fg: lighten($link_color, 10%);
-      color: $_fg;
+      color: $link_hover_color;
 
       *.selected & {
-        color: mix($selected_fg_color, $_fg, 90%);
+        color: $link_selected_hover_color;
       }
     }
 
@@ -353,19 +350,19 @@ $popover_radius: $button_radius + 4;
       color: $link_color;
 
       *.selected & {
-        color: mix($selected_fg_color, $link_color, 80%);
+        color: $link_active_selected_color;
       }
     }
   }
 
   &:disabled {
-    color: transparentize(desaturate($link_color, 100%), 0.2);
+    color: $link_disabled_color;
   }
 
   @at-root %link_selected,
     &.selected,
     *.selected & {
-    color: mix($selected_fg_color, $link_color, 80%);
+    color: $link_selected_color;
   }
 }
 
@@ -433,32 +430,17 @@ $popover_radius: $button_radius + 4;
     }
   }
 
-  $_colors: if(
-    $variant == "light",
-    (
-      "info": map-get($colors, "info"),
-      "success": darken(map-get($colors, "success"), 6%),
-      "warning": map-get($colors, "warning"),
-      "danger": map-get($colors, "danger"),
-    ),
-    (
-      "info": map-get($colors, "info"),
-      "success": map-get($colors, "success"),
-      "warning": map-get($colors, "warning"),
-      "danger": map-get($colors, "danger"),
-    )
-  );
-  @each $type, $color in $_colors {
+  @each $type, $color in $colors {
     &.#{$type} {
       color: $color;
       &.disabled {
-        color: transparentize($color, 0.5);
+        color: transparentizeVar($color, 0.5);
       }
     }
   }
 
   &.title {
-    color: mix($fg_color, $bg_color, 50%);
+    color: $insensitive_fg_color;
     font-weight: 700;
   }
 
@@ -537,22 +519,12 @@ $popover_radius: $button_radius + 4;
       "default": $fg_color,
     )
   );
-  $_panel_colors: if(
-    $variant == "light",
-    (
-      "default": $background_high,
-      "info": desaturate(lighten($info_color, 30%), 20%),
-      "success": desaturate(lighten($success_color, 25%), 40%),
-      "warning": desaturate(lighten($warning_color, 35%), 40%),
-      "danger": desaturate(lighten($danger_color, 40%), 40%),
-    ),
-    (
-      "default": $background_high,
-      "info": desaturate(darken($info_color, 10%), 40%),
-      "success": desaturate(darken($success_color, 10%), 40%),
-      "warning": desaturate(darken($warning_color, 10%), 40%),
-      "danger": desaturate(darken($danger_color, 10%), 40%),
-    )
+  $_panel_colors: (
+    "default": $panel_default_color,
+    "info": $panel_info_color,
+    "success": $panel_success_color,
+    "warning": $panel_warning_color,
+    "danger": $panel_danger_color,
   );
 
   @each $type, $color in $_colors {
@@ -561,17 +533,16 @@ $popover_radius: $button_radius + 4;
 
     &#{if($type == "default", "", "." + $type)} {
       color: $_current_color;
-      --icon-color: #{desaturate($color, 30%)};
+      --icon-color: #{desaturateVar($color, 30%)};
       background-color: $_background_color;
-      // border-color: darken($color, 15%);
-      border-color: darken($_background_color, 8%);
+      border-color: darkenVar($_background_color, 10%);
 
       & a {
-        color: darken($_current_color, 8%);
+        color: darkenVar($_current_color, 10%);
         font-weight: bold;
       }
       & a:not(:disabled):not(.disabled):hover {
-        color: darken($_current_color, 2%);
+        color: darkenVar($_current_color, 5%);
       }
 
       .Alert__close {
@@ -627,6 +598,7 @@ $popover_radius: $button_radius + 4;
   display: inline-flex;
 
   svg {
+    --icon-color: #{$base_icon_color};
     width: auto;
     height: var(--icon-size, #{map-get($icon_sizes, "medium")});
   }
@@ -634,6 +606,12 @@ $popover_radius: $button_radius + 4;
   &:not(.colored) {
     svg * {
       fill: var(--icon-color, unset) !important;
+    }
+  }
+
+  &.colored {
+    svg * {
+      fill: var(--custom-icon-color, unset) !important;
     }
   }
 
@@ -686,9 +664,7 @@ $popover_radius: $button_radius + 4;
     left: var(--input-padding);
   }
   50% {
-    left: calc(
-      100% - var(--progress-indeterminate-width) - var(--input-padding, 8px)
-    );
+    left: calc(100% - var(--progress-indeterminate-width) - var(--input-padding, 8px));
   }
   100% {
     left: var(--input-padding);
@@ -778,6 +754,8 @@ $_input_padding: 8px;
       }
     }
 
+    $inputIconMargin: 6px;
+
     // icons inside the entry
     .Input__left,
     .Input__right {
@@ -785,11 +763,19 @@ $_input_padding: 8px;
     }
     .Input__left {
       margin-right: 6px;
+
+      .Icon {
+        margin-left: $inputIconMargin;
+      }
     }
     .Input__right {
       margin: 0;
       margin-left: 6px;
       padding: 0;
+
+      .Icon {
+        margin-right: $inputIconMargin;
+      }
     }
     .Input__left.Button,
     .Input__right.Button {
@@ -830,18 +816,14 @@ $_input_padding: 8px;
       &.#{$e_type} {
         border-color: $e_color;
 
-        @include focus-ring(
-          $fc: transparentize($e_color, 0.5),
-          $focus-state: ":focus-within",
-          $method: "after"
-        );
+        @include focus-ring($fc: transparentizeVar($e_color, 0.5), $focus-state: ":focus-within", $method: "after");
 
         &:focus-within {
           @include entry(focus, $e_color);
         }
 
         input {
-          color: mix($e_color, $fg_color, 80%);
+          @include colorMix(color, $e_color, $fg_color, 0.8);
 
           &::selection {
             background-color: $e_color;
@@ -852,7 +834,7 @@ $_input_padding: 8px;
 
     *:not(.InputNumber__button) .Icon {
       // entry icons colors
-      --icon-color: #{mix($fg_color, $base_color, 80%)};
+      --icon-color: #{$base_icon_color};
       &:hover {
         --icon-color: #{$fg_color};
       }
@@ -933,13 +915,13 @@ $_input_padding: 8px;
     // brighter border between linked entries
     &:not(:disabled) + entry:not(:disabled),
     &:not(:disabled) + %entry:not(:disabled) {
-      border-top-color: mix($borders_color, $base_color, 30%);
+      @include colorMix(border-top-color, $borders_color, $base_color, 0.3);
     }
 
     // brighter border between linked insensitive entries
     &:disabled + %entry:disabled,
     &:disabled + entry:disabled {
-      border-top-color: mix($borders_color, $base_color, 30%);
+      @include colorMix(border-top-color, $borders_color, $base_color, 0.3);
     }
 
     + %entry.dnd-active:not(:only-child),
@@ -1025,25 +1007,13 @@ editablelabel > stack > text {
  * Buttons *
  ***********/
 // stuff for .needs-attention
-$_dot_color: if(
-  $variant== "light",
-  $selected_bg_color,
-  lighten($selected_bg_color, 15%)
-);
+$_dot_color: $selected_bg_color;
 @keyframes needs_attention {
   from {
-    background-image: radial-gradient(
-      farthest-side,
-      $_dot_color 0%,
-      transparentize($_dot_color, 1) 0%
-    );
+    background-image: radial-gradient(farthest-side, $_dot_color 0%, transparentizeVar($_dot_color, 1) 0%);
   }
   to {
-    background-image: radial-gradient(
-      farthest-side,
-      $_dot_color 95%,
-      transparentize($_dot_color, 1)
-    );
+    background-image: radial-gradient(farthest-side, $_dot_color 95%, transparentizeVar($_dot_color, 1));
   }
 }
 
@@ -1226,8 +1196,10 @@ $_dot_color: if(
   @at-root %button_selected,
     & {
     row.selected & {
-      @if $variant == "light" {
-        border-color: $selected_borders_color;
+      border-color: $selected_borders_color;
+
+      .adwaita-dark-theme & {
+        border-color: unset;
       }
     }
 
@@ -1239,7 +1211,10 @@ $_dot_color: if(
           border-color: transparent;
 
           &:backdrop {
-            color: if($variant== "light", $backdrop_base_color, $backdrop_fg_color);
+            color: $backdrop_base_color;
+            .adwaita-dark-theme & {
+              color: $backdrop_fg_color;
+            }
           }
         }
       }
@@ -1256,7 +1231,7 @@ $_dot_color: if(
       &:only-child {
         margin: 4px;
         border-radius: 50%; // completely round when it is a single button
-        box-shadow: 0 1px 2px transparentize(black, 0.8); // drop shadow for the only child
+        box-shadow: 0 1px 2px transparentizeVar(black, 0.8); // drop shadow for the only child
       }
     }
 
@@ -1334,9 +1309,7 @@ $_dot_color: if(
   }
 
   // Suggested and Destructive Action buttons
-  @each $b_type, $b_color in (suggested-action, $selected_bg_color),
-    (destructive-action, $destructive_color)
-  {
+  @each $b_type, $b_color in (suggested-action, $selected_bg_color), (destructive-action, $destructive_color) {
     &.#{$b_type} {
       @include button(normal, $b_color, white);
       @include focus-ring($fc: $alt_focus_border_color);
@@ -1364,7 +1337,7 @@ $_dot_color: if(
         &:disabled {
           @include button(undecorated);
 
-          color: transparentize($b_color, 0.2);
+          color: transparentizeVar($b_color, 0.2);
         }
       }
 
@@ -1451,17 +1424,12 @@ $_dot_color: if(
   // simulates the shadow labels and icons normally have in buttons.
   animation: needs_attention 150ms ease-in;
 
-  background-image: radial-gradient(
-    farthest-side,
-    $_dot_color 96%,
-    transparentize($_dot_color, 1)
-  );
+  background-image: radial-gradient(farthest-side, $_dot_color 96%, transparentizeVar($_dot_color, 1));
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
+  background-position: right 3px, right 4px;
 
-  @if $variant == "light" {
-    background-position: right 3px, right 4px;
-  } @else {
+  .adwaita-dark-theme & {
     background-position: right 3px, right 2px;
   }
 
@@ -1470,9 +1438,9 @@ $_dot_color: if(
   }
 
   &:dir(rtl) {
-    @if $variant == "light" {
-      background-position: left 3px, left 4px;
-    } @else {
+    background-position: left 3px, left 4px;
+
+    .adwaita-dark-theme & {
       background-position: left 3px, left 2px;
     }
   }
@@ -1590,23 +1558,30 @@ button.color {
       border-radius: 0;
     }
 
-    @if $variant == "light" {
-      box-shadow: 0 1px $shadow_color;
+    box-shadow: 0 1px $shadow_color;
+
+    .osd & {
+      box-shadow: none;
+    }
+
+    .adwaita-dark-theme & {
+      box-shadow: unset;
 
       .osd & {
-        box-shadow: none;
+        box-shadow: unset;
       }
     }
   }
 
-  @if $variant == "light" {
-    .osd &,
-    & {
-      &:disabled,
-      &:active,
-      &:checked {
-        colorswatch:only-child {
-          box-shadow: none;
+  .osd &,
+  & {
+    &:disabled,
+    &:active,
+    &:checked {
+      colorswatch:only-child {
+        box-shadow: none;
+        .adwaita-dark-theme & {
+          box-shadow: unset;
         }
       }
     }
@@ -1618,7 +1593,7 @@ button.color {
 %list_button,
 .list > .Row button.image-button:not(.flat) {
   @include button("undecorated");
-  border: 1px solid transparentize($borders_color, 0.5);
+  border: 1px solid transparentizeVar($borders_color, 0.5);
   &:hover {
     @include button(hover);
   }
@@ -1690,6 +1665,7 @@ input::-webkit-outer-spin-button {
     /* :not here just to bump specificity above that of the list button styling */
     > button.InputNumber__button.up:not(.flat),
     > button.InputNumber__button.down:not(.flat) {
+      @include colorMix(color, $fg_color, $base_color, 0.9);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1697,11 +1673,10 @@ input::-webkit-outer-spin-button {
       margin: 0;
       padding-bottom: 0;
       padding-top: 0;
-      color: mix($fg_color, $base_color, 90%);
       background-color: transparent;
       border-width: 0.5px;
       border-style: none none none solid;
-      border-color: transparentize($borders_color, 0.7);
+      border-color: transparentizeVar($borders_color, 0.7);
       border-radius: 0;
       box-shadow: none;
       transition: $button_transition;
@@ -1717,7 +1692,7 @@ input::-webkit-outer-spin-button {
         &:hover {
           color: $fg_color;
           background-color: rgba(black, 0.03);
-          box-shadow: 0 -1px darken($bg_color, 5%);
+          box-shadow: 0 -1px darkenVar($bg_color, 5%);
         }
         &:active {
           background-color: rgba(black, 0.1);
@@ -1725,7 +1700,7 @@ input::-webkit-outer-spin-button {
         }
       }
       &:disabled {
-        color: transparentize($insensitive_fg_color, 0.7);
+        color: transparentizeVar($insensitive_fg_color, 0.7);
         background-color: transparent;
       }
 
@@ -1751,7 +1726,7 @@ input::-webkit-outer-spin-button {
 
       color: $osd_fg_color;
       border-style: none none none solid;
-      border-color: transparentize($osd_borders_color, 0.3);
+      border-color: transparentizeVar($osd_borders_color, 0.3);
       border-radius: 0;
       box-shadow: none;
       --icon-shadow: 0 1px black;
@@ -1765,8 +1740,8 @@ input::-webkit-outer-spin-button {
         @include button(undecorated);
 
         color: $osd_fg_color;
-        border-color: transparentize(opacify($osd_borders_color, 1), 0.5);
-        background-color: darken($osd_bg_color, 10%);
+        border-color: transparentizeVar($osd_borders_color, 0.5);
+        background-color: darkenVar($osd_bg_color, 10%);
         --icon-shadow: 0 1px black;
         box-shadow: none;
       }
@@ -1775,7 +1750,7 @@ input::-webkit-outer-spin-button {
         @include button(undecorated);
 
         color: $osd_insensitive_fg_color;
-        border-color: transparentize(opacify($osd_borders_color, 1), 0.5);
+        border-color: transparentizeVar($osd_borders_color, 0.5);
         --icon-shadow: none;
         box-shadow: none;
       }
@@ -1918,6 +1893,7 @@ input::-webkit-outer-spin-button {
     }
   }
   &.open {
+    color: $popover_fg;
     background-color: $popover_bg;
     &.popover-bottom {
       border-bottom-left-radius: 0;
@@ -2054,31 +2030,22 @@ input::-webkit-outer-spin-button {
     border-spacing: 12px;
   }
 
-  // TODO dark variant
-  $_bar_colors: if(
-    $variant == "light",
-    (
-      (info, desaturate(lighten($info_color, 30%), 20%)),
-      (success, desaturate(lighten($success_color, 25%), 40%)),
-      (warning, desaturate(lighten($warning_color, 35%), 40%)),
-      (danger, desaturate(lighten($danger_color, 40%), 40%))
-    ),
-    (
-      (info, desaturate(darken($info_color, 10%), 40%)),
-      (success, desaturate(darken($success_color, 10%), 40%)),
-      (warning, desaturate(darken($warning_color, 10%), 40%)),
-      (danger, desaturate(darken($danger_color, 10%), 40%))
-    )
+  $_bar_colors: (
+    (info, $panel_info_color),
+    (success, $panel_success_color),
+    (warning, $panel_warning_color),
+    (danger, $panel_danger_color)
   );
+
   @each $_type, $_color in $_bar_colors {
     &.#{$_type} {
       > .Box {
-        border-bottom: 1px solid darken($_color, 15%);
+        border-bottom: 1px solid darkenVar($_color, 15%);
         background-color: $_color;
       }
 
       &.activatable:hover > .Box {
-        background-color: lighten($_color, 3%);
+        background-color: lightenVar($_color, 5%);
       }
 
       > .Box > .Button {
@@ -2101,10 +2068,9 @@ input::-webkit-outer-spin-button {
  ****************/
 
 %darkbar {
+  @include colorMix(background-color, $bg_color, $borders_color, 0.7);
   border-style: solid;
   border-color: $borders_color;
-  $_bg: mix($bg_color, $borders_color, 70%);
-  background-color: $_bg;
 
   .window-inactive & {
     border-color: $backdrop_borders_color;
@@ -2156,11 +2122,11 @@ input::-webkit-outer-spin-button {
     &:not(:disabled):not(.disabled) {
       &:hover {
         //special case hover colors inside a .HeaderBar
-        @include button(hover, $c: darken($headerbar_bg_color, 10%));
+        @include button(hover, $c: darkenVar($headerbar_bg_color, 10%));
       }
       &:active,
       &:checked {
-        @include button(undecorated-active, $c: darken($headerbar_bg_color, 10%));
+        @include button(undecorated-active, $c: darkenVar($headerbar_bg_color, 10%));
       }
     }
   }
@@ -2191,9 +2157,9 @@ input::-webkit-outer-spin-button {
   }
 
   &.titlebar {
-    @include headerbar_fill(darken($headerbar_bg_color, 2%));
+    @include headerbar_fill($headerbar_bg_color);
     background: none;
-    background-color: darken($headerbar_bg_color, 5%);
+    background-color: darkenVar($headerbar_bg_color, 5%);
     box-shadow: none;
   }
 
@@ -2219,8 +2185,8 @@ input::-webkit-outer-spin-button {
   }
 
   .Button:not(:disabled):not(.disabled).active {
-    border-color: darken($borders_color, 3%);
-    border-top-color: darken($borders_color, 8%);
+    border-color: darkenVar($borders_color, 5%);
+    border-top-color: darkenVar($borders_color, 10%);
   }
 
   // TODO remove this?
@@ -2319,17 +2285,6 @@ pathbar > button {
  * Tables     *
  **************/
 
-$_treeview_borders_color: if(
-  $variant== "light",
-  mix($borders_color, $base_color, 80%),
-  mix($fg_color, $base_color, 20%)
-);
-$_treeview_backdrop_borders_color: if(
-  $variant== "light",
-  mix($backdrop_borders_color, $base_color, 80%),
-  mix($backdrop_fg_color, $base_color, 20%)
-);
-
 .table {
   display: flex;
   flex-direction: column;
@@ -2338,7 +2293,7 @@ $_treeview_backdrop_borders_color: if(
   max-width: 100%;
   overflow: hidden;
 
-  border: 1px solid $_treeview_borders_color;
+  border: 1px solid $treeview_borders_color;
   background-color: $background_low;
 
   @include focus-ring();
@@ -2348,16 +2303,17 @@ $_treeview_backdrop_borders_color: if(
     color: $insensitive_fg_color;
 
     &.selected {
-      color: mix($selected_fg_color, $selected_bg_color, 40%);
+      @include colorMix(color, $selected_fg_color, $selected_bg_color, 0.4);
+
       &:backdrop {
-        color: mix($backdrop_selected_fg_color, $selected_bg_color, 30%);
+        @include colorMix(color, $backdrop_selected_fg_color, $selected_bg_color, 0.3);
       }
     }
   }
 
   .window-inactive & {
-    border-left-color: $_treeview_backdrop_borders_color;
-    border-top: $_treeview_backdrop_borders_color;
+    border-left-color: $treeview_backdrop_borders_color;
+    border-top: $treeview_backdrop_borders_color;
   }
 
   .table__header {
@@ -2406,8 +2362,7 @@ $_treeview_backdrop_borders_color: if(
 
     &.activatable:hover {
       @extend %column_header_button;
-
-      color: mix($fg_color_title, $fg_color, 50%);
+      @include colorMix(color, $fg_color_title, $fg_color, 0.5);
       box-shadow: none;
       transition: none; //I shouldn't need this
     }
@@ -2461,7 +2416,7 @@ $_treeview_backdrop_borders_color: if(
     height: 28px;
   }
   .td:not(:last-child) {
-    border-right: 1px solid $_treeview_borders_color;
+    border-right: 1px solid $treeview_borders_color;
   }
 
   .table__resizer {
@@ -2490,7 +2445,7 @@ $_treeview_backdrop_borders_color: if(
   // TODO validate this
   &.separator {
     min-height: 2px;
-    color: $_treeview_borders_color;
+    color: $treeview_borders_color;
   }
 
   // TODO validate this
@@ -2522,14 +2477,14 @@ $_treeview_backdrop_borders_color: if(
       -gtk-icon-source: -gtk-icontheme("pan-end-symbolic-rtl");
     }
 
-    color: mix($text_color, $base_color, 70%);
+    @include colorMix(color, $text_color, $base_color, 0.7);
 
     &:hover {
       color: $text_color;
     }
 
     &.selected {
-      color: mix($selected_fg_color, $selected_bg_color, 70%);
+      @include colorMix(color, $selected_fg_color, $selected_bg_color, 0.7);
 
       &:hover {
         color: $selected_fg_color;
@@ -2544,28 +2499,31 @@ $_treeview_backdrop_borders_color: if(
   // TODO validate this
   &.progressbar {
     // progress bar in treeviews
-    @if $variant == light {
-      color: $base_color;
-    }
-
+    color: $base_color;
     background-color: $selected_bg_color;
     background-image: image($selected_bg_color);
     box-shadow: none;
 
+    .adwaita-dark-theme & {
+      color: unset;
+    }
+
     &.selected {
       &:focus,
       & {
-        @if $variant == "light" {
-          color: $selected_bg_color;
-        } @else {
-          box-shadow: inset 0 1px transparentize(white, 0.95);
+        color: $selected_bg_color;
+
+        .adwaita-dark-theme & {
+          color: $base_color;
+          box-shadow: inset 0 1px transparentizeVar(white, 0.95);
         }
 
         background-image: image($base_color);
 
         &:backdrop {
-          @if $variant == "light" {
-            color: $selected_bg_color;
+          color: $selected_bg_color;
+          .adwaita-dark-theme & {
+            color: $base_color;
           }
           background-color: $backdrop_base_color;
         }
@@ -2576,16 +2534,16 @@ $_treeview_backdrop_borders_color: if(
   // TODO validate this
   &.trough {
     // progress bar trough in treeviews
-    background-color: transparentize($fg_color, 0.9);
+    background-color: transparentizeVar($fg_color, 0.9);
 
     &.selected {
       &:focus,
       & {
-        background-color: if(
-          $variant == "light",
-          transparentize($selected_fg_color, 0.7),
-          darken($selected_bg_color, 10%)
-        );
+        background-color: transparentizeVar($selected_fg_color, 0.7);
+
+        .adwaita-dark-theme & {
+          background-color: darkenVar($selected_bg_color, 10%);
+        }
       }
     }
   }
@@ -2616,7 +2574,7 @@ $_treeview_backdrop_borders_color: if(
   background-image: none;
   border-width: 1px;
   border-style: none none solid solid;
-  border-color: $_treeview_borders_color;
+  border-color: $treeview_borders_color;
   border-radius: 0;
   text-shadow: none;
 
@@ -2755,6 +2713,7 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
   .Popover__container {
     padding: 8px 0;
 
+    color: $popover_fg;
     background-color: $popover_bg;
     background-clip: padding-box;
     border: 1px solid $popover_border;
@@ -2845,7 +2804,7 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
     &.selected:active {
       //@extend %selected_items;
       //color: $selected_fg_color;
-      background-color: darken($bg_color, 14%); // matching buttons
+      background-color: darkenVar($bg_color, 15%); // matching buttons
     }
     &:focus {
       outline: none;
@@ -2876,7 +2835,7 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
   radio {
     border-color: $borders_color;
     &:active {
-      border-color: transparentize($borders_color, 0.5);
+      border-color: transparentizeVar($borders_color, 0.5);
     }
   }
 
@@ -2938,7 +2897,7 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
 
 .MenuBar {
   padding: 0px;
-  box-shadow: inset 0 -1px transparentize(black, 0.9);
+  box-shadow: inset 0 -1px transparentizeVar(black, 0.9);
   background-color: $background_default;
 
   > .MenuBar__button {
@@ -3001,7 +2960,7 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
  *************/
 .Notebook {
   $_notebook_header_bg: $background_high;
-  $_notebook_hover: lighten($_notebook_header_bg, 5%);
+  $_notebook_hover: lightenVar($_notebook_header_bg, 5%);
   $_notebook_tab_margin: 6px;
 
   display: flex;
@@ -3102,13 +3061,13 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
       background-color: $_notebook_hover;
     }
     &.selected:hover {
-      background-color: lighten($_notebook_hover, 2%);
+      background-color: lightenVar($_notebook_header_bg, 10%);
     }
   }
   @mixin _tab_border($pos, $x, $y) {
     &.#{$pos} .Notebook__tabs > .Notebook__tab {
       &:hover {
-        box-shadow: inset $x $y darken($borders_color, 2%);
+        box-shadow: inset $x $y darkenVar($borders_color, 5%);
       }
       &.selected {
         box-shadow: inset $x $y $selected_bg_color;
@@ -3169,10 +3128,10 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
     @include button("undecorated");
 
     &:hover {
-      @include button("hover", lighten($_notebook_hover, 5%));
+      @include button("hover", lightenVar($_notebook_header_bg, 10%));
 
       opacity: 1;
-      border-color: darken($borders_color, 5%);
+      border-color: darkenVar($borders_color, 5%);
     }
   }
 
@@ -3193,7 +3152,7 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
         box-shadow: none;
       }
       &:active {
-        background-color: darken($_notebook_header_bg, 8%);
+        background-color: darkenVar($_notebook_header_bg, 10%);
       }
     }
 
@@ -3539,16 +3498,11 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
     border-radius: 20px;
     color: rgba($fg_color, 0.2);
     background-color: $background_high;
-    text-shadow: 0 1px transparentize(black, 0.9);
+    text-shadow: 0 1px transparentizeVar(black, 0.9);
     transition: $focus_transition;
   }
   & input {
-    @include focus-ring(
-      $target: " + label",
-      $offset: 0,
-      $outer: true,
-      $method: "before"
-    );
+    @include focus-ring($target: " + label", $offset: 0, $outer: true, $method: "before");
   }
   & input:checked + label {
     color: $selected_fg_color;
@@ -3580,7 +3534,7 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
     @include button(normal, $edge: $shadow_color);
   }
   & label:hover::after {
-    @include button(hover, $c: lighten($bg_color, 6%), $edge: $shadow_color);
+    @include button(hover, $c: lightenVar($bg_color, 5%), $edge: $shadow_color);
     border-color: $borders_color;
   }
   & input:checked + label::after {
@@ -3608,14 +3562,24 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
   row.selected & {
     outline-color: $alt_focus_border_color;
 
-    @if $variant == "light" {
-      box-shadow: none;
-      border-color: $switch_borders_color;
+    box-shadow: none;
+    border-color: $switch_borders_color;
+
+    > slider {
+      &:checked,
+      & {
+        border-color: $switch_borders_color;
+      }
+    }
+
+    .adwaita-dark-theme & {
+      box-shadow: initial;
+      border-color: none;
 
       > slider {
         &:checked,
         & {
-          border-color: $switch_borders_color;
+          border-color: none;
         }
       }
     }
@@ -3682,17 +3646,12 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
     // similar to the .scale
     color: $fg_color;
     border-radius: $button_radius;
-    text-shadow: 0 1px transparentize(black, 0.9);
+    text-shadow: 0 1px transparentizeVar(black, 0.9);
     user-select: none;
     transition: $focus_transition;
   }
   & input {
-    @include focus-ring(
-      $target: " + label",
-      $offset: 0,
-      $outer: true,
-      $method: "before"
-    );
+    @include focus-ring($target: " + label", $offset: 0, $outer: true, $method: "before");
   }
   & label > .element {
     content: "";
@@ -3700,7 +3659,7 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
     display: inline-block;
 
     @include entry(normal);
-    border: 1px solid darken($borders_color, 6%);
+    border: 1px solid darkenVar($borders_color, 5%);
     box-shadow: 0 1px rgba(black, 0.075);
     transition: $button_transition;
 
@@ -3721,37 +3680,25 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
     }
   }
   & label:hover > .element {
-    background-color: mix($base_color, $borders_color, 60%);
+    @include colorMix(background-color, $base_color, $borders_color, 0.6);
   }
   & input:not(:disabled) + label:active > .element {
-    background-color: mix($base_color, $borders_color, 40%);
-    box-shadow: inset 0 1px darken($borders_color, 4%);
+    @include colorMix(background-color, $base_color, $borders_color, 0.4);
+    box-shadow: inset 0 1px darkenVar($borders_color, 5%);
   }
   & input:checked + label > .element,
   & input:checked:disabled + label > .element {
     color: $selected_fg_color;
-    border-color: darken($selected_bg_color, 15%);
-    background-color: lighten($selected_bg_color, 6%);
-    background-image: linear-gradient(
-      to top,
-      lighten($selected_bg_color, 1%),
-      lighten($selected_bg_color, 6%)
-    );
+    border-color: darkenVar($selected_bg_color, 15%);
+    background-color: lightenVar($selected_bg_color, 5%);
+    background-image: linear-gradient(to top, $selected_bg_color, lightenVar($selected_bg_color, 5%));
   }
   & input:checked:not(:disabled) + label:hover > .element {
-    background-image: linear-gradient(
-      to top,
-      lighten($selected_bg_color, 6%),
-      lighten($selected_bg_color, 12%)
-    );
+    background-image: linear-gradient(to top, lightenVar($selected_bg_color, 5%), lightenVar($selected_bg_color, 10%));
   }
   & input:checked:not(:disabled) + label:active > .element {
-    background-image: linear-gradient(
-      to top,
-      darken($selected_bg_color, 4%),
-      darken($selected_bg_color, 1%)
-    );
-    box-shadow: inset 0 1px darken($selected_bg_color, 8%);
+    background-image: linear-gradient(to top, darkenVar($selected_bg_color, 5%), $selected_bg_color);
+    box-shadow: inset 0 1px darkenVar($selected_bg_color, 10%);
   }
   & input:disabled + label {
     color: $insensitive_fg_color;
@@ -3768,14 +3715,24 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
   row.selected & {
     outline-color: $alt_focus_border_color;
 
-    @if $variant == "light" {
-      box-shadow: none;
-      border-color: $switch_borders_color;
+    box-shadow: none;
+    border-color: $switch_borders_color;
+
+    > slider {
+      &:checked,
+      & {
+        border-color: $switch_borders_color;
+      }
+    }
+
+    .adwaita-dark-theme & {
+      box-shadow: initial;
+      border-color: none;
 
       > slider {
         &:checked,
         & {
-          border-color: $switch_borders_color;
+          border-color: none;
         }
       }
     }
@@ -3837,7 +3794,7 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      box-shadow: inset 0 1px 0 0px mix(white, black, 90%);
+      box-shadow: inset 0 1px 0 0px #e6e6e6;
     }
   }
   & input:checked:disabled + label .element {
@@ -3848,24 +3805,11 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
   }
 }
 
-// TODO validate this
-/* .TreeView.view check,
- * .TreeView.view radio {
- *   &.selected {
- *     &:focus, & {
- *       color: $checkradio_fg_color;
- * 
- *       @if $variant == 'light' { border-color: $selected_borders_color; }
- *     }
- *   }
- * }
- * .TreeView.view radio.selected { &:focus, & { @extend %radio; }} // This is a workaround */
-
 /************
  * GtkScale *
  ************/
-$_range_bg: darken($bg_color, 5%);
-$_range_border: darken($_range_bg, 15%);
+$_range_bg: darkenVar($bg_color, 5%);
+$_range_border: darkenVar($bg_color, 20%);
 
 .Range {
   // sizing
@@ -3975,7 +3919,7 @@ $_range_border: darken($_range_bg, 15%);
     content: "";
     height: var(--range-track-width);
     border-radius: var(--range-track-width);
-    border: 1px solid darken($selected_bg_color, 15%);
+    border: 1px solid darkenVar($selected_bg_color, 15%);
     background-color: $selected_bg_color;
     transition: $button_transition;
   }
@@ -4001,7 +3945,7 @@ $_range_border: darken($_range_bg, 15%);
     margin-top: calc(var(--range-thumb-size) / -2.5);
 
     @include button("normal");
-    border: 1px solid darken($borders_color, 20%);
+    border: 1px solid bg_color($borders_color, 20%);
     border-radius: 50%;
 
     outline: 0;
@@ -4009,15 +3953,15 @@ $_range_border: darken($_range_bg, 15%);
 
     &:hover {
       @include button("hover");
-      border: 1px solid darken($borders_color, 20%);
+      border: 1px solid bg_color($borders_color, 20%);
     }
     &:active {
-      border-color: darken($selected_bg_color, 25%);
+      border-color: bg_color($selected_bg_color, 25%);
     }
   }
   &.disabled .Range__thumb {
     @include button("insensitive");
-    border: 1px solid darken($borders_color, 8%);
+    border: 1px solid bg_color($borders_color, 8%);
     &:hover {
       box-shadow: none;
     }
@@ -4031,7 +3975,7 @@ $_range_border: darken($_range_bg, 15%);
   .Range__mark {
     position: absolute;
     border-radius: 1px;
-    background-color: darken($_range_bg, 8%);
+    background-color: bg_color($_range_bg, 8%);
     &.active {
       background-color: $selected_bg_color;
       // box-shadow: 0 0 0 1px rgba($selected_bg_color, 0.1);
@@ -4049,7 +3993,7 @@ $_range_border: darken($_range_bg, 15%);
   }
   &.disabled .Range__mark {
     &.active {
-      background-color: darken($_range_bg, 8%);
+      background-color: darkenVar($bg_color, 15%);
       box-shadow: none;
     }
   }
@@ -4214,26 +4158,17 @@ $levelbar_border_radius: 3px;
       margin-right: 2px;
     }
 
-    // TODO dark variant
-    $_bar_colors: if(
-      $variant == "light",
-      (
-        (danger, desaturate(lighten($danger_color, 10%), 20%)),
-        (warning, desaturate(lighten($warning_color, 15%), 30%)),
-        (info, lighten(saturate($selected_bg_color, 30%), 15%)),
-        (success, desaturate(lighten($success_color, 5%), 20%))
-      ),
-      (
-        (danger, desaturate(lighten($danger_color, 10%), 20%)),
-        (warning, desaturate(lighten($warning_color, 15%), 30%)),
-        (info, $selected_bg_color),
-        (success, desaturate(lighten($success_color, 5%), 20%))
-      )
+    $_bar_colors: (
+      (info, $panel_info_color),
+      (success, $panel_success_color),
+      (warning, $panel_warning_color),
+      (danger, $panel_danger_color)
     );
+
     @each $_type, $_color in $_bar_colors {
       &.#{$_type} {
         background-color: $_color;
-        border-color: darken($_color, 20%);
+        border-color: darkenVar($_color, 20%);
       }
     }
   }
@@ -4317,11 +4252,11 @@ list,
 
   &.horizontal .List__item.separator,
   &.separators.horizontal > .List__item:not(.separator):not(:last-child) {
-    border-left: 1px solid $_treeview_borders_color;
+    border-left: 1px solid $treeview_borders_color;
   }
   &:not(.horizontal) .List__item.separator,
   &.separators:not(.horizontal) > .List__item:not(.separator):not(:last-child) {
-    border-bottom: 1px solid $_treeview_borders_color;
+    border-bottom: 1px solid $treeview_borders_color;
   }
 
   &.border {
@@ -4367,22 +4302,18 @@ list,
     @include focus-ring();
 
     &:hover {
-      background-color: if(
-        variant == light,
-        transparentize($fg_color, 0.9),
-        transparentize($fg_color, 0.95)
-      );
+      background-color: transparentizeVar($fg_color, 0.9);
     }
     &:active {
-      box-shadow: inset 0 2px 2px -2px transparentize(black, 0.8);
+      box-shadow: inset 0 2px 2px -2px transparentizeVar(black, 0.8);
     }
     &.selected {
       text-shadow: $selected_text_shadow;
       &:active {
-        box-shadow: inset 0 2px 3px -1px transparentize(black, 0.5);
+        box-shadow: inset 0 2px 3px -1px transparentizeVar(black, 0.5);
       }
       &:hover {
-        background-color: mix($fg_color, $selected_bg_color, 10%);
+        @include colorMix(background-color, $fg_color, $selected_bg_color, 0.1);
       }
     }
   }
@@ -4433,7 +4364,7 @@ button.List__item {
 
     .Button {
       @include button("undecorated");
-      border: 1px solid lighten($borders_color, 8%);
+      border: 1px solid lightenVar($borders_color, 10%);
       &.hover,
       &:hover {
         @include button("hover");
@@ -4480,10 +4411,9 @@ button.List__item {
  ***********/
 .stack-sidebar {
   // not a regular list
-  background-color: mix($background_low, $background_default, 50%);
+  @include colorMix(background-color, $background_low, $background_default, 0.5);
 
-  &.separators:not(.horizontal)
-    > .List__item:not(.separator):not(.increase-specificity) {
+  &.separators:not(.horizontal) > .List__item:not(.separator):not(.increase-specificity) {
     border-bottom: none;
     &:not(:first-child) {
       border-top: 1px solid $borders_color;
@@ -4513,10 +4443,10 @@ button.List__item {
  **********************/
 
 .navigation-sidebar:not(.increase-specificity) {
-  $_navigation_border_color: lighten($borders_color, 8%);
+  $_navigation_border_color: lightenVar($borders_color, 10%);
 
   padding: $menu-margin 0; //only vertical padding. horizontal row size would clip
-  background-color: mix($background_low, $background_default, 50%);
+  @include colorMix(background-color, $background_low, $background_default, 0.5);
   border-color: $_navigation_border_color !important;
 
   > .separator {
@@ -4547,7 +4477,7 @@ button.List__item {
 
     &.selected:not(.increase-specificity) {
       color: inherit;
-      background-color: darken($background_default, 9%);
+      background-color: darkenVar($background_default, 10%);
       text-shadow: none;
     }
   }
@@ -4569,11 +4499,7 @@ button.List__item {
   border-spacing: 10px;
   border-radius: 0 0 5px 5px;
   background-color: $osd_bg_color;
-  background-image: linear-gradient(
-    to bottom,
-    transparentize(black, 0.8),
-    transparent 2px
-  );
+  background-image: linear-gradient(to bottom, transparentizeVar(black, 0.8), transparent 2px);
   background-clip: padding-box;
 
   button {
@@ -4693,11 +4619,11 @@ button.List__item {
 
     &.selected > .Button {
       box-shadow: inset 0px 1px $borders_color;
-      background-color: darken($bg_color, 20%);
+      background-color: darkenVar($bg_color, 20%);
     }
 
     &.today.selected > .Button {
-      background-color: darken($selected_bg_color, 10%);
+      background-color: darkenVar($selected_bg_color, 10%);
     }
 
     // > .Button.day-number.other-month {
@@ -4967,7 +4893,7 @@ tooltip {
   &.background {
     // background-color needs to be set this way otherwise it gets drawn twice
     // see https://bugzilla.gnome.org/show_bug.cgi?id=736155 for details.
-    background-color: transparentize(black, 0.2);
+    background-color: transparentizeVar(black, 0.2);
     background-clip: padding-box;
     border: 1px solid $tooltip_borders_color; // this subtle border is meant to
     // not make the tooltip melt with
@@ -5056,11 +4982,10 @@ colorswatch {
     }
 
     &.activatable:hover > overlay {
-      border-color: if(
-        $variant == "light",
-        transparentize(black, 0.2),
-        $borders_color
-      );
+      border-color: transparentizeVar(black, 0.2);
+      .adwaita-dark-theme & {
+        border-color: $borders_color;
+      }
     }
   }
 
@@ -5070,11 +4995,10 @@ colorswatch {
     }
 
     &.activatable:hover > overlay {
-      border-color: if(
-        $variant == "light",
-        transparentize(black, 0.5),
-        $borders_color
-      );
+      border-color: transparentizeVar(black, 0.5);
+      .adwaita-dark-theme & {
+        border-color: $borders_color;
+      }
     }
   }
 
@@ -5083,27 +5007,30 @@ colorswatch {
 
     &.light > overlay {
       border-color: $drop_target_color;
-      box-shadow: inset 0 0 0 2px
-          if($variant == "light", darken($drop_target_color, 7%), $borders_color),
-        inset 0 0 0 1px $drop_target_color;
+      box-shadow: inset 0 0 0 2px darkenVar($drop_target_color, 5%), inset 0 0 0 1px $drop_target_color;
+      .adwaita-dark-theme & {
+        box-shadow: inset 0 0 0 2px $borders_color, inset 0 0 0 1px $drop_target_color;
+      }
     }
 
     &.dark > overlay {
       border-color: $drop_target_color;
-      box-shadow: inset 0 0 0 2px
-          if($variant == "light", transparentize(black, 0.7), $borders_color),
-        inset 0 0 0 1px $drop_target_color;
+      box-shadow: inset 0 0 0 2px transparentizeVar(black, 0.7), inset 0 0 0 1px $drop_target_color;
+      .adwaita-dark-theme & {
+        box-shadow: inset 0 0 0 2px $borders_color, inset 0 0 0 1px $drop_target_color;
+      }
     }
   }
 
   > overlay {
-    border: 1px solid
-      if($variant == "light", transparentize(black, 0.7), $borders_color);
+    border: 1px solid transparentizeVar(black, 0.7);
+    .adwaita-dark-theme & {
+      border: 1px solid $borders_color;
+    }
   }
 
   &.activatable:hover > overlay {
-    box-shadow: inset 0 1px transparentize(white, 0.6),
-      inset 0 -1px transparentize(black, 0.8);
+    box-shadow: inset 0 1px transparentizeVar(white, 0.6), inset 0 -1px transparentizeVar(black, 0.8);
   }
 
   &#add-color-button {
@@ -5126,7 +5053,7 @@ colorswatch {
     opacity: 0.5;
 
     > overlay {
-      border-color: transparentize(black, 0.4);
+      border-color: transparentizeVar(black, 0.4);
       box-shadow: none;
     }
   }
@@ -5159,7 +5086,7 @@ colorchooser .Popover.osd {
  * Misc *
  ********/
 .content-view {
-  background-color: darken($bg_color, 7%);
+  background-color: darkenVar($bg_color, 5%);
 
   &:hover {
     -gtk-icon-filter: brightness(1.2);
@@ -5167,16 +5094,24 @@ colorchooser .Popover.osd {
 
   .tile {
     margin: 2px;
-    background-color: if($variant== "light", transparent, black);
+    background-color: transparent;
     border-radius: 0;
     padding: 0;
 
+    .adwaita-dark-theme & {
+      background-color: black;
+    }
+
     &:active,
     &.selected {
-      background-color: if($variant== "light", transparent, $selected_bg_color);
+      .adwaita-dark-theme & {
+        background-color: $selected_bg_color;
+      }
     }
     &:disabled {
-      background-color: if($variant== "light", transparent, $insensitive_bg_color);
+      .adwaita-dark-theme & {
+        background-color: $insensitive_bg_color;
+      }
     }
   }
 
@@ -5200,7 +5135,7 @@ colorchooser .Popover.osd {
     // +/- buttons on GtkVolumeButton popup
     &:hover {
       @include button("undecorated");
-      background-color: transparentize($fg_color, 0.9);
+      background-color: transparentizeVar($fg_color, 0.9);
       border-radius: 5px;
     }
   }
@@ -5215,19 +5150,11 @@ colorchooser .Popover.osd {
 
   // this needs to be transparent
   // see bug #722563
-  $_wm_border: if(
-    $variant== "light",
-    transparentize(black, 0.77),
-    transparentize($borders_color, 0.1)
-  );
-  $_wm_border_backdrop: if(
-    $variant== "light",
-    transparentize(black, 0.82),
-    transparentize($borders_color, 0.1)
-  );
+  $_wm_border: transparentizeVar($borders_color, 0.1);
+  $_wm_border_backdrop: transparentizeVar($borders_color, 0.1);
 
   &.csd {
-    box-shadow: 0 3px 9px 1px transparentize(black, 0.5), 0 0 0 1px $_wm_border; //doing borders with box-shadow
+    box-shadow: 0 3px 9px 1px transparentizeVar(black, 0.5), 0 0 0 1px $_wm_border; //doing borders with box-shadow
     margin: 0px;
     border-radius: $window_radius $window_radius 0 0;
     &:backdrop {
@@ -5235,21 +5162,18 @@ colorchooser .Popover.osd {
       // change when we go to backdrop, to prevent jumping windows.
       // The biggest shadow should be in the same order then in the active state
       // or the jumping will happen during the transition.
-      box-shadow: 0 3px 9px 1px transparent, 0 2px 6px 2px transparentize(black, 0.8),
-        0 0 0 1px $_wm_border_backdrop;
+      box-shadow: 0 3px 9px 1px transparent, 0 2px 6px 2px transparentizeVar(black, 0.8), 0 0 0 1px $_wm_border_backdrop;
       transition: $backdrop_transition;
     }
 
     &.popup {
       border-radius: $menu_radius;
-      box-shadow: 0 1px 2px transparentize(black, 0.8),
-        0 0 0 1px transparentize($_wm_border, 0.1);
+      box-shadow: 0 1px 2px transparentizeVar(black, 0.8), 0 0 0 1px transparentizeVar($borders_color, 0.2);
     }
 
     &.dialog.message {
       border-radius: $window_radius;
-      box-shadow: 0 1px 2px transparentize(black, 0.8),
-        0 0 0 1px transparentize($_wm_border, 0.1);
+      box-shadow: 0 1px 2px transparentizeVar(black, 0.8), 0 0 0 1px transparentizeVar($borders_color, 0.2);
     }
 
     &.solid-csd {
@@ -5301,7 +5225,7 @@ tooltip.csd {
 
     @at-root %selected_items_disabled,
       &:disabled {
-      color: mix($selected_fg_color, $selected_bg_color, 50%);
+      @include colorMix(color, $selected_fg_color, $selected_bg_color, 0.5);
     }
   }
 }
@@ -5374,18 +5298,14 @@ shortcut > .keycap {
   color: $fg_color;
   background-color: $base_color;
   border: 1px solid;
-  border-color: if(
-    $variant == "light",
-    mix($borders_color, $bg_color, 50%),
-    $borders_color
-  );
+  border-color: $background_high;
   border-radius: 5px;
-  box-shadow: if(
-    $variant == "light",
-    inset 0 -3px mix($base_color, $bg_color, 20%),
-    inset 0 -3px mix($borders_color, $base_color, 60%)
-  );
+  box-shadow: $window_keycap_box_shadow_color;
   font-size: smaller;
+
+  .adwaita-dark-theme & {
+    border-color: $borders_color;
+  }
 }
 
 :not(decoration):not(.Window).dnd-active:focus,
@@ -5416,14 +5336,14 @@ shortcut > .keycap {
  *************/
 /* Outline for low res icons */
 .lowres-icon {
-  --icon-shadow: 0 -1px rgba(0, 0, 0, 0.05), 1px 0 rgba(0, 0, 0, 0.1),
-    0 1px rgba(0, 0, 0, 0.3), -1px 0 rgba(0, 0, 0, 0.1);
+  --icon-shadow: 0 -1px rgba(0, 0, 0, 0.05), 1px 0 rgba(0, 0, 0, 0.1), 0 1px rgba(0, 0, 0, 0.3),
+    -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 /* Drapshadow for large icons */
 .icon-dropshadow {
-  --icon-shadow: 0 1px 12px rgba(0, 0, 0, 0.05), 0 -1px rgba(0, 0, 0, 0.05),
-    1px 0 rgba(0, 0, 0, 0.1), 0 1px rgba(0, 0, 0, 0.3), -1px 0 rgba(0, 0, 0, 0.1);
+  --icon-shadow: 0 1px 12px rgba(0, 0, 0, 0.05), 0 -1px rgba(0, 0, 0, 0.05), 1px 0 rgba(0, 0, 0, 0.1),
+    0 1px rgba(0, 0, 0, 0.3), -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 /*********
@@ -5462,11 +5382,11 @@ button.emoji-section {
   text-shadow: none;
 
   &:hover {
-    border-color: if(
-      $variant == "light",
-      $borders_color,
-      transparentize($fg_color, 0.9)
-    );
+    border-color: $borders_color;
+
+    .adwaita-dark-theme & {
+      border-color: transparentizeVar($fg_color, 0.9);
+    }
   }
   &:checked {
     border-color: $selected_bg_color;

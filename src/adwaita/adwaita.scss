@@ -4,11 +4,10 @@
 //   you need a subtle shade
 // - if you need to inverse a color function use the @if directive to match for dark $variant
 
-$variant: "light";
-
 @import "reset";
 @import "variables";
 @import "mixin";
+@import "functions";
 @import "drawing";
 @import "typography";
 @import "common";
