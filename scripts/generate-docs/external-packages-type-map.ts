@@ -99,3 +99,18 @@ TYPE_MAP.set("Date", {
   title: "Date",
   description: "A JavaScript builtin Date object.",
 });
+
+const CSS_PROPS_SCHEMA: JSONSchema4 = {
+  title: "CSSProperties",
+  description: "A React's CSS properties object.",
+  type: "object",
+  additionalProperties: {
+    type: "string",
+  },
+  propertyNames: {
+    type: "string",
+  },
+};
+
+TYPE_MAP.set("CSSProperties", CSS_PROPS_SCHEMA);
+TYPE_MAP.set("React.CSSProperties", CSS_PROPS_SCHEMA);

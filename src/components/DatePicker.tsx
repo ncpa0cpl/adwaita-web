@@ -9,6 +9,8 @@ import type { InputProps } from "./Input";
 import { Input } from "./Input";
 import { Popover } from "./Popover";
 
+export type { InputProps };
+
 export type DatePickerProps = {
   /** A date object */
   value?: Date;

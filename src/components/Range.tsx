@@ -71,13 +71,14 @@ export type RangeProps = ExtendElementProps<
     /** If the slider is vertical. */
     vertical?: boolean;
     /** A transformation function, to change the scale of the slider. */
-    scale?: typeof identity;
+    scale?: <T>(value: T) => T;
     /**
      * The granularity with which the slider can step through values. (A "discrete"
-     * slider.) The `min` prop serves as the origin for the valid values. We recommend
-     * (max - min) to be evenly divisible by the step.
+     * slider.) The `min` prop serves as the origin for the valid values. We
+     * recommend (max - min) to be evenly divisible by the step.
      *
-     * When step is `null`, the thumb can only be slid onto marks provided with the `marks` prop.
+     * When step is `null`, the thumb can only be slid onto marks provided with the
+     * `marks` prop.
      */
     step?: number;
     /** The component used to display the value label. */

@@ -18,6 +18,54 @@ function extract(obj: object, path: string) {
   return current;
 }
 
+function getStringUnionLiterals(schema: JSONSchema4): string[] {
+  if (schema.type === "string") {
+    if (!schema.enum) {
+      throw new Error(`Expected enum to be defined for string union`);
+    }
+    return schema.enum.flatMap((member) => {
+      if (typeof member === "string") {
+        return member;
+      }
+      throw new Error(`Invalid enum member`);
+    });
+  } else if (schema.oneOf) {
+    return schema.oneOf.flatMap(getStringUnionLiterals);
+  }
+
+  throw new Error(`Invalid string union`);
+}
+
+function removeAnyTypeElements(schema: JSONSchema4[]) {
+  return schema.filter((s) => s.type !== "any");
+}
+
+function applyChangeToObjectSchema(
+  schema: JSONSchema4,
+  change: (schema: JSONSchema4) => void
+): JSONSchema4 {
+  if (schema.type === "object") {
+    change(schema);
+    return schema;
+  }
+
+  if (schema.oneOf) {
+    return {
+      ...schema,
+      oneOf: schema.oneOf.map((s) => applyChangeToObjectSchema(s, change)),
+    };
+  }
+
+  if (schema.allOf) {
+    return {
+      ...schema,
+      allOf: schema.allOf.map((s) => applyChangeToObjectSchema(s, change)),
+    };
+  }
+
+  throw new Error(`Invalid object schema`);
+}
+
 function getComment(
   schema: JSONSchema4 | JSONOutput.SomeType | JSONOutput.DeclarationReflection
 ) {
@@ -51,20 +99,38 @@ function getSchemaTypeNameFor(value: any): JSONSchema4TypeName {
 }
 
 function traverseAndFind(
-  allChildren: JSONOutput.DeclarationReflection[],
+  obj: object,
   id: number
 ):
   | JSONOutput.TypeParameterReflection
   | JSONOutput.DeclarationReflection
   | undefined {
-  for (const child of allChildren) {
-    if (child.id === id) return child;
-    for (const tp of child.typeParameter ?? []) {
-      if (tp.id === id) return tp;
+  let childrenIterable = Array.isArray(obj) ? obj : Object.values(obj);
+  let stop = false;
+
+  while (!stop) {
+    for (const child of childrenIterable) {
+      if (child && typeof child === "object") {
+        if (child.id === id && child.type !== "reference") return child;
+      }
     }
-    const found = traverseAndFind(child.children ?? [], id);
-    if (found) return found;
+
+    const childrenIterableCopy = childrenIterable;
+    childrenIterable = [];
+
+    for (const child of childrenIterableCopy) {
+      if (child && typeof child === "object") {
+        childrenIterable.push(
+          ...(Array.isArray(child) ? child : Object.values(child))
+        );
+      }
+    }
+
+    if (childrenIterable.length === 0) {
+      stop = true;
+    }
   }
+
   return undefined;
 }
 
@@ -160,21 +226,18 @@ function parseTypeKindToSchema(
         items: parseTypeKindToSchema(typeKind.elementType, allChildren),
       };
     case "reflection": {
-      const description = typeKind.declaration?.comment ? getComment(typeKind) : "";
+      const desc = typeKind.declaration?.comment
+        ? getComment(typeKind)
+        : description;
 
       if (isFunctionType(typeKind)) {
-        return parseMethod(
-          typeKind.declaration!,
-          allChildren,
-          description,
-          defaultValue
-        );
+        return parseMethod(typeKind.declaration!, allChildren, desc, defaultValue);
       }
 
       return {
         default: defaultValue,
         type: "object",
-        description,
+        description: desc,
         properties: Object.fromEntries(
           typeKind.declaration?.children?.map((c) => [
             c.name,
@@ -190,7 +253,7 @@ function parseTypeKindToSchema(
               ? parseMethod(c, allChildren, getComment(c), c.defaultValue)
               : ({
                   type: "any",
-                  description,
+                  description: desc,
                   title: "Type for this property could not be resolved.",
                 } as const),
           ]) ?? []
@@ -205,7 +268,9 @@ function parseTypeKindToSchema(
       return {
         default: defaultValue,
         description,
-        allOf: typeKind.types.map((t) => parseTypeKindToSchema(t, allChildren)),
+        allOf: removeAnyTypeElements(
+          typeKind.types.map((t) => parseTypeKindToSchema(t, allChildren))
+        ),
       };
     case "intrinsic":
       return {
@@ -216,11 +281,13 @@ function parseTypeKindToSchema(
     case "reference": {
       if ("id" in typeKind && !!typeKind.id) {
         const referencedChild = traverseAndFind(allChildren, typeKind.id);
+
         if (!referencedChild) {
           throw new Error(
             `Could not find referenced child with id ${(typeKind as any).id}`
           );
         }
+
         if (!("type" in referencedChild) || !referencedChild.type) {
           return {
             default: defaultValue,
@@ -228,6 +295,7 @@ function parseTypeKindToSchema(
             type: "any",
           };
         }
+
         return parseTypeKindToSchema(
           referencedChild.type as JSONOutput.SomeType,
           allChildren,
@@ -251,6 +319,136 @@ function parseTypeKindToSchema(
           description,
           defaultValue
         );
+      } else if (typeKind.name === "Record" && typeKind.package === "typescript") {
+        const [keysType, ValueType] = typeKind.typeArguments!;
+        if (!keysType || !ValueType) {
+          throw new Error(`Could not find type arguments for Record type`);
+        }
+        return {
+          title: "Record",
+          type: "object",
+          description,
+          default: defaultValue,
+          additionalProperties: parseTypeKindToSchema(ValueType, allChildren),
+          propertyNames: parseTypeKindToSchema(keysType, allChildren),
+        };
+      } else if (typeKind.name === "Array" && typeKind.package === "typescript") {
+        const [elementType] = typeKind.typeArguments!;
+        if (!elementType) {
+          throw new Error(`Could not find type arguments for Array type`);
+        }
+        return {
+          title: "Array",
+          type: "array",
+          description,
+          default: defaultValue,
+          items: parseTypeKindToSchema(elementType, allChildren),
+        };
+      } else if (typeKind.name === "Partial" && typeKind.package === "typescript") {
+        const [elementType] = typeKind.typeArguments!;
+        if (!elementType) {
+          throw new Error(`Could not find type arguments for Partial type`);
+        }
+
+        const parsed = parseTypeKindToSchema(
+          elementType,
+          allChildren,
+          description,
+          defaultValue
+        );
+
+        applyChangeToObjectSchema(parsed, (schema) => {
+          schema.required = false;
+        });
+
+        return parsed;
+      } else if (typeKind.name === "Required" && typeKind.package === "typescript") {
+        const [elementType] = typeKind.typeArguments!;
+        if (!elementType) {
+          throw new Error(`Could not find type arguments for Required type`);
+        }
+
+        const parsed = parseTypeKindToSchema(
+          elementType,
+          allChildren,
+          description,
+          defaultValue
+        );
+
+        applyChangeToObjectSchema(parsed, (schema) => {
+          schema.required = Object.keys(schema.properties ?? {});
+        });
+
+        return parsed;
+      } else if (typeKind.name === "Pick" && typeKind.package === "typescript") {
+        const [originalType, pickedProperties] = typeKind.typeArguments!;
+        if (!originalType || !pickedProperties) {
+          throw new Error(`Could not find type arguments for Pick type`);
+        }
+
+        const parsedOriginalType = parseTypeKindToSchema(
+          originalType,
+          allChildren,
+          description,
+          defaultValue
+        );
+
+        const parsedPickedProperties = parseTypeKindToSchema(
+          pickedProperties,
+          allChildren
+        );
+
+        const propertiesToPick = getStringUnionLiterals(parsedPickedProperties);
+
+        applyChangeToObjectSchema(parsedOriginalType, (schema) => {
+          if (schema.properties) {
+            const newProperties = Object.fromEntries(
+              Object.entries(schema.properties).filter(([key]) =>
+                propertiesToPick.includes(key)
+              )
+            );
+            schema.properties = newProperties;
+          }
+          if (Array.isArray(schema.required)) {
+            schema.required = schema.required.filter((key) =>
+              propertiesToPick.includes(key)
+            );
+          }
+        });
+
+        return parsedOriginalType;
+      } else if (typeKind.name === "Omit" && typeKind.package === "typescript") {
+        const [originalType, excludedNames] = typeKind.typeArguments!;
+        if (!originalType || !excludedNames) {
+          throw new Error(`Could not find type arguments for Exclude type.`);
+        }
+
+        const parsedOriginalType = parseTypeKindToSchema(
+          originalType,
+          allChildren,
+          description,
+          defaultValue
+        );
+
+        const parsedExcludedNames = parseTypeKindToSchema(
+          excludedNames,
+          allChildren
+        );
+
+        const propertiesToRemove = getStringUnionLiterals(parsedExcludedNames);
+
+        applyChangeToObjectSchema(parsedOriginalType, (schema) => {
+          for (const propertyName of propertiesToRemove) {
+            if (propertyName in schema.properties! ?? {})
+              delete schema.properties![propertyName];
+
+            if (Array.isArray(schema.required)) {
+              schema.required = schema.required.filter((n) => n !== propertyName);
+            }
+          }
+        });
+
+        return parsedOriginalType;
       } else if (typeKind.package) {
         const metadata = {
           title: typeKind.name,
@@ -289,8 +487,10 @@ function parseTypeKindToSchema(
       return {
         default: defaultValue,
         description,
-        oneOf: typeKind.types.map((t) =>
-          parseTypeKindToSchema(t as JSONOutput.SomeType, allChildren)
+        oneOf: removeAnyTypeElements(
+          typeKind.types.map((t) =>
+            parseTypeKindToSchema(t as JSONOutput.SomeType, allChildren)
+          )
         ),
       };
     case "literal":
@@ -340,8 +540,20 @@ function parseTypeKindToSchema(
         description,
         type: "any",
       };
+    case "conditional": {
+      const { trueType, falseType } = typeKind;
+      if (!trueType || !falseType) {
+        throw new Error(`Could not find conditional type arguments`);
+      }
+      return {
+        oneOf: [
+          parseTypeKindToSchema(trueType, allChildren),
+          parseTypeKindToSchema(falseType, allChildren),
+        ],
+      };
+    }
     default:
-      throw new Error(`Unsupported type kind ${typeKind.type}`);
+      throw new Error("Unsupported type kind: " + typeKind.type);
   }
 }
 

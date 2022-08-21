@@ -1,6 +1,6 @@
 import cx from "clsx";
 import React, { useEffect, useMemo, useRef } from "react";
-import type { Column } from "react-table";
+import type * as ReactTable from "react-table";
 import {
   useFilters,
   useFlexLayout,
@@ -16,6 +16,34 @@ import { getPropAndCastOr } from "../utils/getPropAndCastOr";
 import { hasKey } from "../utils/hasKey";
 
 import { Box } from "./Box";
+
+export type { ReactTable as ReactTableTypes };
+
+/**
+ * A column as defined by react-table
+ * (https://react-table-v7.tanstack.com/docs/api/useTable#column-options) package.
+ */
+export type Column<T extends object> = {
+  id?: string;
+  Cell?: React.ReactNode | React.ComponentType<ReactTable.CellProps<T>>;
+  Header?: React.ReactNode | React.ComponentType<ReactTable.HeaderProps<T>>;
+  Footer?: React.ReactNode | React.ComponentType<ReactTable.FooterProps<T>>;
+  width?: number | string;
+  minWidth?: number;
+  maxWidth?: number;
+  accessor?:
+    | string
+    | ((
+        originalRow: T,
+        index: number,
+        sub: {
+          subRows: T[];
+          depth: number;
+          data: T[];
+        }
+      ) => any);
+  columns: object[];
+};
 
 export type TableProps = {
   className?: string;
@@ -44,7 +72,7 @@ export function Table({
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
-        columns,
+        columns: columns as any,
         data,
         defaultColumn,
       },

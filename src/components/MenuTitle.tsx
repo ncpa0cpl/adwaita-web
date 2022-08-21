@@ -4,7 +4,7 @@ import type { LabelProps } from "./Label";
 import { Label } from "./Label";
 
 // Required for proper typedoc generation
-export { LabelProps };
+export type { LabelProps };
 
 export type MenuTitleProps = LabelProps;
 
