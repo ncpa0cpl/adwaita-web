@@ -20,8 +20,9 @@ import { Box } from "./Box";
 export type { ReactTable as ReactTableTypes };
 
 /**
- * A column as defined by react-table
- * (https://react-table-v7.tanstack.com/docs/api/useTable#column-options) package.
+ * A column as defined by
+ * {@link https://react-table-v7.tanstack.com/docs/api/useTable#column-options react-table}
+ * package.
  */
 export type Column<T extends object> = {
   id?: string;

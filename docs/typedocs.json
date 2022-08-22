@@ -5879,7 +5879,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "description": "A column as defined by react-table\n(https://react-table-v7.tanstack.com/docs/api/useTable#column-options) package.",
+              "description": "A column as defined by\n{@link https://react-table-v7.tanstack.com/docs/api/useTable#column-options react-table}\npackage.",
               "properties": {
                 "Cell": {
                   "description": "",
@@ -6202,14 +6202,14 @@
       "propsSources": [
         {
           "fileName": "src/components/Table.tsx",
-          "line": 48,
+          "line": 49,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/Table.tsx",
-          "line": 56,
+          "line": 57,
           "character": 16
         }
       ]
