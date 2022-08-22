@@ -102,7 +102,7 @@ export function Table({
           {row.cells.map((cell) => {
             return (
               <div {...cell.getCellProps()} className="td">
-                {hasKey(cell, "Cell") && cell.render("Cell")}
+                {attemptRender(cell, "Cell")}
               </div>
             );
           })}
@@ -160,7 +160,7 @@ export function Table({
                       : undefined)}
                   >
                     <Box className="Box__fill">
-                      {hasKey(column, "Header") && column.render("Header")}
+                      {hasKey(column, "Header") && attemptRender(column, "Header")}
                     </Box>
                     {hasKey(column, "canSort") && column.canSort && (
                       <PanDown
@@ -185,7 +185,9 @@ export function Table({
                   {filterable &&
                     getPropAndCastOr(column, "canFilter", false) &&
                     hasKey(column, "Filter") && (
-                      <div className="table__filter">{column.render("Filter")}</div>
+                      <div className="table__filter">
+                        {attemptRender(column, "Filter")}
+                      </div>
                     )}
                 </div>
               ))}
@@ -210,6 +212,20 @@ export function Table({
       </div>
     </div>
   );
+}
+
+function attemptRender(
+  renderable: { render(type: string, props?: object): React.ReactNode },
+  type: string,
+  props?: object
+) {
+  try {
+    return renderable.render(type, props);
+  } catch (e) {
+    console.error(`Failed to render a ${type} component.`);
+    console.error(e);
+    return <></>;
+  }
 }
 
 function transformColumns<T extends Record<string, any>>(cs: Array<T>): Array<T> {
