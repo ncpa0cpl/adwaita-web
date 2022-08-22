@@ -1,8 +1,12 @@
 import cx from "clsx";
 import React from "react";
-import type { PageSwitcherPage } from "../../dist";
 
-export type { PageSwitcherPage };
+export type PageSwitcherPage = {
+  key: string | number;
+  label?: React.ReactNode;
+  content: React.ReactNode;
+  closable?: boolean;
+};
 
 export type PageSwitcherProps = {
   className?: string;
