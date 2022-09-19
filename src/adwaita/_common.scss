@@ -486,6 +486,21 @@ $popover_radius: $button_radius + 4;
     font-weight: 300;
     line-height: 1.4;
   }
+  &.align-left {
+    text-align: left;
+  }
+  &.align-center {
+    text-align: center;
+  }
+  &.align-right {
+    text-align: right;
+  }
+
+  @each $type, $color in $colors {
+    &.#{$type} {
+      color: $color;
+    }
+  }
 }
 
 .dim-label {
@@ -992,6 +1007,10 @@ $_input_padding: 8px;
     &:focus {
       outline: none;
     }
+  }
+
+  .Input__area {
+    color: inherit;
   }
 }
 

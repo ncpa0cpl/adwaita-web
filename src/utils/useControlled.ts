@@ -9,7 +9,7 @@ export default function useControlled<T = undefined>(
 
   const setValue = React.useCallback((newValue: T) => {
     if (setValueProp) setValueProp(newValue);
-    else setValueState(newValue);
+    setValueState(newValue);
   }, []);
 
   if (propValue !== undefined && propValue !== valueState) {
