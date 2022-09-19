@@ -5,7 +5,7 @@ import { Box, Progress, Label } from "adwaita-web";
 
 export default function () {
   return (
-    <Box vertical>
+    <Box padded fill vertical>
       <Progress label="Progress at 0%:" value={0} />
       <Progress label="Progress at 10%:" value={10} />
       <Progress label="Progress at 25%:" value={25} />

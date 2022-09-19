@@ -1,9 +1,12 @@
 # Example
 
 ```tsx
-import { Box, Label, PageSwitcher } from "adwaita-web";
+import { Box, Button, InputGroup, Label, PageSwitcher } from "adwaita-web";
+import { useState } from "react";
 
 export default function () {
+  const [currentPage, setCurrentPage] = useState(0);
+
   const pages = [
     {
       key: "page-1",
@@ -36,8 +39,23 @@ export default function () {
   ];
 
   return (
-    <Box vertical>
-      <PageSwitcher pages={pages} mainPage="page-1" />
+    <Box fill vertical>
+      <Box fill padded vertical>
+        <InputGroup>
+          {pages.map((page, index) => (
+            <Button onClick={() => setCurrentPage(index)}>{page.label}</Button>
+          ))}
+        </InputGroup>
+        <PageSwitcher
+          style={{
+            width: "100%",
+            height: "200px",
+          }}
+          pages={pages}
+          activePage={currentPage}
+          mainPage={0}
+        />
+      </Box>
     </Box>
   );
 }

@@ -1,7 +1,7 @@
 # Example
 
 ```tsx
-import { Box, RadioGroup } from "adwaita-web";
+import { Box, Label, RadioGroup } from "adwaita-web";
 import { useState } from "react";
 
 export default function () {
@@ -23,6 +23,7 @@ export default function () {
       <Box padded vertical>
         <Label>Horizontal Radio Group:</Label>
         <RadioGroup
+          value={selected}
           horizontal
           defaultValue="1"
           options={options}
@@ -32,6 +33,7 @@ export default function () {
       <Box padded vertical>
         <Label>Vertical Radio Group:</Label>
         <RadioGroup
+          value={selected}
           horizontal={false}
           defaultValue="1"
           options={options}

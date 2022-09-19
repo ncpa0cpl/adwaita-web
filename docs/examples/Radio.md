@@ -9,7 +9,13 @@ export default function () {
 
   return (
     <Box vertical>
-      <Radio checked={isChecked} value="1" showLabel label="Radio Button" />
+      <Radio
+        onChange={() => setIsChecked(true)}
+        checked={isChecked}
+        value="1"
+        showLabel
+        label="Radio Button"
+      />
       <Radio
         disabled
         checked={isChecked}
