@@ -360,7 +360,7 @@
             "type": "boolean"
           },
           "fill": {
-            "description": "Makes the Box grow to fill the available space, vertically, horizontally, or both.",
+            "description": "Makes the Box grow to fill the whole container space, vertically, horizontally, or both.",
             "oneOf": [
               {
                 "type": "boolean"
@@ -375,6 +375,80 @@
                 "type": "string",
                 "enum": [
                   "vertical"
+                ]
+              }
+            ]
+          },
+          "grow": {
+            "description": "Makes this component grow to fill the available space, requires the container\nto be a flexbox to work.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  3
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  4
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  5
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  6
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  7
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  8
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  9
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  10
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  999
                 ]
               }
             ]
@@ -454,7 +528,7 @@
       "componentSources": [
         {
           "fileName": "components/Box.tsx",
-          "line": 34,
+          "line": 39,
           "character": 16
         }
       ]
@@ -1725,6 +1799,80 @@
             "description": "When set to true, will expand to fill all the available space within a HeaderBar.",
             "type": "boolean"
           },
+          "grow": {
+            "description": "Makes this component grow to fill the available space, requires the container to\nbe a flexbox to work.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  3
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  4
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  5
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  6
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  7
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  8
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  9
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  10
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  999
+                ]
+              }
+            ]
+          },
           "subtitle": {
             "description": "A text to be displayed below the Title.",
             "type": "string"
@@ -1742,7 +1890,7 @@
       "componentSources": [
         {
           "fileName": "components/HeaderBarTitle.tsx",
-          "line": 15,
+          "line": 20,
           "character": 16
         }
       ]
@@ -2371,6 +2519,80 @@
               }
             ]
           },
+          "grow": {
+            "description": "Makes this component grow to fill the available space, requires the container\nto be a flexbox to work.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  3
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  4
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  5
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  6
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  7
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  8
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  9
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  10
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  999
+                ]
+              }
+            ]
+          },
           "info": {
             "description": "",
             "type": "boolean"
@@ -2453,7 +2675,7 @@
       "componentSources": [
         {
           "fileName": "src/components/Label.tsx",
-          "line": 25,
+          "line": 30,
           "character": 16
         }
       ]
@@ -2644,6 +2866,80 @@
               }
             ]
           },
+          "grow": {
+            "description": "Makes this component grow to fill the available space, requires the container\nto be a flexbox to work.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  3
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  4
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  5
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  6
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  7
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  8
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  9
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  10
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  999
+                ]
+              }
+            ]
+          },
           "horizontal": {
             "description": "",
             "type": "boolean"
@@ -2714,7 +3010,7 @@
       "componentSources": [
         {
           "fileName": "components/List.tsx",
-          "line": 23,
+          "line": 28,
           "character": 16
         }
       ]
@@ -3019,7 +3315,7 @@
             "type": "boolean"
           },
           "fill": {
-            "description": "Makes the Box grow to fill the available space, vertically, horizontally, or both.",
+            "description": "Makes the Box grow to fill the whole container space, vertically, horizontally, or both.",
             "oneOf": [
               {
                 "type": "boolean"
@@ -3034,6 +3330,80 @@
                 "type": "string",
                 "enum": [
                   "vertical"
+                ]
+              }
+            ]
+          },
+          "grow": {
+            "description": "Makes this component grow to fill the available space, requires the container\nto be a flexbox to work.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  3
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  4
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  5
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  6
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  7
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  8
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  9
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  10
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  999
                 ]
               }
             ]
@@ -3174,7 +3544,7 @@
                 "type": "boolean"
               },
               "fill": {
-                "description": "Makes the Box grow to fill the available space, vertically, horizontally, or both.",
+                "description": "Makes the Box grow to fill the whole container space, vertically, horizontally, or both.",
                 "oneOf": [
                   {
                     "type": "boolean"
@@ -3189,6 +3559,80 @@
                     "type": "string",
                     "enum": [
                       "vertical"
+                    ]
+                  }
+                ]
+              },
+              "grow": {
+                "description": "Makes this component grow to fill the available space, requires the container\nto be a flexbox to work.",
+                "oneOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      1
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      2
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      3
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      4
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      5
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      6
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      7
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      8
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      9
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      10
+                    ]
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      999
                     ]
                   }
                 ]
@@ -3338,7 +3782,7 @@
             "type": "boolean"
           },
           "fill": {
-            "description": "Makes the Box grow to fill the available space, vertically, horizontally, or both.",
+            "description": "Makes the Box grow to fill the whole container space, vertically, horizontally, or both.",
             "oneOf": [
               {
                 "type": "boolean"
@@ -3353,6 +3797,80 @@
                 "type": "string",
                 "enum": [
                   "vertical"
+                ]
+              }
+            ]
+          },
+          "grow": {
+            "description": "Makes this component grow to fill the available space, requires the container\nto be a flexbox to work.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  3
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  4
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  5
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  6
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  7
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  8
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  9
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  10
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  999
                 ]
               }
             ]
@@ -3499,6 +4017,80 @@
                 "type": "string",
                 "enum": [
                   "height"
+                ]
+              }
+            ]
+          },
+          "grow": {
+            "description": "Makes this component grow to fill the available space, requires the container\nto be a flexbox to work.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  3
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  4
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  5
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  6
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  7
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  8
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  9
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  10
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  999
                 ]
               }
             ]
@@ -3815,14 +4407,14 @@
       },
       "propsSources": [
         {
-          "fileName": "src/components/Notebook.tsx",
+          "fileName": "components/Notebook.tsx",
           "line": 16,
           "character": 12
         }
       ],
       "componentSources": [
         {
-          "fileName": "src/components/Notebook.tsx",
+          "fileName": "components/Notebook.tsx",
           "line": 31,
           "character": 16
         }
@@ -3997,14 +4589,14 @@
       "propsSources": [
         {
           "fileName": "src/components/PageSwitcher.tsx",
-          "line": 7,
+          "line": 11,
           "character": 12
         }
       ],
       "componentSources": [
         {
           "fileName": "src/components/PageSwitcher.tsx",
-          "line": 19,
+          "line": 23,
           "character": 13
         }
       ]
@@ -4057,6 +4649,80 @@
               }
             ]
           },
+          "grow": {
+            "description": "Makes this component grow to fill the available space, requires the container to\nbe a flexbox to work.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  3
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  4
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  5
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  6
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  7
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  8
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  9
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  10
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  999
+                ]
+              }
+            ]
+          },
           "orientation": {
             "description": "",
             "type": "string",
@@ -4082,7 +4748,7 @@
       "componentSources": [
         {
           "fileName": "src/components/Paned.tsx",
-          "line": 30,
+          "line": 35,
           "character": 13
         }
       ]
@@ -4830,14 +5496,14 @@
       },
       "propsSources": [
         {
-          "fileName": "src/components/PopoverMenu.tsx",
+          "fileName": "components/PopoverMenu.tsx",
           "line": 12,
           "character": 12
         }
       ],
       "componentSources": [
         {
-          "fileName": "src/components/PopoverMenu.tsx",
+          "fileName": "components/PopoverMenu.tsx",
           "line": 44,
           "character": 16
         }
@@ -6454,6 +7120,80 @@
               }
             ]
           },
+          "grow": {
+            "description": "Makes this component grow to fill the available space, requires the\ncontainer to be a flexbox to work.",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  1
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  2
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  3
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  4
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  5
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  6
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  7
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  8
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  9
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  10
+                ]
+              },
+              {
+                "type": "number",
+                "enum": [
+                  999
+                ]
+              }
+            ]
+          },
           "hero": {
             "description": "",
             "type": "boolean"
@@ -6571,7 +7311,7 @@
       "componentSources": [
         {
           "fileName": "components/Text.tsx",
-          "line": 27,
+          "line": 32,
           "character": 16
         }
       ]
