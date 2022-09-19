@@ -6,7 +6,7 @@ import { Paned, Box } from "adwaita-web";
 export default () => {
   return (
     <Box fill vertical padded>
-      <Box style={{ marginBottom: "20px", height: 200 }}>
+      <Box vertical style={{ marginBottom: "20px", height: 200 }}>
         <h2 style={{ marginBottom: "10px" }}>Horizontal:</h2>
         <Paned defaultSize={300} grow>
           <Box padded>
@@ -21,7 +21,7 @@ export default () => {
           </Box>
         </Paned>
       </Box>
-      <Box style={{ height: 200 }}>
+      <Box vertical style={{ height: 200 }}>
         <h2 style={{ marginBottom: "10px" }}>Vertical:</h2>
         <Paned defaultSize={70} grow orientation="vertical">
           <Box padded>
