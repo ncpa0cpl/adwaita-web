@@ -17,6 +17,11 @@ export type ListProps = ExtendElementProps<
     fill?: boolean | "width" | "height";
     sidebar?: boolean | "stack" | "navigation";
     sublist?: boolean;
+    /**
+     * Makes this component grow to fill the available space, requires the container
+     * to be a flexbox to work.
+     */
+    grow?: boolean | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 999;
   }>
 >;
 
@@ -32,6 +37,7 @@ export function List({
   rich,
   sidebar,
   sublist,
+  grow,
   ...rest
 }: ListProps) {
   return (
@@ -41,6 +47,7 @@ export function List({
         className,
         size,
         borderClass(border),
+        typeof grow === "number" ? `grow-${grow}` : grow ? "grow" : undefined,
         {
           fill: fill === true,
           "fill-width": fill === "width",

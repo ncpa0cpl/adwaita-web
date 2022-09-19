@@ -25,6 +25,11 @@ export type PanedProps = React.PropsWithChildren<{
   defaultSize?: number;
   border?: boolean | "handle";
   fill?: boolean | "width" | "height";
+  /**
+   * Makes this component grow to fill the available space, requires the container to
+   * be a flexbox to work.
+   */
+  grow?: boolean | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 999;
 }>;
 
 export class Paned extends React.Component<PanedProps> {
@@ -147,6 +152,7 @@ export class Paned extends React.Component<PanedProps> {
       border,
       fill,
       defaultSize,
+      grow,
       ...rest
     } = this.props;
     const { size = 0 } = this.state;
@@ -156,13 +162,19 @@ export class Paned extends React.Component<PanedProps> {
 
     return (
       <div
-        className={cx("Paned", className, orientation, {
-          fill: fill === true,
-          "fill-width": fill === "width",
-          "fill-height": fill === "height",
-          "border-none": border === false,
-          "border-handle": border === "handle",
-        })}
+        className={cx(
+          "Paned",
+          className,
+          orientation,
+          typeof grow === "number" ? `grow-${grow}` : grow ? "grow" : undefined,
+          {
+            fill: fill === true,
+            "fill-width": fill === "width",
+            "fill-height": fill === "height",
+            "border-none": border === false,
+            "border-handle": border === "handle",
+          }
+        )}
         {...rest}
       >
         <AutoSizer>

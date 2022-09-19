@@ -19,6 +19,11 @@ export type LabelProps = ExtendElementProps<
     italic?: boolean;
     bold?: boolean;
     noSelect?: boolean;
+    /**
+     * Makes this component grow to fill the available space, requires the container
+     * to be a flexbox to work.
+     */
+    grow?: boolean | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 999;
   }
 >;
 
@@ -39,6 +44,7 @@ export function Label({
   italic,
   bold,
   noSelect,
+  grow,
   ...rest
 }: LabelProps) {
   const as = rest.htmlFor ? "label" : "span";
@@ -50,7 +56,8 @@ export function Label({
           "Label",
           size,
           align ? `align-${align}` : undefined,
-          fill === undefined ? undefined : fill === true ? "fill" : `fill-${fill}`,
+          typeof fill === "string" ? `fill-${fill}` : fill ? "fill" : undefined,
+          typeof grow === "number" ? `grow-${grow}` : grow ? "grow" : undefined,
           {
             ellipsis,
             title,

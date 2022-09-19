@@ -14,7 +14,7 @@ export type BoxProps = ExtendElementProps<
     /** When set to true Box will be displayed as a `inline-flex`. */
     inline?: boolean;
     compact?: boolean;
-    /** Makes the Box grow to fill the available space, vertically, horizontally, or both. */
+    /** Makes the Box grow to fill the whole container space, vertically, horizontally, or both. */
     fill?: boolean | "horizontal" | "vertical";
     /** Adds border to the Box. */
     border?: boolean;
@@ -27,6 +27,11 @@ export type BoxProps = ExtendElementProps<
     padded?: boolean;
     /** Makes all of the direct children of the box to grow to fill as much space as possible. */
     expandChildren?: boolean;
+    /**
+     * Makes this component grow to fill the available space, requires the container
+     * to be a flexbox to work.
+     */
+    grow?: boolean | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 999;
   }>
 >;
 
@@ -45,6 +50,7 @@ export function Box({
   space,
   padded,
   expandChildren,
+  grow,
   ...rest
 }: BoxProps) {
   return (
@@ -54,6 +60,7 @@ export function Box({
         className,
         space ? `space-${space}` : undefined,
         typeof fill === "string" ? `fill-${fill}` : fill ? "fill" : undefined,
+        typeof grow === "number" ? `grow-${grow}` : grow ? "grow" : undefined,
         alignClass(align),
         justifyClass(justify),
         {

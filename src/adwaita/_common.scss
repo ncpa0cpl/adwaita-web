@@ -103,6 +103,45 @@ $popover_radius: $button_radius + 4;
   height: 100%;
 }
 
+.growable {
+  &.grow {
+    flex-grow: 1;
+  }
+  &.grow-1 {
+    flex-grow: 1;
+  }
+  &.grow-2 {
+    flex-grow: 2;
+  }
+  &.grow-3 {
+    flex-grow: 3;
+  }
+  &.grow-4 {
+    flex-grow: 4;
+  }
+  &.grow-5 {
+    flex-grow: 5;
+  }
+  &.grow-6 {
+    flex-grow: 6;
+  }
+  &.grow-7 {
+    flex-grow: 7;
+  }
+  &.grow-8 {
+    flex-grow: 8;
+  }
+  &.grow-9 {
+    flex-grow: 9;
+  }
+  &.grow-10 {
+    flex-grow: 10;
+  }
+  &.grow-999 {
+    flex-grow: 999;
+  }
+}
+
 /***************
  * Base States *
  ***************/
@@ -221,6 +260,8 @@ $popover_radius: $button_radius + 4;
   &.border {
     border: 1px solid $borders_color;
   }
+
+  @extend .growable;
 }
 .Box__fill {
   flex: 1;
@@ -470,6 +511,8 @@ $popover_radius: $button_radius + 4;
   &.fill-height {
     height: 100%;
   }
+
+  @extend .growable;
 }
 
 .Text {
@@ -501,6 +544,8 @@ $popover_radius: $button_radius + 4;
       color: $color;
     }
   }
+
+  @extend .growable;
 }
 
 .dim-label {
@@ -2242,6 +2287,10 @@ input::-webkit-outer-spin-button {
   }
 }
 
+.HeaderBar__title {
+  @extend .growable;
+}
+
 // TODO validate this
 .titlebar:not(.HeaderBar) {
   .Window.csd > & {
@@ -3447,6 +3496,8 @@ columnview row:not(.selected) cell editablelabel.editing text selection {
       transform: translateY(-50%);
     }
   }
+
+  @extend .growable;
 }
 
 /****************
@@ -4300,6 +4351,8 @@ list,
   &.rounded {
     border-radius: 12px;
   }
+
+  @extend .growable;
 }
 
 .List__item {

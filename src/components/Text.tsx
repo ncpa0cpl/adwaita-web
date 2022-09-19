@@ -21,6 +21,11 @@ export type TextProps<P extends keyof JSX.IntrinsicElements = "p"> =
       italic?: boolean;
       bold?: boolean;
       noSelect?: boolean;
+      /**
+       * Makes this component grow to fill the available space, requires the
+       * container to be a flexbox to work.
+       */
+      grow?: boolean | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 999;
     }>
   >;
 
@@ -40,6 +45,7 @@ export function Text<P extends keyof JSX.IntrinsicElements = "p">({
   italic,
   bold,
   noSelect,
+  grow,
   as = "p" as P,
   ...rest
 }: TextProps<P>) {
@@ -51,7 +57,8 @@ export function Text<P extends keyof JSX.IntrinsicElements = "p">({
           "Text",
           size,
           align ? `align-${align}` : undefined,
-          fill === undefined ? undefined : fill === true ? "fill" : `fill-${fill}`,
+          typeof fill === "string" ? `fill-${fill}` : fill ? "fill" : undefined,
+          typeof grow === "number" ? `grow-${grow}` : grow ? "grow" : undefined,
           weight ? `weight-${weight}` : undefined,
           {
             hero,
