@@ -6,7 +6,11 @@ const ThemeToggler = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box fill vertical className="background">
+      <Box
+        vertical
+        className="background"
+        style={{ overflow: "scroll", height: "100vh" }}
+      >
         <HeaderBar titlebar>
           <Box fill horizontal justify="center" align="center">
             <InputGroup>
