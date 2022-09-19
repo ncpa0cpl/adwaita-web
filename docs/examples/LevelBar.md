@@ -24,7 +24,9 @@ export default function () {
       <Label>LevelBar "Success":</Label>
       <LevelBar level="success" value={2} segments={5} />
       <Label>LevelBar Vertical:</Label>
-      <LevelBar vertical value={2} segments={5} />
+      <Box style={{ height: "150px" }}>
+        <LevelBar vertical value={2} segments={5} />
+      </Box>
     </Box>
   );
 }
