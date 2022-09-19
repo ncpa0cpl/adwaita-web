@@ -6,12 +6,8 @@ const ThemeToggler = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        vertical
-        className="background"
-        style={{ overflow: "scroll", height: "100vh" }}
-      >
-        <HeaderBar titlebar>
+      <Box vertical className="background" style={{ height: "100vh" }}>
+        <HeaderBar titlebar style={{ marginBottom: "unset" }}>
           <Box fill horizontal justify="center" align="center">
             <InputGroup>
               <Button active={theme === "light"} onClick={() => setTheme("light")}>
@@ -23,7 +19,18 @@ const ThemeToggler = ({ children }) => {
             </InputGroup>
           </Box>
         </HeaderBar>
-        <Box fill vertical justify align style={{ marginTop: 10, marginBottom: 10 }}>
+        <Box
+          fill
+          vertical
+          justify
+          align
+          style={{
+            paddingTop: 10,
+            paddingBottom: 10,
+            overflow: "scroll",
+            justifyContent: "flex-start",
+          }}
+        >
           {children}
         </Box>
       </Box>
