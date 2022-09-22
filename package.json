@@ -31,7 +31,7 @@
     "@popperjs/core": "^2.6.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.17.0",
-    "rambda": "^6.4.0",
+    "rambda": "^7.2.1",
     "react-children-utilities": "^2.4.1",
     "react-popper": "^2.2.4",
     "react-table": "^7.6.2",
