@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+      - dependency-name: "@popperjs/core"
+      - dependency-name: "clsx"
+      - dependency-name: "date-fns"
+      - dependency-name: "rambda"
+      - dependency-name: "react-children-utilities"
+      - dependency-name: "react-popper"
+      - dependency-name: "react-table"
+      - dependency-name: "react-virtualized-auto-sizer"
+      - dependency-name: "react-window"
+      - dependency-name: "scrollbar-size"
