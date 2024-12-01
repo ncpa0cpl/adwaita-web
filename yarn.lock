@@ -7021,9 +7021,9 @@ raf@^3.4.1:
     performance-now "^2.1.0"
 
 rambda@^7.2.1:
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/rambda/-/rambda-7.2.1.tgz#c533f6e2def4edcd59f967df938ace5dd6da56af"
-  integrity sha512-Wswj8ZvzdI3VhaGPkZAxaCTwuMmGtgWt7Zxsgyo4P+iTmVnkojvyWaOep5q3ZjMIecW0wtQa66GWxaKkZ24RAA==
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/rambda/-/rambda-7.5.0.tgz#1865044c59bc0b16f63026c6e5a97e4b1bbe98fe"
+  integrity sha512-y/M9weqWAH4iopRd7EHDEQQvpFPHj1AA3oHozE9tfITHUtTR7Z9PSlIRRG2l1GuW7sefC1cXFfIcF+cgnShdBA==
 
 react-app-polyfill@^1.0.4:
   version "1.0.6"
